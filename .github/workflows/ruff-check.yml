@@ -1,0 +1,16 @@
+name: Ruff Code Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ruff-format:
+    uses: instaui-python/org-ci-config/.github/workflows/ruff-check.yml@main
+    with:
+      path: "src/"
+      config_file: "pyproject.toml"

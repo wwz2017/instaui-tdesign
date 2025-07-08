@@ -1,0 +1,35 @@
+name: CI for instaui-tdesign
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+
+
+env:
+  NPM_DIR_NAME: npm-src
+
+jobs:
+  testing:
+    name: testing web app
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.47.0-focal
+    strategy:
+      matrix:
+        python-version: ['3.12']
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: set up npm-src and testing
+        uses: instaui-python/org-ci-config/.github/actions/npm-env@main
+        with:
+          npm_dir_name : ${{ env.NPM_DIR_NAME }}
+          use_python: 1
+          test_cmd: ''
+      
+      - name: test web
+        uses: instaui-python/org-ci-config/.github/actions/python-env@main
+        timeout-minutes: 2
+
+ 
