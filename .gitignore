@@ -4,6 +4,12 @@
 .vscode
 src/instaui_tdesign/static/*
 
+# tools
+scripts/component_gen/components/
+scripts/component_gen/parsed/
+scripts/component_gen/component_types/
+scripts/component_gen/component_events/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -10,7 +10,7 @@ authors = [
 ]
 requires-python = ">=3.8,<3.13"
 
-dependencies = [ 
+dependencies = [
     "instaui",
 ]
 
@@ -46,3 +46,6 @@ include = [
 
 [tool.hatch.build.force-include]
 "src/instaui_tdesign/static" = "src/instaui_tdesign/static"
+
+[tool.uv.sources]
+instaui = { path = "../instaui" }
