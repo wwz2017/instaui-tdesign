@@ -567,7 +567,7 @@ wheels = [
 
 [[package]]
 name = "instaui"
-version = "0.3.3"
+version = "0.3.4"
 source = { directory = "../instaui" }
 dependencies = [
     { name = "jinja2" },
@@ -620,7 +620,7 @@ lint = [{ name = "ruff", specifier = ">=0.11.8" }]
 
 [[package]]
 name = "instaui-tdesign"
-version = "0.1.0"
+version = "0.1.1"
 source = { editable = "." }
 dependencies = [
     { name = "instaui" },
