@@ -3,14 +3,16 @@ import typing
 from instaui.components.element import Element
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
-
 from ._utils import handle_props, handle_event_from_props
+
+if typing.TYPE_CHECKING:
+    from instaui.vars.types import TMaybeRef
 
 
 class BackTop(Element):
     def __init__(
         self,
-        content: typing.Optional[str] = None,
+        content: typing.Optional[TMaybeRef[str]] = None,
         **kwargs: Unpack[TBackTopProps],
     ):
         super().__init__("t-back-top")
@@ -33,13 +35,12 @@ class BackTop(Element):
 
 
 class TBackTopProps(TypedDict, total=False):
-    container: str
-    default: str
-    duration: float
-    offset: typing.List
-    shape: typing.Literal["circle", "square"]
-    size: typing.Literal["medium", "small"]
-    target: str
-    theme: typing.Literal["light", "primary", "dark"]
-    visible_height: typing.Union[float, str]
+    container: TMaybeRef[str]
+    duration: TMaybeRef[float]
+    offset: TMaybeRef[typing.List]
+    shape: TMaybeRef[typing.Literal["circle", "square"]]
+    size: TMaybeRef[typing.Literal["medium", "small"]]
+    target: TMaybeRef[str]
+    theme: TMaybeRef[typing.Literal["light", "primary", "dark"]]
+    visible_height: TMaybeRef[typing.Union[float, str]]
     on_click: EventMixin

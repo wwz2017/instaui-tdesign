@@ -3,8 +3,10 @@ import typing
 from instaui.components.element import Element
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
-
 from ._utils import handle_props, handle_event_from_props
+
+if typing.TYPE_CHECKING:
+    from instaui.vars.types import TMaybeRef
 
 
 class Breadcrumb(Element):
@@ -21,7 +23,7 @@ class Breadcrumb(Element):
 class BreadcrumbItem(Element):
     def __init__(
         self,
-        content: typing.Optional[str] = None,
+        content: typing.Optional[TMaybeRef[str]] = None,
         **kwargs: Unpack[TBreadcrumbItemProps],
     ):
         super().__init__("t-breadcrumb-item")
@@ -55,12 +57,12 @@ class TBreadcrumbProps(TypedDict, total=False):
 
 
 class TBreadcrumbItemProps(TypedDict, total=False):
-    disabled: bool
-    href: str
-    icon: str
-    max_width: str
-    replace: bool
+    disabled: TMaybeRef[bool]
+    href: TMaybeRef[str]
+    icon: TMaybeRef[str]
+    max_width: TMaybeRef[str]
+    replace: TMaybeRef[bool]
     router: typing.Dict
-    target: typing.Literal["_blank", "_self", "_parent", "_top"]
+    target: TMaybeRef[typing.Literal["_blank", "_self", "_parent", "_top"]]
     to: typing.Literal["Route"]
     on_click: EventMixin

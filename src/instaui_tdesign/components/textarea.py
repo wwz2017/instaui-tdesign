@@ -9,18 +9,16 @@ if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
 
 
-class AutoComplete(Element):
+class Textarea(Element):
     def __init__(
         self,
-        options: typing.Optional[TMaybeRef[typing.List]] = None,
         value: typing.Optional[TMaybeRef[str]] = None,
         *,
         model_value: typing.Optional[TMaybeRef[str]] = None,
-        **kwargs: Unpack[TAutoCompleteProps],
+        **kwargs: Unpack[TTextareaProps],
     ):
-        super().__init__("t-auto-complete")
+        super().__init__("t-textarea")
 
-        self.props({"options": options})
         try_setup_vmodel(self, value)
 
         self.props(handle_props(kwargs, model_value=model_value))  # type: ignore
@@ -52,58 +50,6 @@ class AutoComplete(Element):
         )
         return self
 
-    def on_clear(
-        self,
-        handler: EventMixin,
-        *,
-        extends: typing.Optional[typing.List] = None,
-    ):
-        self.on(
-            "clear",
-            handler,
-            extends=extends,
-        )
-        return self
-
-    def on_compositionend(
-        self,
-        handler: EventMixin,
-        *,
-        extends: typing.Optional[typing.List] = None,
-    ):
-        self.on(
-            "compositionend",
-            handler,
-            extends=extends,
-        )
-        return self
-
-    def on_compositionstart(
-        self,
-        handler: EventMixin,
-        *,
-        extends: typing.Optional[typing.List] = None,
-    ):
-        self.on(
-            "compositionstart",
-            handler,
-            extends=extends,
-        )
-        return self
-
-    def on_enter(
-        self,
-        handler: EventMixin,
-        *,
-        extends: typing.Optional[typing.List] = None,
-    ):
-        self.on(
-            "enter",
-            handler,
-            extends=extends,
-        )
-        return self
-
     def on_focus(
         self,
         handler: EventMixin,
@@ -117,46 +63,76 @@ class AutoComplete(Element):
         )
         return self
 
-    def on_select(
+    def on_keydown(
         self,
         handler: EventMixin,
         *,
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "select",
+            "keydown",
+            handler,
+            extends=extends,
+        )
+        return self
+
+    def on_keypress(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "keypress",
+            handler,
+            extends=extends,
+        )
+        return self
+
+    def on_keyup(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "keyup",
+            handler,
+            extends=extends,
+        )
+        return self
+
+    def on_validate(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "validate",
             handler,
             extends=extends,
         )
         return self
 
 
-class TAutoCompleteProps(TypedDict, total=False):
+class TTextareaProps(TypedDict, total=False):
+    allow_input_over_max: TMaybeRef[bool]
     autofocus: TMaybeRef[bool]
-    borderless: TMaybeRef[bool]
-    clearable: TMaybeRef[bool]
+    autosize: TMaybeRef[typing.Union[bool, typing.Dict]]
     disabled: TMaybeRef[bool]
-    empty: TMaybeRef[str]
-    filter: TMaybeRef[str]
-    filterable: TMaybeRef[bool]
-    highlight_keyword: TMaybeRef[bool]
-    input_props: typing.Dict
-    panel_bottom_content: TMaybeRef[str]
-    panel_top_content: TMaybeRef[str]
+    maxcharacter: TMaybeRef[float]
+    maxlength: TMaybeRef[int]
+    name: TMaybeRef[str]
     placeholder: TMaybeRef[str]
-    popup_props: typing.Dict
     readonly: TMaybeRef[bool]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
     status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
-    textarea_props: typing.Dict
     tips: TMaybeRef[str]
-    trigger_element: TMaybeRef[str]
     default_value: TMaybeRef[str]
     on_blur: EventMixin
     on_change: EventMixin
-    on_clear: EventMixin
-    on_compositionend: EventMixin
-    on_compositionstart: EventMixin
-    on_enter: EventMixin
     on_focus: EventMixin
-    on_select: EventMixin
+    on_keydown: EventMixin
+    on_keypress: EventMixin
+    on_keyup: EventMixin
+    on_validate: EventMixin

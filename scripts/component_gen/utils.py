@@ -42,7 +42,14 @@ def parse_md_sections(md_text: str) -> dict:
 
         # 检测 section 开头
         # e.g. "### Tabs Props"
+        if (
+            line.endswith("BaseTableCol")
+            or line.endswith("PrimaryTableCol")
+            or line.endswith("GuideStep")
+        ):
+            line = line + " Props"
         m_component = re.match(r"^###\s+([A-Za-z0-9_]+)\s+(Props|Events)\s*$", line)
+
         if m_component:
             flush_table()
             current_component = m_component.group(1)

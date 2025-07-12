@@ -30,6 +30,10 @@ lint = [
     "ruff>=0.11.8",
 ]
 
+[project.optional-dependencies]
+web = ["instaui[web]"]
+webview = ["instaui[webview]"]
+all = ["instaui[all]"]
 
 [build-system]
 requires = ["hatchling"]
@@ -48,4 +52,4 @@ include = [
 "src/instaui_tdesign/static" = "src/instaui_tdesign/static"
 
 [tool.uv.sources]
-instaui = { path = "../instaui" }
+instaui = { path = "../instaui", editable = true }

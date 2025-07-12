@@ -9,60 +9,51 @@ if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
 
 
-class Anchor(Element):
+class Notification(Element):
     def __init__(
         self,
-        **kwargs: Unpack[TAnchorProps],
+        content: typing.Optional[TMaybeRef[str]],
+        *,
+        title: typing.Optional[TMaybeRef[str]] = None,
+        **kwargs: Unpack[TNotificationProps],
     ):
-        super().__init__("t-anchor")
-
+        super().__init__("t-notification")
+        self.props({"content": content, "title": title})
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
-    def on_change(
+    def on_close_btn_click(
         self,
         handler: EventMixin,
         *,
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "change",
+            "close_btn_click",
             handler,
             extends=extends,
         )
         return self
 
-    def on_click(
+    def on_duration_end(
         self,
         handler: EventMixin,
         *,
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "click",
+            "duration_end",
             handler,
             extends=extends,
         )
         return self
 
 
-class TAnchorProps(TypedDict, total=False):
-    affix_props: typing.Dict
-    bounds: TMaybeRef[float]
-    container: TMaybeRef[str]
-    cursor: TMaybeRef[str]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
-    target_offset: TMaybeRef[float]
-    on_change: EventMixin
-    on_click: EventMixin
-
-
-class TAnchorItemProps(TypedDict, total=False):
-    href: TMaybeRef[str]
-    target: TMaybeRef[typing.Literal["_self", "_blank", "_parent", "_top"]]
-    title: TMaybeRef[str]
-
-
-class TAnchorTargetProps(TypedDict, total=False):
-    id: TMaybeRef[str]
-    tag: TMaybeRef[str]
+class TNotificationProps(TypedDict, total=False):
+    close_btn: TMaybeRef[typing.Union[str, bool]]
+    duration: TMaybeRef[float]
+    footer: TMaybeRef[str]
+    icon: TMaybeRef[typing.Union[str, bool]]
+    theme: TMaybeRef[typing.Literal["info", "success", "warning", "error"]]
+    on_close_btn_click: EventMixin
+    on_duration_end: EventMixin

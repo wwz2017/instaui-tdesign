@@ -1,10 +1,7 @@
 from __future__ import annotations
 import typing
-from instaui import ui
 from instaui.components.element import Element
-from instaui.components.content import Content
 from instaui.event.event_mixin import EventMixin
-from instaui.vars.mixin_types.element_binding import ElementBindingMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
@@ -12,38 +9,16 @@ if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
 
 
-class Select(Element):
+class TimePicker(Element):
     def __init__(
         self,
-        options: TMaybeRef[
-            typing.Union[
-                typing.List,
-                typing.List[typing.Dict],
-                None,
-            ]
-        ],
-        value: typing.Optional[TMaybeRef[typing.Any]] = None,
+        value: typing.Optional[TMaybeRef[str]] = None,
         *,
-        model_value: typing.Optional[TMaybeRef[typing.Any]] = None,
-        **kwargs: Unpack[TSelectProps],
+        model_value: typing.Optional[TMaybeRef[str]] = None,
+        **kwargs: Unpack[TTimePickerProps],
     ):
-        super().__init__("t-select")
+        super().__init__("t-time-picker")
 
-        if isinstance(options, ElementBindingMixin):
-            options = ui.js_computed(
-                inputs=[options],
-                code=r"""opts=>{
-    if(opts.length===0){return opts}
-    const data = opts[0]
-    if(typeof data === 'object'){return opts}
-    return opts.map(item=>({label:item.toString(),value:item}))                   
-}""",
-            )  # type: ignore
-
-        elif isinstance(options, list) and options and not isinstance(options[0], dict):
-            options = [{"label": str(item), "value": item} for item in options]
-
-        self.props({"options": options})
         try_setup_vmodel(self, value)
 
         self.props(handle_props(kwargs, model_value=model_value))  # type: ignore
@@ -88,27 +63,27 @@ class Select(Element):
         )
         return self
 
-    def on_create(
+    def on_close(
         self,
         handler: EventMixin,
         *,
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "create",
+            "close",
             handler,
             extends=extends,
         )
         return self
 
-    def on_enter(
+    def on_confirm(
         self,
         handler: EventMixin,
         *,
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "enter",
+            "confirm",
             handler,
             extends=extends,
         )
@@ -127,135 +102,180 @@ class Select(Element):
         )
         return self
 
-    def on_input_change(
+    def on_input(
         self,
         handler: EventMixin,
         *,
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "input_change",
+            "input",
             handler,
             extends=extends,
         )
         return self
 
-    def on_popup_visible_change(
+    def on_open(
         self,
         handler: EventMixin,
         *,
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "popup_visible_change",
+            "open",
             handler,
             extends=extends,
         )
         return self
 
-    def on_remove(
+    def on_pick(
         self,
         handler: EventMixin,
         *,
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "remove",
-            handler,
-            extends=extends,
-        )
-        return self
-
-    def on_search(
-        self,
-        handler: EventMixin,
-        *,
-        extends: typing.Optional[typing.List] = None,
-    ):
-        self.on(
-            "search",
+            "pick",
             handler,
             extends=extends,
         )
         return self
 
 
-class Option(Element):
+class TimeRangePicker(Element):
     def __init__(
         self,
-        content: typing.Optional[TMaybeRef[str]],
-        **kwargs: Unpack[TOptionProps],
+        value: typing.Optional[TMaybeRef[typing.List]] = None,
+        *,
+        model_value: typing.Optional[TMaybeRef[typing.List]] = None,
+        **kwargs: Unpack[TTimeRangePickerProps],
     ):
-        super().__init__("t-option")
+        super().__init__("t-time-range-picker")
 
-        if content is not None:
-            with self:
-                Content(content)
+        try_setup_vmodel(self, value)
 
-        self.props(handle_props(kwargs))  # type: ignore
+        self.props(handle_props(kwargs, model_value=model_value))  # type: ignore
+        handle_event_from_props(self, kwargs)  # type: ignore
+
+    def on_blur(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "blur",
+            handler,
+            extends=extends,
+        )
+        return self
+
+    def on_change(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "change",
+            handler,
+            extends=extends,
+        )
+        return self
+
+    def on_focus(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "focus",
+            handler,
+            extends=extends,
+        )
+        return self
+
+    def on_input(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "input",
+            handler,
+            extends=extends,
+        )
+        return self
+
+    def on_pick(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "pick",
+            handler,
+            extends=extends,
+        )
+        return self
 
 
-class TSelectProps(TypedDict, total=False):
-    auto_width: TMaybeRef[bool]
-    autofocus: TMaybeRef[bool]
+class TTimePickerProps(TypedDict, total=False):
+    allow_input: TMaybeRef[bool]
     borderless: TMaybeRef[bool]
     clearable: TMaybeRef[bool]
-    collapsed_items: TMaybeRef[str]
-    creatable: TMaybeRef[bool]
+    disable_time: TMaybeRef[str]
     disabled: TMaybeRef[bool]
-    empty: TMaybeRef[str]
-    filter: TMaybeRef[str]
-    filterable: TMaybeRef[bool]
+    format: TMaybeRef[str]
+    hide_disabled_time: TMaybeRef[bool]
     input_props: TMaybeRef[typing.Dict]
-    keys: TMaybeRef[typing.Dict]
     label: TMaybeRef[str]
-    loading: TMaybeRef[bool]
-    loading_text: TMaybeRef[str]
-    max: TMaybeRef[float]
-    min_collapsed_num: TMaybeRef[float]
-    multiple: TMaybeRef[bool]
-    panel_bottom_content: TMaybeRef[str]
-    panel_top_content: TMaybeRef[str]
     placeholder: TMaybeRef[str]
     popup_props: TMaybeRef[typing.Dict]
-    popup_visible: TMaybeRef[bool]
-    default_popup_visible: TMaybeRef[bool]
-    prefix_icon: TMaybeRef[str]
+    presets: TMaybeRef[typing.Dict]
     readonly: TMaybeRef[bool]
-    reserve_keyword: TMaybeRef[bool]
-    scroll: TMaybeRef[typing.Dict]
     select_input_props: TMaybeRef[typing.Dict]
-    show_arrow: TMaybeRef[bool]
     size: TMaybeRef[typing.Literal["small", "medium", "large"]]
     status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
-    suffix: TMaybeRef[str]
-    suffix_icon: TMaybeRef[str]
-    tag_input_props: TMaybeRef[typing.Dict]
-    tag_props: TMaybeRef[typing.Dict]
+    steps: TMaybeRef[typing.List]
     tips: TMaybeRef[str]
-    default_value: TMaybeRef[typing.Literal["number"]]
+    default_value: TMaybeRef[str]
     value_display: TMaybeRef[str]
-    value_type: TMaybeRef[typing.Literal["value", "object"]]
     on_blur: EventMixin
     on_change: EventMixin
     on_clear: EventMixin
-    on_create: EventMixin
-    on_enter: EventMixin
+    on_close: EventMixin
+    on_confirm: EventMixin
     on_focus: EventMixin
-    on_input_change: EventMixin
-    on_popup_visible_change: EventMixin
-    on_remove: EventMixin
-    on_search: EventMixin
+    on_input: EventMixin
+    on_open: EventMixin
+    on_pick: EventMixin
 
 
-class TOptionProps(TypedDict, total=False):
-    check_all: TMaybeRef[bool]
-    disabled: TMaybeRef[bool]
-    label: TMaybeRef[str]
-    title: TMaybeRef[str]
-    value: TMaybeRef[typing.Union[bool, float, str]]
-
-
-class TOptionGroupProps(TypedDict, total=False):
-    divider: TMaybeRef[bool]
-    label: TMaybeRef[str]
+class TTimeRangePickerProps(TypedDict, total=False):
+    allow_input: TMaybeRef[bool]
+    auto_swap: TMaybeRef[bool]
+    borderless: TMaybeRef[bool]
+    clearable: TMaybeRef[bool]
+    disable_time: TMaybeRef[str]
+    disabled: TMaybeRef[typing.Union[TMaybeRef[bool], TMaybeRef[typing.List]]]
+    format: TMaybeRef[str]
+    hide_disabled_time: TMaybeRef[bool]
+    label: TMaybeRef[typing.Literal["TNode"]]
+    placeholder: TMaybeRef[typing.Literal["Array"]]
+    popup_props: TMaybeRef[typing.Dict]
+    presets: TMaybeRef[typing.Dict]
+    range_input_props: TMaybeRef[typing.Dict]
+    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
+    status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
+    steps: TMaybeRef[typing.List]
+    tips: TMaybeRef[typing.Literal["TNode"]]
+    default_value: TMaybeRef[typing.List]
+    on_blur: EventMixin
+    on_change: EventMixin
+    on_focus: EventMixin
+    on_input: EventMixin
+    on_pick: EventMixin

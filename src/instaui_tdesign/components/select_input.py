@@ -9,18 +9,18 @@ if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
 
 
-class AutoComplete(Element):
+class SelectInput(Element):
     def __init__(
         self,
-        options: typing.Optional[TMaybeRef[typing.List]] = None,
-        value: typing.Optional[TMaybeRef[str]] = None,
+        value: typing.Optional[TMaybeRef[typing.Union[str, int, float, bool]]] = None,
         *,
-        model_value: typing.Optional[TMaybeRef[str]] = None,
-        **kwargs: Unpack[TAutoCompleteProps],
+        model_value: typing.Optional[
+            TMaybeRef[typing.Union[str, int, float, bool]]
+        ] = None,
+        **kwargs: Unpack[TSelectInputProps],
     ):
-        super().__init__("t-auto-complete")
+        super().__init__("t-select-input")
 
-        self.props({"options": options})
         try_setup_vmodel(self, value)
 
         self.props(handle_props(kwargs, model_value=model_value))  # type: ignore
@@ -39,19 +39,6 @@ class AutoComplete(Element):
         )
         return self
 
-    def on_change(
-        self,
-        handler: EventMixin,
-        *,
-        extends: typing.Optional[typing.List] = None,
-    ):
-        self.on(
-            "change",
-            handler,
-            extends=extends,
-        )
-        return self
-
     def on_clear(
         self,
         handler: EventMixin,
@@ -60,32 +47,6 @@ class AutoComplete(Element):
     ):
         self.on(
             "clear",
-            handler,
-            extends=extends,
-        )
-        return self
-
-    def on_compositionend(
-        self,
-        handler: EventMixin,
-        *,
-        extends: typing.Optional[typing.List] = None,
-    ):
-        self.on(
-            "compositionend",
-            handler,
-            extends=extends,
-        )
-        return self
-
-    def on_compositionstart(
-        self,
-        handler: EventMixin,
-        *,
-        extends: typing.Optional[typing.List] = None,
-    ):
-        self.on(
-            "compositionstart",
             handler,
             extends=extends,
         )
@@ -117,46 +78,125 @@ class AutoComplete(Element):
         )
         return self
 
-    def on_select(
+    def on_input_change(
         self,
         handler: EventMixin,
         *,
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "select",
+            "input_change",
+            handler,
+            extends=extends,
+        )
+        return self
+
+    def on_mouseenter(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "mouseenter",
+            handler,
+            extends=extends,
+        )
+        return self
+
+    def on_mouseleave(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "mouseleave",
+            handler,
+            extends=extends,
+        )
+        return self
+
+    def on_paste(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "paste",
+            handler,
+            extends=extends,
+        )
+        return self
+
+    def on_popup_visible_change(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "popup_visible_change",
+            handler,
+            extends=extends,
+        )
+        return self
+
+    def on_tag_change(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "tag_change",
             handler,
             extends=extends,
         )
         return self
 
 
-class TAutoCompleteProps(TypedDict, total=False):
+class TSelectInputProps(TypedDict, total=False):
+    allow_input: TMaybeRef[bool]
+    auto_width: TMaybeRef[bool]
     autofocus: TMaybeRef[bool]
     borderless: TMaybeRef[bool]
     clearable: TMaybeRef[bool]
+    collapsed_items: TMaybeRef[str]
     disabled: TMaybeRef[bool]
-    empty: TMaybeRef[str]
-    filter: TMaybeRef[str]
-    filterable: TMaybeRef[bool]
-    highlight_keyword: TMaybeRef[bool]
-    input_props: typing.Dict
-    panel_bottom_content: TMaybeRef[str]
-    panel_top_content: TMaybeRef[str]
+    input_props: TMaybeRef[typing.Dict]
+    input_value: TMaybeRef[typing.Union[float, str]]
+    default_input_value: TMaybeRef[typing.Union[float, str]]
+    keys: TMaybeRef[typing.Dict]
+    label: TMaybeRef[str]
+    loading: TMaybeRef[bool]
+    min_collapsed_num: TMaybeRef[float]
+    multiple: TMaybeRef[bool]
+    panel: TMaybeRef[str]
     placeholder: TMaybeRef[str]
-    popup_props: typing.Dict
+    popup_props: TMaybeRef[typing.Dict]
+    popup_visible: TMaybeRef[bool]
+    default_popup_visible: TMaybeRef[bool]
+    prefix_icon: TMaybeRef[str]
     readonly: TMaybeRef[bool]
+    reserve_keyword: TMaybeRef[bool]
     size: TMaybeRef[typing.Literal["small", "medium", "large"]]
     status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
-    textarea_props: typing.Dict
+    suffix: TMaybeRef[str]
+    suffix_icon: TMaybeRef[str]
+    tag: TMaybeRef[str]
+    tag_input_props: TMaybeRef[typing.Dict]
+    tag_props: TMaybeRef[typing.Dict]
     tips: TMaybeRef[str]
-    trigger_element: TMaybeRef[str]
-    default_value: TMaybeRef[str]
+    value_display: TMaybeRef[str]
     on_blur: EventMixin
-    on_change: EventMixin
     on_clear: EventMixin
-    on_compositionend: EventMixin
-    on_compositionstart: EventMixin
     on_enter: EventMixin
     on_focus: EventMixin
-    on_select: EventMixin
+    on_input_change: EventMixin
+    on_mouseenter: EventMixin
+    on_mouseleave: EventMixin
+    on_paste: EventMixin
+    on_popup_visible_change: EventMixin
+    on_tag_change: EventMixin

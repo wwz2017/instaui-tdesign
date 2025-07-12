@@ -9,17 +9,21 @@ if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
 
 
-class Cascader(Element):
+class TreeSelect(Element):
     def __init__(
         self,
-        value: typing.Optional[TMaybeRef[typing.Union[int, str]]] = None,
-        **kwargs: Unpack[TCascaderProps],
+        value: typing.Optional[TMaybeRef[typing.Union[str, int, typing.List]]] = None,
+        *,
+        model_value: typing.Optional[
+            TMaybeRef[typing.Union[str, int, typing.List]]
+        ] = None,
+        **kwargs: Unpack[TTreeSelectProps],
     ):
-        super().__init__("t-cascader")
+        super().__init__("t-tree-select ")
 
         try_setup_vmodel(self, value)
 
-        self.props(handle_props(kwargs))  # type: ignore
+        self.props(handle_props(kwargs, model_value=model_value))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
     def on_blur(
@@ -48,6 +52,32 @@ class Cascader(Element):
         )
         return self
 
+    def on_clear(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "clear",
+            handler,
+            extends=extends,
+        )
+        return self
+
+    def on_enter(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "enter",
+            handler,
+            extends=extends,
+        )
+        return self
+
     def on_focus(
         self,
         handler: EventMixin,
@@ -56,6 +86,19 @@ class Cascader(Element):
     ):
         self.on(
             "focus",
+            handler,
+            extends=extends,
+        )
+        return self
+
+    def on_input_change(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "input_change",
             handler,
             extends=extends,
         )
@@ -87,55 +130,67 @@ class Cascader(Element):
         )
         return self
 
+    def on_search(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "search",
+            handler,
+            extends=extends,
+        )
+        return self
 
-class TCascaderProps(TypedDict, total=False):
+
+class TTreeSelectProps(TypedDict, total=False):
+    auto_width: TMaybeRef[bool]
     autofocus: TMaybeRef[bool]
     borderless: TMaybeRef[bool]
-    check_props: typing.Dict
-    check_strictly: TMaybeRef[bool]
     clearable: TMaybeRef[bool]
     collapsed_items: TMaybeRef[str]
+    data: TMaybeRef[typing.List]
     disabled: TMaybeRef[bool]
     empty: TMaybeRef[str]
     filter: TMaybeRef[str]
     filterable: TMaybeRef[bool]
-    input_props: typing.Dict
-    keys: typing.Dict
+    input_props: TMaybeRef[typing.Dict]
+    input_value: TMaybeRef[typing.Union[TMaybeRef[float], TMaybeRef[str]]]
+    default_input_value: TMaybeRef[typing.Union[TMaybeRef[float], TMaybeRef[str]]]
+    keys: TMaybeRef[typing.Dict]
     label: TMaybeRef[str]
-    lazy: TMaybeRef[bool]
-    load: TMaybeRef[str]
     loading: TMaybeRef[bool]
     loading_text: TMaybeRef[str]
     max: TMaybeRef[float]
     min_collapsed_num: TMaybeRef[float]
     multiple: TMaybeRef[bool]
-    option: TMaybeRef[str]
-    options: typing.List
     panel_bottom_content: TMaybeRef[str]
     panel_top_content: TMaybeRef[str]
     placeholder: TMaybeRef[str]
-    popup_props: typing.Dict
+    popup_props: TMaybeRef[typing.Dict]
     popup_visible: TMaybeRef[bool]
     default_popup_visible: TMaybeRef[bool]
     prefix_icon: TMaybeRef[str]
     readonly: TMaybeRef[bool]
     reserve_keyword: TMaybeRef[bool]
-    select_input_props: typing.Dict
-    show_all_levels: TMaybeRef[bool]
-    size: typing.Literal["large", "medium", "small"]
-    status: typing.Literal["default", "success", "warning", "error"]
+    select_input_props: TMaybeRef[typing.Dict]
+    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
+    status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
     suffix: TMaybeRef[str]
     suffix_icon: TMaybeRef[str]
-    tag_input_props: typing.Dict
-    tag_props: typing.Dict
+    tag_props: TMaybeRef[typing.Dict]
     tips: TMaybeRef[str]
-    trigger: TMaybeRef[typing.Literal["click", "hover"]]
-    default_value: TMaybeRef[typing.Union[int, str]]
+    tree_props: TMaybeRef[typing.Dict]
+    default_value: TMaybeRef[typing.Union[str, int, typing.List]]
     value_display: TMaybeRef[str]
-    value_mode: TMaybeRef[typing.Literal["onlyLeaf", "parentFirst", "all"]]
-    value_type: TMaybeRef[typing.Literal["single", "full"]]
+    value_type: TMaybeRef[typing.Literal["value", "object"]]
     on_blur: EventMixin
     on_change: EventMixin
+    on_clear: EventMixin
+    on_enter: EventMixin
     on_focus: EventMixin
+    on_input_change: EventMixin
     on_popup_visible_change: EventMixin
     on_remove: EventMixin
+    on_search: EventMixin

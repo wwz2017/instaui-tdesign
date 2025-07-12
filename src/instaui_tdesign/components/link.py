@@ -3,16 +3,18 @@ import typing
 from instaui.components.element import Element
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
-
 from ._utils import handle_props, handle_event_from_props
+
+if typing.TYPE_CHECKING:
+    from instaui.vars.types import TMaybeRef
 
 
 class Link(Element):
     def __init__(
         self,
         *,
-        href: typing.Optional[str] = None,
-        content: typing.Optional[str] = None,
+        href: typing.Optional[TMaybeRef[str]] = None,
+        content: typing.Optional[TMaybeRef[str]] = None,
         **kwargs: Unpack[TLinkProps],
     ):
         super().__init__("t-link")
@@ -36,13 +38,15 @@ class Link(Element):
 
 
 class TLinkProps(TypedDict, total=False):
-    disabled: bool
-    download: typing.Union[bool, str]
-    hover: typing.Literal["color", "underline"]
-    prefix_icon: str
-    size: typing.Literal["small", "medium", "large"]
-    suffix_icon: str
-    target: str
-    theme: typing.Literal["default", "primary", "danger", "warning", "success"]
-    underline: bool
+    disabled: TMaybeRef[bool]
+    download: TMaybeRef[typing.Union[bool, str]]
+    hover: TMaybeRef[typing.Literal["color", "underline"]]
+    prefix_icon: TMaybeRef[str]
+    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
+    suffix_icon: TMaybeRef[str]
+    target: TMaybeRef[str]
+    theme: TMaybeRef[
+        typing.Literal["default", "primary", "danger", "warning", "success"]
+    ]
+    underline: TMaybeRef[bool]
     on_click: EventMixin

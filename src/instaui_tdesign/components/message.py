@@ -9,15 +9,14 @@ if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
 
 
-class Alert(Element):
+class Message(Element):
     def __init__(
         self,
-        message: typing.Optional[TMaybeRef[str]] = None,
-        **kwargs: Unpack[TAlertProps],
+        content: typing.Optional[TMaybeRef[str]] = None,
+        **kwargs: Unpack[TMessageProps],
     ):
-        super().__init__("t-alert")
-
-        self.props({"message": message})
+        super().__init__("t-message")
+        self.props({"content": content})
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -34,27 +33,40 @@ class Alert(Element):
         )
         return self
 
-    def on_closed(
+    def on_close_btn_click(
         self,
         handler: EventMixin,
         *,
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "closed",
+            "close_btn_click",
+            handler,
+            extends=extends,
+        )
+        return self
+
+    def on_duration_end(
+        self,
+        handler: EventMixin,
+        *,
+        extends: typing.Optional[typing.List] = None,
+    ):
+        self.on(
+            "duration_end",
             handler,
             extends=extends,
         )
         return self
 
 
-class TAlertProps(TypedDict, total=False):
-    close: TMaybeRef[typing.Literal["boolean"]]
-    close_btn: TMaybeRef[typing.Literal["boolean"]]
-    icon: TMaybeRef[str]
-    max_line: TMaybeRef[float]
-    operation: TMaybeRef[str]
-    theme: TMaybeRef[typing.Literal["success", "info", "warning", "error"]]
-    title: TMaybeRef[str]
+class TMessageProps(TypedDict, total=False):
+    close_btn: TMaybeRef[typing.Union[str, bool]]
+    duration: TMaybeRef[float]
+    icon: TMaybeRef[typing.Union[bool, str]]
+    theme: TMaybeRef[
+        typing.Literal["info", "success", "warning", "error", "question", "loading"]
+    ]
     on_close: EventMixin
-    on_closed: EventMixin
+    on_close_btn_click: EventMixin
+    on_duration_end: EventMixin

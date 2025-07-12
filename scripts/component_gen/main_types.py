@@ -47,7 +47,7 @@ def js_type_to_py_type(name: str, js_type: str, description: str) -> str | None:
     if "string" in js_type.lower():
         lit = extract_literal(description)
         if lit:
-            return lit
+            return f"TMaybeRef[{lit}]"
 
     # 转换为 python 类型
     py_types = set()
@@ -55,17 +55,17 @@ def js_type_to_py_type(name: str, js_type: str, description: str) -> str | None:
         for key, py in JS_TYPE_MAP.items():
             if key in t:
                 if py:
-                    py_types.add(py)
+                    py_types.add(f"TMaybeRef[{py}]")
                 break
         else:
-            py_types.add("typing.Any")
+            py_types.add("TMaybeRef[typing.Any]")
 
     # Union or single type
     if not py_types:
         return None
     if len(py_types) == 1:
         return next(iter(py_types))
-    return f"typing.Union[{', '.join(sorted(py_types))}]"
+    return f"TMaybeRef[typing.Union[{', '.join(sorted(py_types))}]]"
 
 
 def generate_class(component_name: str, props: list[dict]) -> str:
@@ -109,7 +109,9 @@ def process_json(json_path: Path, output_path: Path):
     with open(output_path, "w", encoding="utf-8") as f:
         f.write("import typing\n")
         f.write("from typing_extensions import TypedDict\n")
-        f.write("from instaui.event.event_mixin import EventMixin\n\n\n")
+        f.write("from instaui.event.event_mixin import EventMixin\n")
+        f.write("if typing.TYPE_CHECKING:\n")
+        f.write("    from instaui.vars.types import TMaybeRef\n\n")
         f.write("\n\n".join(classes))
     print(f"✅ Generated: {output_path.name}")
 

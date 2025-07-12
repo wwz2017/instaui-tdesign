@@ -2,14 +2,16 @@ from __future__ import annotations
 import typing
 from instaui.components.element import Element
 from typing_extensions import TypedDict, Unpack
-
 from ._utils import handle_props, handle_event_from_props
+
+if typing.TYPE_CHECKING:
+    from instaui.vars.types import TMaybeRef
 
 
 class Card(Element):
     def __init__(
         self,
-        content: typing.Optional[str] = None,
+        content: typing.Optional[TMaybeRef[str]] = None,
         **kwargs: Unpack[TCardProps],
     ):
         super().__init__("t-card")
@@ -20,21 +22,20 @@ class Card(Element):
 
 
 class TCardProps(TypedDict, total=False):
-    actions: str
-    avatar: str
+    actions: TMaybeRef[str]
+    avatar: TMaybeRef[str]
     bordered: bool
-    cover: str
-    default: str
-    description: str
-    footer: str
-    header: str
-    header_bordered: bool
-    hover_shadow: bool
-    loading: typing.Union[bool, str]
+    cover: TMaybeRef[str]
+    description: TMaybeRef[str]
+    footer: TMaybeRef[str]
+    header: TMaybeRef[str]
+    header_bordered: TMaybeRef[bool]
+    hover_shadow: TMaybeRef[bool]
+    loading: TMaybeRef[typing.Union[bool, str]]
     loading_props: typing.Dict
-    shadow: bool
-    size: typing.Literal["medium", "small"]
-    status: str
-    subtitle: str
-    theme: typing.Literal["normal", "poster1", "poster2"]
-    title: str
+    shadow: TMaybeRef[bool]
+    size: TMaybeRef[typing.Literal["medium", "small"]]
+    status: TMaybeRef[str]
+    subtitle: TMaybeRef[str]
+    theme: TMaybeRef[typing.Literal["normal", "poster1", "poster2"]]
+    title: TMaybeRef[str]

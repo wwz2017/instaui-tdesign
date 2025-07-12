@@ -2,14 +2,16 @@ from __future__ import annotations
 import typing
 from instaui.components.element import Element
 from typing_extensions import TypedDict, Unpack
-
 from ._utils import handle_props, handle_event_from_props
+
+if typing.TYPE_CHECKING:
+    from instaui.vars.types import TMaybeRef
 
 
 class TypographyText(Element):
     def __init__(
         self,
-        content: typing.Optional[str] = None,
+        content: typing.Optional[TMaybeRef[str]] = None,
         **kwargs: Unpack[TTextProps],
     ):
         super().__init__("t-typography-text")

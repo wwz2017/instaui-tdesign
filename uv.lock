@@ -568,7 +568,7 @@ wheels = [
 [[package]]
 name = "instaui"
 version = "0.3.4"
-source = { directory = "../instaui" }
+source = { editable = "../instaui" }
 dependencies = [
     { name = "jinja2" },
     { name = "orjson", version = "3.10.15", source = { registry = "https://mirrors.aliyun.com/pypi/simple" }, marker = "python_full_version < '3.9'" },
@@ -585,6 +585,18 @@ all = [
     { name = "pywebview" },
     { name = "uvicorn", version = "0.33.0", source = { registry = "https://mirrors.aliyun.com/pypi/simple" }, marker = "python_full_version < '3.9'" },
     { name = "uvicorn", version = "0.35.0", source = { registry = "https://mirrors.aliyun.com/pypi/simple" }, marker = "python_full_version >= '3.9'" },
+]
+web = [
+    { name = "fastapi", extra = ["standard"] },
+    { name = "pydantic", version = "2.10.6", source = { registry = "https://mirrors.aliyun.com/pypi/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "pydantic", version = "2.11.7", source = { registry = "https://mirrors.aliyun.com/pypi/simple" }, marker = "python_full_version >= '3.9'" },
+    { name = "uvicorn", version = "0.33.0", source = { registry = "https://mirrors.aliyun.com/pypi/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "uvicorn", version = "0.35.0", source = { registry = "https://mirrors.aliyun.com/pypi/simple" }, marker = "python_full_version >= '3.9'" },
+]
+webview = [
+    { name = "pydantic", version = "2.10.6", source = { registry = "https://mirrors.aliyun.com/pypi/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "pydantic", version = "2.11.7", source = { registry = "https://mirrors.aliyun.com/pypi/simple" }, marker = "python_full_version >= '3.9'" },
+    { name = "pywebview" },
 ]
 
 [package.metadata]
@@ -626,6 +638,17 @@ dependencies = [
     { name = "instaui" },
 ]
 
+[package.optional-dependencies]
+all = [
+    { name = "instaui", extra = ["all"] },
+]
+web = [
+    { name = "instaui", extra = ["web"] },
+]
+webview = [
+    { name = "instaui", extra = ["webview"] },
+]
+
 [package.dev-dependencies]
 dev = [
     { name = "instaui", extra = ["all"] },
@@ -645,11 +668,17 @@ lint = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "instaui", directory = "../instaui" }]
+requires-dist = [
+    { name = "instaui", editable = "../instaui" },
+    { name = "instaui", extras = ["all"], marker = "extra == 'all'", editable = "../instaui" },
+    { name = "instaui", extras = ["web"], marker = "extra == 'web'", editable = "../instaui" },
+    { name = "instaui", extras = ["webview"], marker = "extra == 'webview'", editable = "../instaui" },
+]
+provides-extras = ["web", "webview", "all"]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "instaui", extras = ["all"], directory = "../instaui" },
+    { name = "instaui", extras = ["all"], editable = "../instaui" },
     { name = "playwright", specifier = "==1.47.0" },
     { name = "pytest", specifier = ">=8.3.5" },
     { name = "pytest-asyncio", specifier = ">=0.24.0" },
