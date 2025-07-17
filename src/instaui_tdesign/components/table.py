@@ -222,11 +222,11 @@ class Table(Element):
     def __init__(
         self,
         data: typing.Optional[TMaybeRef[typing.List]] = None,
-        columns: typing.Optional[TMaybeRef[typing.List[TPrimaryTableCol]]] = None,
+        columns: typing.Optional[TMaybeRef[typing.Sequence[TPrimaryTableCol]]] = None,
         row_key: typing.Optional[TMaybeRef[str]] = None,
         **kwargs: Unpack[TPrimaryTableProps],
     ):
-        super().__init__("t-base-table")
+        super().__init__("t-table")
         self.props({"data": data, "columns": columns, "row-key": row_key})
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
@@ -529,7 +529,7 @@ class TBaseTableCol(TypedDict, total=False):
     width: typing.Union[float, str]
 
 
-class TPrimaryTableProps(TBaseTableProps):
+class TPrimaryTableProps(TBaseTableProps, total=False):
     async_loading: TMaybeRef[str]
     column_controller: TMaybeRef[typing.Dict]
     column_controller_visible: TMaybeRef[bool]

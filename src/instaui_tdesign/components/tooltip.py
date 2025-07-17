@@ -3,10 +3,10 @@ import typing
 from instaui.components.element import Element
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props
+from .popup import TPopupProps, TPopupPlacementValue
 
 if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
-    from .popup import TPopupProps, TPopupPlacementValue
 
 
 class Tooltip(Element):
