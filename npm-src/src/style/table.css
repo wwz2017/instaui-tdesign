@@ -1,0 +1,5 @@
+:where(.t-table .t-table__th-cell-inner) {
+    display: flex;
+    color: var(--td-font-gray-1, --foreground);
+    font-weight: 600;
+}

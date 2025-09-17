@@ -12,10 +12,16 @@ if typing.TYPE_CHECKING:
 class Anchor(Element):
     def __init__(
         self,
+        *,
+        affix_props: typing.Optional[typing.Dict] = None,
         **kwargs: Unpack[TAnchorProps],
     ):
         super().__init__("t-anchor")
-
+        self.props(
+            {
+                "affixProps": affix_props,
+            }
+        )
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -46,8 +52,18 @@ class Anchor(Element):
         return self
 
 
+class AnchorItem(Element):
+    def __init__(
+        self,
+        **kwargs: Unpack[TAnchorItemProps],
+    ):
+        super().__init__("t-anchor-item")
+
+        self.props(handle_props(kwargs))  # type: ignore
+        handle_event_from_props(self, kwargs)  # type: ignore
+
+
 class TAnchorProps(TypedDict, total=False):
-    affix_props: typing.Dict
     bounds: TMaybeRef[float]
     container: TMaybeRef[str]
     cursor: TMaybeRef[str]

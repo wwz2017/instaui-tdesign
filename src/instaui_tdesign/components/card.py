@@ -25,6 +25,7 @@ class TCardProps(TypedDict, total=False):
     actions: TMaybeRef[str]
     avatar: TMaybeRef[str]
     bordered: bool
+    body_style: TMaybeRef[typing.Dict]
     cover: TMaybeRef[str]
     description: TMaybeRef[str]
     footer: TMaybeRef[str]

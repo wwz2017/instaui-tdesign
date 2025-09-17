@@ -1,9 +1,10 @@
 from pathlib import Path
-from typing import Union
+from typing import Optional, Union, Literal
 from instaui import ui
 from instaui.dependencies.plugin_dependency import register_plugin
 from instaui_tdesign.types import TLocale, TCustomizeLocale
 from instaui_tdesign._settings import configure
+from instaui_tdesign.consts import THEME_CSS_DIR
 
 static_folder = Path(__file__).parent / "static"
 
@@ -15,7 +16,11 @@ def _register_tdesign():
     register_plugin("InstauiTDesign", esm=tdesign_esm_js, css=[tdesign_css])
 
 
-def use(*, locale: ui.TMaybeRef[Union[TLocale, TCustomizeLocale]] = "en-US"):
+def use(
+    *,
+    locale: ui.TMaybeRef[Union[TLocale, TCustomizeLocale]] = "en-US",
+    theme: Optional[Literal["default", "green", "violet"]] = None,
+):
     """Use tdesign ui.
 
     Args:
@@ -35,3 +40,5 @@ def use(*, locale: ui.TMaybeRef[Union[TLocale, TCustomizeLocale]] = "en-US"):
 
     _register_tdesign()
     configure(locale=locale)
+    if theme is not None:
+        ui.add_css_link(THEME_CSS_DIR / f"theme-{theme}.css")

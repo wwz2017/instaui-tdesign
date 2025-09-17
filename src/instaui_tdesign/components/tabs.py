@@ -1,19 +1,20 @@
 from __future__ import annotations
 import typing
-from instaui.components.element import Element
+from instaui import custom
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
 
-class Tabs(Element):
+class Tabs(custom.element):
     def __init__(
         self,
-        value: typing.Optional[int] = None,
+        value: typing.Optional[str] = None,
         **kwargs: Unpack[TTabsProps],
     ):
         super().__init__("t-tabs")
+        custom.configure_slot_without_slot_prop(self, slot_names=["default"])
         try_setup_vmodel(self, value)
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
@@ -71,12 +72,13 @@ class Tabs(Element):
         return self
 
 
-class TabPanel(Element):
+class TabPanel(custom.element):
     def __init__(
         self,
         **kwargs: Unpack[TTabPanelProps],
     ):
         super().__init__("t-tab-panel")
+        custom.configure_slot_without_slot_prop(self, slot_names=["default"])
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -104,7 +106,7 @@ class TTabsProps(TypedDict, total=False):
     scroll_position: typing.Literal["auto", "start", "center", "end"]
     size: typing.Literal["medium", "large"]
     theme: typing.Literal["normal", "card"]
-    default_value: int
+    default_value: str
     on_add: EventMixin
     on_change: EventMixin
     on_drag_sort: EventMixin
@@ -120,5 +122,5 @@ class TTabPanelProps(TypedDict, total=False):
     lazy: bool
     panel: str
     removable: bool
-    value: typing.Union[int, str]
+    value: str
     on_remove: EventMixin

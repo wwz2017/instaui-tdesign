@@ -3,7 +3,7 @@ import typing
 from instaui.components.element import Element
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
-from ._utils import handle_props, handle_event_from_props
+from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
 if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
@@ -12,10 +12,11 @@ if typing.TYPE_CHECKING:
 class Collapse(Element):
     def __init__(
         self,
+        value: typing.Optional[TMaybeRef[typing.List]] = None,
         **kwargs: Unpack[TCollapseProps],
     ):
         super().__init__("t-collapse")
-
+        try_setup_vmodel(self, value)
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -36,10 +37,15 @@ class Collapse(Element):
 class CollapsePanel(Element):
     def __init__(
         self,
+        header: typing.Optional[TMaybeRef[str]] = None,
         **kwargs: Unpack[TCollapsePanelProps],
     ):
         super().__init__("t-collapse-panel")
-
+        self.props(
+            {
+                "header": header,
+            }
+        )
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -52,7 +58,6 @@ class TCollapseProps(TypedDict, total=False):
     expand_icon_placement: TMaybeRef[typing.Literal["left", "right"]]
     expand_mutex: TMaybeRef[bool]
     expand_on_row_click: TMaybeRef[bool]
-    value: TMaybeRef[typing.List]
     default_value: TMaybeRef[typing.List]
     on_change: EventMixin
 
@@ -62,6 +67,5 @@ class TCollapsePanelProps(TypedDict, total=False):
     destroy_on_collapse: TMaybeRef[bool]
     disabled: TMaybeRef[bool]
     expand_icon: TMaybeRef[typing.Union[bool, str]]
-    header: TMaybeRef[str]
     header_right_content: TMaybeRef[str]
     value: TMaybeRef[typing.Union[int, str]]

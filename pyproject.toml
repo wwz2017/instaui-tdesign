@@ -8,26 +8,26 @@ readme = "README.md"
 authors = [
     { name = "CrystalWindSnake", email = "568166495@qq.com" }
 ]
-requires-python = ">=3.8,<3.14"
+requires-python = ">=3.9,<3.14"
 
 dependencies = [
-    "instaui >=0.4.0",
+    "instaui>=0.6.0",
 ]
-
 
 [dependency-groups]
 dev = [
-    "instaui[all]",
-    "playwright<1.52.0",
+    "instaui[web]",
+    "pandas>=2.0.3",
+    "playwright==1.48.0",
     "pytest>=8.3.5",
     "pytest-asyncio>=0.24.0",
-    "pytest-playwright<0.7.0",
+    "pytest-playwright>=0.7.1",
 ]
 git = [
     "pre-commit>=3.5.0",
 ]
 lint = [
-    "ruff>=0.11.8",
+    "ruff==0.12.2",
 ]
 
 [project.optional-dependencies]
@@ -51,5 +51,3 @@ include = [
 [tool.hatch.build.force-include]
 "src/instaui_tdesign/static" = "src/instaui_tdesign/static"
 
-[tool.uv.sources]
-instaui = { path = "../instaui", editable = true }

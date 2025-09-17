@@ -22,4 +22,4 @@ def configure(*, locale: ui.TMaybeRef[Union[TLocale, TCustomizeLocale]]):
         _STOP_LIFESPAN()
         del _STOP_LIFESPAN
 
-    _STOP_LIFESPAN = ui.on_page_request_lifespan(add_config_provider_lifespan)
+    _STOP_LIFESPAN = ui.on_page_init_lifespan(add_config_provider_lifespan)

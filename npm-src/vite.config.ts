@@ -6,14 +6,6 @@ import vue from "@vitejs/plugin-vue";
 export default defineConfig({
   plugins: [vue()],
 
-  server: {
-    proxy: {
-      "/instaui": {
-        target: "http://0.0.0.0:8080",
-      },
-    },
-  },
-
   define: {
     "process.env": {},
   },
@@ -33,7 +25,7 @@ export default defineConfig({
       fileName: "instaui-tdesign",
     },
     rollupOptions: {
-      external: ["vue", "echarts", "instaui"],
+      external: ["vue"],
       output: [
         {
           format: "es",

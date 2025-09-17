@@ -18,6 +18,7 @@ __all__ = [
     "affix",
     "alert",
     "anchor",
+    "anchor_item",
     "auto_complete",
     "avatar",
     "avatar_group",
@@ -48,6 +49,7 @@ __all__ = [
     "empty",
     "form",
     "form_item",
+    "icon",
     "input_adornment",
     "input_number",
     "input",
@@ -122,7 +124,7 @@ __all__ = [
 from .setup import use
 from .components.affix import Affix as affix
 from .components.alert import Alert as alert
-from .components.anchor import Anchor as anchor
+from .components.anchor import Anchor as anchor, AnchorItem as anchor_item
 from .components.auto_complete import AutoComplete as auto_complete
 from .components.avatar import Avatar as avatar, AvatarGroup as avatar_group
 from .components.back_top import BackTop as back_top
@@ -158,6 +160,7 @@ from .components.drawer import Drawer as drawer
 from .components.dropdown import Dropdown as dropdown
 from .components.empty import Empty as empty
 from .components.form import Form as form, FormItem as form_item
+from .components.icon import Icon as icon
 from .components.input_adornment import InputAdornment as input_adornment
 from .components.input_number import InputNumber as input_number
 from .components.input import Input as input

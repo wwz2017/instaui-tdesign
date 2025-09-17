@@ -31,7 +31,8 @@ def extract_literal(description: str) -> str | None:
     if match:
         items = [x.strip() for x in match.group(1).split("/") if x.strip()]
         if items:
-            return f"typing.Literal[{', '.join(f'"{item}"' for item in items)}]"
+            all_literals = ", ".join(f'"{item}"' for item in items)
+            return f"typing.Literal[{all_literals}]"
     return None
 
 

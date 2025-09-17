@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       tdesign-vue-next:
-        specifier: ^1.14.2
-        version: 1.14.2(vue@3.5.17(typescript@5.8.3))
+        specifier: ^1.15.5
+        version: 1.15.5(vue@3.5.17(typescript@5.8.3))
       vue:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
@@ -52,8 +52,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  '@babel/runtime@7.27.6':
-    resolution: {integrity: sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==}
+  '@babel/runtime@7.28.3':
+    resolution: {integrity: sha512-9uIQ10o0WGdpP6GDhXcdOJPJuDgFtIDtN/9+ArJQ2NAfAmiuhTQdzkaTGR33v43GYS2UrSA0eX2pPPHoFVvpxA==}
     engines: {node: '>=6.9.0'}
 
   '@babel/types@7.28.0':
@@ -487,8 +487,8 @@ packages:
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
-  dayjs@1.11.10:
-    resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
+  dayjs@1.11.13:
+    resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
 
   de-indent@1.0.2:
     resolution: {integrity: sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==}
@@ -620,13 +620,13 @@ packages:
   strip-literal@3.0.0:
     resolution: {integrity: sha512-TcccoMhJOM3OebGhSBEmp3UZ2SfDMZUEBdRA/9ynfLi8yYajyWX3JiXArcJt4Umh4vISpspkQIY8ZZoCqjbviA==}
 
-  tdesign-icons-vue-next@0.3.6:
-    resolution: {integrity: sha512-X9u90dBv8tPhfpguUyx+BzF8CU2ef2L4RXOO7MYOj1ufHCHwBXTF8L3GPfq6KZd/2u4vMLYAA8lGURn4PZZICw==}
+  tdesign-icons-vue-next@0.3.7:
+    resolution: {integrity: sha512-Q5ebVty/TCqhBa0l/17kkhjC0pBAOGvn7C35MAt1xS+johKVM9QEDOy9R6XEl332AiwQ37MwqioczqjYC30ckw==}
     peerDependencies:
       vue: ^3.0.0
 
-  tdesign-vue-next@1.14.2:
-    resolution: {integrity: sha512-Wcg0SjT4W7JmMhwCI4/rnk8bJzcmjed/YAemVDaOY33U8PqUsU3DxxP/vJ2gbLH7NkFgLGVNpeAdTqYdmHnV4w==}
+  tdesign-vue-next@1.15.5:
+    resolution: {integrity: sha512-19AXdGuul7KuMcD29QNQsP1gWgC2TqneH++Nj/KsPfdoI2Kqhqv8nO5cmkmkxAjGEq9Vd9qkMDf5aABLeYO2FQ==}
     engines: {node: '>= 18'}
     peerDependencies:
       vue: '>=3.1.0'
@@ -773,7 +773,7 @@ snapshots:
     dependencies:
       '@babel/types': 7.28.0
 
-  '@babel/runtime@7.27.6': {}
+  '@babel/runtime@7.28.3': {}
 
   '@babel/types@7.28.0':
     dependencies:
@@ -1109,7 +1109,7 @@ snapshots:
 
   csstype@3.1.3: {}
 
-  dayjs@1.11.10: {}
+  dayjs@1.11.13: {}
 
   de-indent@1.0.2: {}
 
@@ -1247,24 +1247,24 @@ snapshots:
     dependencies:
       js-tokens: 9.0.1
 
-  tdesign-icons-vue-next@0.3.6(vue@3.5.17(typescript@5.8.3)):
+  tdesign-icons-vue-next@0.3.7(vue@3.5.17(typescript@5.8.3)):
     dependencies:
-      '@babel/runtime': 7.27.6
+      '@babel/runtime': 7.28.3
       vue: 3.5.17(typescript@5.8.3)
 
-  tdesign-vue-next@1.14.2(vue@3.5.17(typescript@5.8.3)):
+  tdesign-vue-next@1.15.5(vue@3.5.17(typescript@5.8.3)):
     dependencies:
-      '@babel/runtime': 7.27.6
+      '@babel/runtime': 7.28.3
       '@popperjs/core': 2.11.8
       '@types/lodash-es': 4.17.12
       '@types/sortablejs': 1.15.8
       '@types/tinycolor2': 1.4.6
       '@types/validator': 13.15.2
-      dayjs: 1.11.10
+      dayjs: 1.11.13
       lodash-es: 4.17.21
       mitt: 3.0.1
       sortablejs: 1.15.6
-      tdesign-icons-vue-next: 0.3.6(vue@3.5.17(typescript@5.8.3))
+      tdesign-icons-vue-next: 0.3.7(vue@3.5.17(typescript@5.8.3))
       tinycolor2: 1.6.0
       validator: 13.15.15
       vue: 3.5.17(typescript@5.8.3)
