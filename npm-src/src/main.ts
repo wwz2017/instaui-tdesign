@@ -1,5 +1,5 @@
 import { type App } from "vue";
-import TDesign from "tdesign-vue-next";
+import * as TDesign from "tdesign-vue-next";
 import Affix from "@/components/Affix.vue";
 import Table from "@/components/Table.vue";
 import Anchor from "@/components/Anchor.vue";

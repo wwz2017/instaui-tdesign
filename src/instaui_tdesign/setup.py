@@ -1,19 +1,20 @@
-from pathlib import Path
 from typing import Optional, Union, Literal
 from instaui import ui
 from instaui.dependencies.plugin_dependency import register_plugin
 from instaui_tdesign.types import TLocale, TCustomizeLocale
 from instaui_tdesign._settings import configure
-from instaui_tdesign.consts import THEME_CSS_DIR
-
-static_folder = Path(__file__).parent / "static"
-
-tdesign_css = static_folder / "instaui-tdesign.css"
-tdesign_esm_js = static_folder / "instaui-tdesign.js"
+from instaui_tdesign import consts
 
 
 def _register_tdesign():
-    register_plugin("InstauiTDesign", esm=tdesign_esm_js, css=[tdesign_css])
+    register_plugin(
+        "InstauiTDesign",
+        esm=consts.instaui_tdesign_esm_js,
+        externals={
+            "tdesign-vue-next": consts.tdesign_esm_js,
+        },
+        css=[consts.tdesign_css, consts.instaui_tdesign_css],
+    )
 
 
 def use(
@@ -41,4 +42,4 @@ def use(
     _register_tdesign()
     configure(locale=locale)
     if theme is not None:
-        ui.add_css_link(THEME_CSS_DIR / f"theme-{theme}.css")
+        ui.add_css_link(consts.THEME_CSS_DIR / f"theme-{theme}.css")

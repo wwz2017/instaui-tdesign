@@ -25,12 +25,13 @@ export default defineConfig({
       fileName: "instaui-tdesign",
     },
     rollupOptions: {
-      external: ["vue"],
+      external: ["vue", "tdesign-vue-next"],
       output: [
         {
           format: "es",
         },
       ],
     },
+    outDir: "dist/instaui-dist",
   },
 });

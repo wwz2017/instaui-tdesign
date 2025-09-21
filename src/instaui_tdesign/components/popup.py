@@ -12,11 +12,9 @@ if typing.TYPE_CHECKING:
 class Popup(Element):
     def __init__(
         self,
-        content: TMaybeRef[str],
         **kwargs: Unpack[TPopupProps],
     ):
         super().__init__("t-popup")
-        self.props({"content": content})
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -74,6 +72,7 @@ class Popup(Element):
 
 
 class TPopupProps(TypedDict, total=False):
+    content: TMaybeRef[str]
     attach: TMaybeRef[str]
     delay: TMaybeRef[typing.Union[float, typing.List]]
     destroy_on_close: TMaybeRef[bool]

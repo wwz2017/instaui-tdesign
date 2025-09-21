@@ -492,16 +492,16 @@ wheels = [
 [[package]]
 name = "instaui"
 version = "0.6.0"
-source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }
+source = { registry = "https://mirrors.aliyun.com/pypi/simple" }
 dependencies = [
     { name = "jinja2" },
     { name = "orjson" },
     { name = "pydantic" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://pypi.tuna.tsinghua.edu.cn/packages/d4/8c/eafc55973a097e9e645a59287c23e202d45ea70a03a9d04dc290fc257976/instaui-0.6.0.tar.gz", hash = "sha256:810a75f1c7fda06f7725431581f325582c792fba87c71f904d299df7d20e4c1c", size = 561237, upload-time = "2025-09-17T10:34:35.087Z" }
+sdist = { url = "https://mirrors.aliyun.com/pypi/packages/d4/8c/eafc55973a097e9e645a59287c23e202d45ea70a03a9d04dc290fc257976/instaui-0.6.0.tar.gz", hash = "sha256:810a75f1c7fda06f7725431581f325582c792fba87c71f904d299df7d20e4c1c" }
 wheels = [
-    { url = "https://pypi.tuna.tsinghua.edu.cn/packages/fb/29/5df6baf459325ccc19035bd73be5b1d7e55285caa9d231362814b9dbb9c6/instaui-0.6.0-py3-none-any.whl", hash = "sha256:b0a6b2da849d3c18fb508e181355f876613fe7a0ed0067ecf58fc373bba8b28c", size = 638879, upload-time = "2025-09-17T10:34:32.42Z" },
+    { url = "https://mirrors.aliyun.com/pypi/packages/fb/29/5df6baf459325ccc19035bd73be5b1d7e55285caa9d231362814b9dbb9c6/instaui-0.6.0-py3-none-any.whl", hash = "sha256:b0a6b2da849d3c18fb508e181355f876613fe7a0ed0067ecf58fc373bba8b28c" },
 ]
 
 [package.optional-dependencies]

@@ -4,7 +4,7 @@ from instaui.components.slot import Slot
 from instaui.components.element import Element
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack, Self
-from instaui.vars.web_computed import WebComputed
+from instaui.common.binding_track_mixin import is_binding_tracker
 from ._utils import handle_props, handle_event_from_props
 
 if typing.TYPE_CHECKING:
@@ -264,16 +264,28 @@ class Table(Element):
     @classmethod
     def from_pandas(
         cls,
-        data: typing.Union["pd.DataFrame", WebComputed],
+        data: typing.Union["pd.DataFrame", dict],
+        *,
+        extra_columns: typing.Optional[
+            dict[str, typing.Union[dict, typing.Callable[[str], dict]]]
+        ] = None,
         **kwargs: Unpack[TPrimaryTableProps],
     ) -> Self:
         import pandas as pd  # type: ignore
 
         if isinstance(data, pd.DataFrame):
-            columns = [{"colKey": col, "title": col} for col in data.columns]
+            extra_columns = extra_columns or {}
+            columns = []
+
+            for col in data.columns:
+                extra = extra_columns.get(col, {})
+                if callable(extra):
+                    extra = extra(col)
+                columns.append({"colKey": col, "title": col} | extra)
+
             return cls(data=data.to_dict(orient="records"), columns=columns, **kwargs)  # type: ignore
 
-        if isinstance(data, WebComputed):
+        if is_binding_tracker(data) or isinstance(data, dict):
             return cls(data=data["data"], columns=data["columns"], **kwargs)
 
         raise ValueError("Unsupported data type")
