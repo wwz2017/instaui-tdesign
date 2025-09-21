@@ -1,6 +1,6 @@
 [project]
 name = "instaui-tdesign"
-version = "0.3.0"
+version = "0.4.0"
 description = "InstaUI TDesign"
 keywords = ["ui", "gui", "web", "instaui", "TDesign"]
 license = "MIT"
