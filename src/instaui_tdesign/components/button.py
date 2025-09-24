@@ -33,7 +33,6 @@ class Button(BaseElement):
 
         if icon is not None:
             with self.add_slot("icon"):
-                icon = f"td:{icon}" if isinstance(icon, str) else icon
                 Icon(icon)
 
         self.props(handle_props(kwargs))  # type: ignore
