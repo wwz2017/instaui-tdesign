@@ -14,6 +14,7 @@ Examples:
 """
 
 __all__ = [
+    "__version__",
     "use",
     "affix",
     "alert",
@@ -120,7 +121,7 @@ __all__ = [
     "watermark",
 ]
 
-
+from .version import __version__
 from .setup import use
 from .components.affix import Affix as affix
 from .components.alert import Alert as alert
