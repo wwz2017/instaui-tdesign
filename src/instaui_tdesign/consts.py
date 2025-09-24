@@ -14,5 +14,5 @@ tdesign_esm_js: Final = static_folder / "tdesign.min.js"
 THEME_CSS_DIR: Final = Path(__file__).parent / "theme/css"
 
 
-TDESIGN_VUE_ESM_JS_CDN: Final = f"https://cdn.jsdelivr.net/gh/instaui-python/instaui-tdesign@{__version__}/tdesign-dist/tdesign.min.js"
-TDESIGN_VUE_CSS_CDN: Final = f"https://cdn.jsdelivr.net/gh/instaui-python/instaui-tdesign@{__version__}/tdesign-dist/tdesign.min.css"
+TDESIGN_VUE_ESM_JS_CDN: Final = f"https://cdn.jsdelivr.net/gh/instaui-python/instaui-tdesign@v{__version__}/tdesign-dist/tdesign.min.js"
+TDESIGN_VUE_CSS_CDN: Final = f"https://cdn.jsdelivr.net/gh/instaui-python/instaui-tdesign@v{__version__}/tdesign-dist/tdesign.min.css"
