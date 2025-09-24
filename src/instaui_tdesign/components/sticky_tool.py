@@ -1,13 +1,13 @@
 from __future__ import annotations
 import typing
-from instaui.components.element import Element
+from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 
 from ._utils import handle_props, handle_event_from_props
 
 
-class StickyTool(Element):
+class StickyTool(BaseElement):
     def __init__(
         self,
         list: typing.Optional[typing.List[TStickyItemProps]] = None,
@@ -46,7 +46,7 @@ class StickyTool(Element):
         return self
 
 
-class StickyItem(Element):
+class StickyItem(BaseElement):
     def __init__(
         self,
         label: typing.Optional[str] = None,

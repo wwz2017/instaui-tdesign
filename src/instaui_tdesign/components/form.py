@@ -1,13 +1,13 @@
 from __future__ import annotations
 import typing
-from instaui.components.element import Element
+from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 
 from ._utils import handle_props, handle_event_from_props
 
 
-class Form(Element):
+class Form(BaseElement):
     def __init__(
         self,
         **kwargs: Unpack[TFormProps],
@@ -57,7 +57,7 @@ class Form(Element):
         return self
 
 
-class FormItem(Element):
+class FormItem(BaseElement):
     def __init__(
         self,
         **kwargs: Unpack[TFormItemProps],

@@ -1,7 +1,7 @@
 from __future__ import annotations
 import typing
 from instaui import ui
-from instaui.components.element import Element
+from ._base_element import BaseElement
 from instaui.components.content import Content
 from instaui.event.event_mixin import EventMixin
 from instaui.vars.mixin_types.element_binding import ElementBindingMixin
@@ -12,7 +12,7 @@ if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
 
 
-class Select(Element):
+class Select(BaseElement):
     def __init__(
         self,
         options: TMaybeRef[
@@ -180,7 +180,7 @@ class Select(Element):
         return self
 
 
-class Option(Element):
+class Option(BaseElement):
     def __init__(
         self,
         content: typing.Optional[TMaybeRef[str]],

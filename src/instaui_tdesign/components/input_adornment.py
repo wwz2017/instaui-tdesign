@@ -1,9 +1,9 @@
 from __future__ import annotations
 import typing
-from instaui.components.element import Element
+from ._base_element import BaseElement
 
 
-class InputAdornment(Element):
+class InputAdornment(BaseElement):
     def __init__(
         self,
         *,

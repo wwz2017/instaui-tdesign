@@ -1,6 +1,6 @@
 from __future__ import annotations
 import typing
-from instaui.components.element import Element
+from ._base_element import BaseElement
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props
 from .popup import TPopupProps, TPopupPlacementValue
@@ -9,7 +9,7 @@ if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
 
 
-class Tooltip(Element):
+class Tooltip(BaseElement):
     def __init__(
         self,
         content: TMaybeRef[str],
@@ -20,7 +20,7 @@ class Tooltip(Element):
         self.props(handle_props(kwargs))  # type: ignore
 
 
-class TooltipLite(Element):
+class TooltipLite(BaseElement):
     def __init__(
         self,
         content: TMaybeRef[str],

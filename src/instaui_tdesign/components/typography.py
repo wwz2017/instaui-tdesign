@@ -1,6 +1,6 @@
 from __future__ import annotations
 import typing
-from instaui.components.element import Element
+from ._base_element import BaseElement
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props
 
@@ -8,7 +8,7 @@ if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
 
 
-class TypographyText(Element):
+class TypographyText(BaseElement):
     def __init__(
         self,
         content: typing.Optional[TMaybeRef[str]] = None,
@@ -21,7 +21,7 @@ class TypographyText(Element):
         handle_event_from_props(self, kwargs)  # type: ignore
 
 
-class TypographyTitle(Element):
+class TypographyTitle(BaseElement):
     def __init__(
         self,
         content: typing.Optional[str] = None,
@@ -34,7 +34,7 @@ class TypographyTitle(Element):
         handle_event_from_props(self, kwargs)  # type: ignore
 
 
-class TypographyParagraph(Element):
+class TypographyParagraph(BaseElement):
     def __init__(
         self,
         content: typing.Optional[str] = None,

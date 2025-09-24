@@ -1,12 +1,12 @@
 from __future__ import annotations
 import typing
-from instaui.components.element import Element
+from ._base_element import BaseElement
 from typing_extensions import TypedDict, Unpack
 from instaui.event.event_mixin import EventMixin
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
 
-class Menu(Element):
+class Menu(BaseElement):
     def __init__(
         self,
         *,
@@ -47,7 +47,7 @@ class Menu(Element):
         return self
 
 
-class HeadMenu(Element):
+class HeadMenu(BaseElement):
     def __init__(
         self,
         *,
@@ -88,7 +88,7 @@ class HeadMenu(Element):
         return self
 
 
-class SubMenu(Element):
+class SubMenu(BaseElement):
     def __init__(
         self,
         content: typing.Optional[str] = None,
@@ -101,7 +101,7 @@ class SubMenu(Element):
         handle_event_from_props(self, kwargs)  # type: ignore
 
 
-class MenuItem(Element):
+class MenuItem(BaseElement):
     def __init__(
         self,
         content: typing.Optional[str] = None,
@@ -127,7 +127,7 @@ class MenuItem(Element):
         return self
 
 
-class MenuGroup(Element):
+class MenuGroup(BaseElement):
     def __init__(self, title: typing.Optional[str] = None):
         super().__init__("t-menu-group")
 

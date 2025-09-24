@@ -1,6 +1,6 @@
 from __future__ import annotations
 import typing
-from instaui.components.element import Element
+from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
@@ -9,7 +9,7 @@ if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
 
 
-class Swiper(Element):
+class Swiper(BaseElement):
     def __init__(
         self,
         *,
@@ -39,7 +39,7 @@ class Swiper(Element):
         return self
 
 
-class SwiperItem(Element):
+class SwiperItem(BaseElement):
     def __init__(
         self,
     ):

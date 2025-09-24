@@ -1,8 +1,8 @@
 from typing import Any, Dict, Optional
-from instaui.components.element import Element
+from ._base_element import BaseElement
 
 
-class ConfigProvider(Element):
+class ConfigProvider(BaseElement):
     def __init__(
         self,
         *,

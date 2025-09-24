@@ -1,7 +1,7 @@
 from __future__ import annotations
 import typing
 from instaui.components.slot import Slot
-from instaui.components.element import Element
+from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack, Self
 from instaui.common.binding_track_mixin import is_binding_tracker
@@ -12,7 +12,7 @@ if typing.TYPE_CHECKING:
     import pandas as pd  # type: ignore
 
 
-class BaseTable(Element):
+class BaseTable(BaseElement):
     def __init__(
         self,
         data: typing.Optional[TMaybeRef[typing.List]] = None,
@@ -223,7 +223,7 @@ class BaseTable(Element):
         return self
 
 
-class Table(Element):
+class Table(BaseElement):
     def __init__(
         self,
         data: typing.Optional[TMaybeRef[typing.List]] = None,
@@ -473,7 +473,7 @@ class Table(Element):
         return self
 
 
-class EnhancedTable(Element):
+class EnhancedTable(BaseElement):
     def __init__(
         self,
         data: typing.Optional[TMaybeRef[typing.List]] = None,

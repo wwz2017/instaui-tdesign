@@ -8,7 +8,7 @@ from instaui_tdesign.locales import get_locale
 _STOP_LIFESPAN: Optional[Callable] = None
 
 
-def configure(*, locale: ui.TMaybeRef[Union[TLocale, TCustomizeLocale]]):
+def configure(*, locale: Union[TLocale, TCustomizeLocale]):
     global _STOP_LIFESPAN
 
     if isinstance(locale, str):

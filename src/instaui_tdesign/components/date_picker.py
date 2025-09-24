@@ -1,14 +1,14 @@
 from __future__ import annotations
 from datetime import date
 import typing
-from instaui.components.element import Element
+from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
 
-class DatePicker(Element):
+class DatePicker(BaseElement):
     def __init__(
         self,
         value: typing.Optional[TDateMultipleValue] = None,
@@ -102,7 +102,7 @@ class DatePicker(Element):
         return self
 
 
-class DateRangePicker(Element):
+class DateRangePicker(BaseElement):
     def __init__(
         self,
         value: typing.Optional[TDateRangeValue] = None,
@@ -209,7 +209,7 @@ class DateRangePicker(Element):
         return self
 
 
-class DatePickerPanel(Element):
+class DatePickerPanel(BaseElement):
     def __init__(
         self,
         value: typing.Optional[TDateMultipleValue] = None,
@@ -329,7 +329,7 @@ class DatePickerPanel(Element):
         return self
 
 
-class DateRangePickerPanel(Element):
+class DateRangePickerPanel(BaseElement):
     def __init__(
         self,
         value: typing.Optional[TDateRangeValue] = None,

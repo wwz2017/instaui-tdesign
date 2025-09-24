@@ -1,12 +1,12 @@
 from __future__ import annotations
 import typing
-from instaui.components.element import Element
+from ._base_element import BaseElement
 from typing_extensions import TypedDict, Unpack
 
 from ._utils import handle_props, handle_event_from_props
 
 
-class Layout(Element):
+class Layout(BaseElement):
     def __init__(
         self,
         **kwargs: Unpack[TLayoutProps],
@@ -17,7 +17,7 @@ class Layout(Element):
         handle_event_from_props(self, kwargs)  # type: ignore
 
 
-class Header(Element):
+class Header(BaseElement):
     def __init__(
         self,
         **kwargs: Unpack[THeaderProps],
@@ -28,7 +28,7 @@ class Header(Element):
         handle_event_from_props(self, kwargs)  # type: ignore
 
 
-class Aside(Element):
+class Aside(BaseElement):
     def __init__(
         self,
         **kwargs: Unpack[TAsideProps],
@@ -39,7 +39,7 @@ class Aside(Element):
         handle_event_from_props(self, kwargs)  # type: ignore
 
 
-class Content(Element):
+class Content(BaseElement):
     def __init__(
         self,
         **kwargs: Unpack[TContentProps],
@@ -50,7 +50,7 @@ class Content(Element):
         handle_event_from_props(self, kwargs)  # type: ignore
 
 
-class Footer(Element):
+class Footer(BaseElement):
     def __init__(
         self,
         **kwargs: Unpack[TFooterProps],

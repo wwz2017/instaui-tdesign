@@ -1,13 +1,13 @@
 from __future__ import annotations
 import typing
-from instaui.components.element import Element
+from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
 
-class InputNumber(Element):
+class InputNumber(BaseElement):
     def __init__(
         self,
         value: typing.Optional[typing.Union[str, int, float]] = None,

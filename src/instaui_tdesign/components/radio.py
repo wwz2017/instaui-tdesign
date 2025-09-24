@@ -1,7 +1,7 @@
 from __future__ import annotations
 import typing
 from instaui import ui
-from instaui.components.element import Element
+from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from instaui.vars.mixin_types.element_binding import ElementBindingMixin
 from typing_extensions import TypedDict, Unpack
@@ -9,7 +9,7 @@ from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
 
-class Radio(Element):
+class Radio(BaseElement):
     def __init__(
         self,
         checked: typing.Optional[bool] = None,
@@ -53,7 +53,7 @@ class Radio(Element):
         return self
 
 
-class RadioGroup(Element):
+class RadioGroup(BaseElement):
     def __init__(
         self,
         options: typing.List[

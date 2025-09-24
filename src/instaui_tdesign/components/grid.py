@@ -1,12 +1,12 @@
 from __future__ import annotations
 import typing
-from instaui.components.element import Element
+from ._base_element import BaseElement
 from typing_extensions import TypedDict, Unpack
 
 from ._utils import handle_props, handle_event_from_props
 
 
-class Row(Element):
+class Row(BaseElement):
     def __init__(
         self,
         **kwargs: Unpack[TRowProps],
@@ -17,7 +17,7 @@ class Row(Element):
         handle_event_from_props(self, kwargs)  # type: ignore
 
 
-class Col(Element):
+class Col(BaseElement):
     def __init__(
         self,
         **kwargs: Unpack[TColProps],

@@ -1,6 +1,6 @@
 from __future__ import annotations
 import typing
-from instaui.components.element import Element
+from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props
@@ -9,7 +9,7 @@ if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
 
 
-class Anchor(Element):
+class Anchor(BaseElement):
     def __init__(
         self,
         *,
@@ -52,7 +52,7 @@ class Anchor(Element):
         return self
 
 
-class AnchorItem(Element):
+class AnchorItem(BaseElement):
     def __init__(
         self,
         **kwargs: Unpack[TAnchorItemProps],

@@ -29,4 +29,4 @@ def start_server():
 
 @pytest.fixture(scope="session", autouse=True)
 def use_tdesign():
-    td.use()
+    td.use(locale="en-US")
