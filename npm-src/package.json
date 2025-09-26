@@ -5,11 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "ts check": "vue-tsc -b",
-    "build only": "vite build",
+    "build only insta": "vite build && uv run --no-project scripts/builder.py",
     "build": "vite build && vite build --config vite.config.tdesign.ts && uv run --no-project scripts/builder.py",
     "build:tdesign": "vite build --config vite.config.tdesign.ts",
-    "preview": "vite preview"
+    "build only": "vite build"
   },
   "dependencies": {
     "tdesign-vue-next": "^1.15.5",

@@ -7,13 +7,18 @@ defineOptions({ inheritAttrs: false });
 
 const attrs = useAttrs();
 const pagination = usePagination(attrs);
-const bindAttrs = withDefaultAttrs(attrs);
+const { sort, bindAttrs, tableData } = withDefaultAttrs(attrs);
 
 const slots = useSlots();
 </script>
 
 <template>
-  <TDesign.Table v-bind="bindAttrs" :pagination="pagination">
+  <TDesign.Table
+    v-bind="bindAttrs"
+    :pagination="pagination"
+    :sort="sort"
+    :data="tableData"
+  >
     <template v-for="(_, name) in slots" v-slot:[name]="slotProps" :key="name">
       <slot :name="name" v-bind="slotProps" />
     </template>
