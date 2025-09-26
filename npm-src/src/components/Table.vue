@@ -25,4 +25,3 @@ const slots = useSlots();
   </TDesign.Table>
 </template>
 
-<style scoped></style>
