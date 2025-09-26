@@ -1,3 +1,4 @@
+import argparse
 from pathlib import Path
 import shutil
 
@@ -43,19 +44,32 @@ def copy_to_compiled():
     )
 
 
-def copy2py():
+def copy2py(skip_cdn: bool = False):
     copy_to_compiled()
 
-    # for cdn
-    reset_folder(PY_TDESIGN_DIST, exist_ok=True)
-    shutil.copyfile(
-        TDESIGN_JS_FILE_PATH, PY_TDESIGN_DIST.joinpath(TDESIGN_JS_FILE_PATH.name)
-    )
-    shutil.copyfile(
-        TDESIGN_CSS_FILE_PATH, PY_TDESIGN_DIST.joinpath(TDESIGN_CSS_FILE_PATH.name)
-    )
-    print(f"Copied to target folder [{STATIC_DIR_PATH}]")
+    if not skip_cdn:
+        # for cdn
+        reset_folder(PY_TDESIGN_DIST, exist_ok=True)
+        shutil.copyfile(
+            TDESIGN_JS_FILE_PATH, PY_TDESIGN_DIST.joinpath(TDESIGN_JS_FILE_PATH.name)
+        )
+        shutil.copyfile(
+            TDESIGN_CSS_FILE_PATH, PY_TDESIGN_DIST.joinpath(TDESIGN_CSS_FILE_PATH.name)
+        )
+        print(
+            f"Copied to target folder [{STATIC_DIR_PATH}] and CDN folder [{PY_TDESIGN_DIST}]"
+        )
+    else:
+        print(f"Copied to target folder [{STATIC_DIR_PATH}] (skipped CDN files)")
 
 
 if __name__ == "__main__":
-    copy2py()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--no-cdn",
+        action="store_true",
+        help="Skip copying CDN files to tdesign-dist",
+    )
+    args = parser.parse_args()
+
+    copy2py(skip_cdn=args.no_cdn)
