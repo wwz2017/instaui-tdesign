@@ -26,6 +26,8 @@ uv add instaui-tdesign
 from instaui import ui
 import instaui_tdesign as td
 
+td.use(locale="en-US")
+
 @ui.page('/')
 def home():
     info = ui.state(
