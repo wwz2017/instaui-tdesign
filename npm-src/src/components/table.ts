@@ -1,6 +1,14 @@
-import type { Ref, SetupContext } from "vue";
-import type { PaginationProps, TableProps, TableSort } from "tdesign-vue-next";
-import { computed, ref } from "vue";
+import type { ComputedRef, Ref, SetupContext } from "vue";
+import type { PaginationProps, TableProps } from "tdesign-vue-next";
+import { computed, ref, watch } from "vue";
+
+type TRequiredTableColumns = NonNullable<TableProps["columns"]>;
+const m_defaultTableAttrs = {
+  hover: true,
+  bordered: true,
+  tableLayout: "auto",
+  showSortColumnBgColor: true,
+};
 
 export function usePagination(attrs: SetupContext["attrs"]) {
   return computed(() => {
@@ -41,43 +49,53 @@ export function usePagination(attrs: SetupContext["attrs"]) {
 
 export function withDefaultAttrs(attrs: SetupContext["attrs"]) {
   let sort = ref(attrs.sort as TableProps["sort"]);
-  const tableData = ref(attrs.data as TableProps["data"]);
+  const tableData = ref([...((attrs.data as TableProps["data"]) ?? [])]);
+
+  watch(
+    () => attrs.data,
+    (data) => {
+      tableData.value = [...(data as any[])];
+    }
+  );
+
+  const columnsWithInfer = computed(() => {
+    const needInferColumns = !attrs.columns && tableData.value.length > 0;
+    const result = needInferColumns
+      ? inferColumns(tableData.value)
+      : attrs.columns ?? [];
+    return result as TRequiredTableColumns;
+  });
+
+  const {
+    onSortChange,
+    onDataChange,
+    columns: realColumns,
+    multipleSort,
+  } = useTableSort({
+    sort,
+    tableData,
+    columns: columnsWithInfer,
+  });
 
   const bindAttrs = computed(() => {
-    const { columns, data = [], ...rest } = attrs as unknown as TableProps;
-
-    const needInferColumns = !columns && data.length > 0;
-    const columnsWithInfer = needInferColumns ? inferColumns(data) : columns;
-    const {
-      onSortChange,
-      columns: realColumns,
-      multipleSort,
-    } = useTableSort({
-      sort,
-      tableData,
-      columns: columnsWithInfer,
-    });
-
     return {
-      hover: true,
-      bordered: true,
-      tableLayout: "auto",
-      columns: realColumns,
-      onSortChange,
-      multipleSort,
-      showSortColumnBgColor: true,
-      ...rest,
+      ...m_defaultTableAttrs,
+      ...attrs,
     } as TableProps;
   });
 
   return {
     sort,
     tableData,
+    onSortChange,
+    onDataChange,
+    columns: realColumns,
+    multipleSort,
     bindAttrs,
   };
 }
 
-function inferColumns(data: any[]): TableProps["columns"] {
+function inferColumns(data: any[]): TRequiredTableColumns {
   const firstRow = data[0];
 
   const keys = Object.keys(firstRow);
@@ -125,38 +143,51 @@ function makeDefaultSorter(column: { colKey: string }) {
 function useTableSort(options: {
   tableData: Ref<TableProps["data"]>;
   sort: Ref<TableProps["sort"]>;
-  columns: TableProps["columns"];
+  columns: ComputedRef<TRequiredTableColumns>;
 }): {
-  onSortChange: TableProps["onSortChange"] | undefined;
-  columns: TableProps["columns"];
-  multipleSort: boolean;
+  onSortChange: TableProps["onSortChange"];
+  onDataChange: TableProps["onDataChange"];
+  columns: ComputedRef<TRequiredTableColumns>;
+  multipleSort: ComputedRef<boolean>;
 } {
   const { tableData, sort, columns } = options;
-  let needSort = false;
-  let sortCount = 0;
 
-  const enhancedColumns = columns?.map((col) => {
-    if (col.sorter === true) {
-      needSort = true;
-      sortCount++;
-      return {
-        ...col,
-        sorter: makeDefaultSorter(col as { colKey: string }),
-      };
-    }
-    return col;
+  const enhancedColumns = computed(() => {
+    return columns.value.map((col) => {
+      if (col.sorter === true) {
+        return {
+          ...col,
+          sorter: makeDefaultSorter(col as { colKey: string }),
+        };
+      }
+      return col;
+    });
   });
 
-  const onSortChange: TableProps["onSortChange"] | undefined = needSort
-    ? (nextSort, options) => {
-        sort.value = nextSort;
-        tableData.value = options.currentDataSource;
-      }
-    : undefined;
+  const needSort = computed(() =>
+    enhancedColumns.value?.some((col) => col.sorter)
+  );
+
+  const multipleSort = computed(
+    () => enhancedColumns.value.filter((col) => col.sorter).length > 1
+  );
+
+  const onSortChange: TableProps["onSortChange"] = (nextSort, options) => {
+    if (!needSort.value) {
+      return;
+    }
+    sort.value = nextSort;
+    tableData.value = [...(options.currentDataSource ?? [])];
+  };
+
+  const onDataChange: TableProps["onDataChange"] = (newData) => {
+    tableData.value = newData;
+  };
 
   return {
     onSortChange,
+    onDataChange,
     columns: enhancedColumns,
-    multipleSort: sortCount > 1,
+    multipleSort,
   };
 }

@@ -26,6 +26,19 @@ def test_table(context: Context):
     context.should_see("foo")
 
 
+def test_table_displays_data_from_computed(context: Context):
+    @context.register_page
+    def index():
+        @ui.computed()
+        def computed_data():
+            return [{"name": "foo"}, {"name": "bar"}]
+
+        td.table(computed_data, row_key="name")
+
+    context.open()
+    context.should_see("foo")
+
+
 def test_cell_slot(context: Context):
     @context.register_page
     def index():
