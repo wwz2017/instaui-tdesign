@@ -154,6 +154,7 @@ function useTableSort(options: {
 
   const enhancedColumns = computed(() => {
     return columns.value.map((col) => {
+      col = normalizeTableColumnRecord(col);
       if (col.sorter === true) {
         return {
           ...col,
@@ -190,4 +191,39 @@ function useTableSort(options: {
     columns: enhancedColumns,
     multipleSort,
   };
+}
+
+function normalizeTableColumnRecord(
+  column: Record<string, any>
+): Record<string, any> {
+  const colName = column.name ?? column.colKey;
+  const title = `header-cell-${colName}`;
+  const cell = `body-cell-${colName}`;
+  const label = column.label ?? column.colKey;
+
+  return {
+    ...column,
+    name: colName,
+    label,
+    title,
+    cell,
+  };
+}
+
+export function defaultHeaderSlotInfos(
+  slots: SetupContext["slots"],
+  columns: ComputedRef<TRequiredTableColumns>
+) {
+  return computed(() => {
+    const excludeNames = Object.keys(slots).filter((name) =>
+      name.startsWith("header-cell-")
+    );
+
+    return columns.value
+      .filter((col: any) => !excludeNames.includes(col.title))
+      .map((col: any) => ({
+        slotName: `header-cell-${col.name}`,
+        content: col.label ?? col.colKey,
+      }));
+  });
 }

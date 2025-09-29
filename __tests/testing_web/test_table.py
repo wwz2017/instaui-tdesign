@@ -10,7 +10,7 @@ def test_table(context: Context):
     @context.register_page
     def index():
         cols = [
-            {"colKey": "value", "title": "name"},
+            {"colKey": "value", "label": "name"},
         ]
         data = ui.state(
             [
@@ -43,7 +43,7 @@ def test_cell_slot(context: Context):
     @context.register_page
     def index():
         cols = [
-            {"colKey": "name", "title": "name", "cell": "c_name"},
+            {"colKey": "name"},
         ]
         data = ui.state(
             [
@@ -52,9 +52,7 @@ def test_cell_slot(context: Context):
             ]
         )
 
-        with td.table(data, columns=cols, row_key="name").add_cell_slot(
-            "c_name"
-        ) as slot:
+        with td.table(data, columns=cols, row_key="name").add_cell_slot("name") as slot:
             td.button(slot.param("row")["name"])
 
     context.open()
@@ -65,9 +63,9 @@ def test_update_data_with_cell_slot(context: Context):
     @context.register_page
     def index():
         cols = [
-            {"colKey": "name", "title": "name", "cell": "c_name"},
-            {"colKey": "mid", "title": "mid", "cell": "c_mid"},
-            {"colKey": "new_value", "title": "new value", "cell": "c_new_value"},
+            {"colKey": "name"},
+            {"colKey": "mid"},
+            {"colKey": "new_value"},
         ]
         data = ui.state(
             [
@@ -77,7 +75,7 @@ def test_update_data_with_cell_slot(context: Context):
 
         table = td.table(data, columns=cols, row_key="name", pagination=False)
 
-        with table.add_cell_slot("c_new_value") as slot:
+        with table.add_cell_slot("new_value") as slot:
             ui.text(
                 ui.str_format(
                     "{pre}-{mid}-{value}",
@@ -87,13 +85,30 @@ def test_update_data_with_cell_slot(context: Context):
                 )
             )
 
-        with table.add_cell_slot("c_mid") as slot:
+        with table.add_cell_slot("mid") as slot:
             td.input(slot.param("row")["mid"])
 
     context.open()
     context.should_see("x-foo-value")
     context.find("input").fill("bar")
     context.should_see("x-bar-value")
+
+
+def test_header_slot(context: Context):
+    @context.register_page
+    def index():
+        data = ui.state(
+            [
+                {"name": "foo"},
+                {"name": "bar"},
+            ]
+        )
+
+        with td.table(data, row_key="name").add_header_slot("name"):
+            td.button("custom header")
+
+    context.open()
+    context.expect(context.find("button", name="custom header")).to_be_visible()
 
 
 def test_pagination_as_bool(context: Context):

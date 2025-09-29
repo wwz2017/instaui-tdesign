@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import * as TDesign from "tdesign-vue-next";
 import { useAttrs, useSlots } from "vue";
-import { usePagination, withDefaultAttrs } from "./table";
+import {
+  defaultHeaderSlotInfos,
+  usePagination,
+  withDefaultAttrs,
+} from "./table";
 
 defineOptions({ inheritAttrs: false });
 
@@ -18,6 +22,7 @@ const {
 } = withDefaultAttrs(attrs);
 
 const slots = useSlots();
+const headerSlotInfos = defaultHeaderSlotInfos(slots, columns);
 </script>
 
 <template>
@@ -31,6 +36,15 @@ const slots = useSlots();
     @data-change="onDataChange"
     :multiple-sort="multipleSort"
   >
+    <!-- column title slot -->
+    <template
+      v-for="info in headerSlotInfos"
+      v-slot:[info.slotName]
+      :key="info.slotName"
+    >
+      {{ info.content }}
+    </template>
+
     <template v-for="(_, name) in slots" v-slot:[name]="slotProps" :key="name">
       <slot :name="name" v-bind="slotProps" />
     </template>

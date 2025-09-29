@@ -239,14 +239,23 @@ class Table(BaseElement):
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
-    def add_cell_slot(self, cell: str):
+    def add_header_slot(self, name: str):
+        """
+        Add a header slot to the table.
+
+        Args:
+            name (str): The name key to add the slot to.
+        """
+        return TableHeaderSlot(self.add_slot(f"header-cell-{name}"))
+
+    def add_cell_slot(self, name: str):
         """
         Add a cell slot to the table.
 
         Args:
-            cell (str): The cell key to add the slot to.
+            name (str): The name key to add the slot to.
         """
-        return TableCellSlot(self.add_slot(cell))
+        return TableCellSlot(self.add_slot(f"body-cell-{name}"))
 
     def on_async_loading_click(
         self,
@@ -672,6 +681,27 @@ class TableCellSlot:
 
         Args:
             name (typing.Literal[&quot;col&quot;, &quot;colIndex&quot;, &quot;row&quot;, &quot;rowIndex&quot;]): Slot parameter name.
+        """
+        return typing.cast(typing.Any, self.__slot.slot_props(name))
+
+
+class TableHeaderSlot:
+    def __init__(self, slot: Slot) -> None:
+        self.__slot = slot
+
+    def __enter__(self):
+        self.__slot.__enter__()
+        return self
+
+    def __exit__(self, *exc_info):
+        self.__slot.__exit__(*exc_info)
+
+    def param(self, name: typing.Literal["col", "colIndex"]):
+        """
+        Get slot parameter by name.
+
+        Args:
+            name (typing.Literal[&quot;col&quot;, &quot;colIndex&quot;]): Slot parameter name.
         """
         return typing.cast(typing.Any, self.__slot.slot_props(name))
 
