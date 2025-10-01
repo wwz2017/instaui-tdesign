@@ -1,5 +1,10 @@
 from __future__ import annotations
 import typing
+
+from instaui_tdesign.components._icon_param_utils import (
+    make_prefix_icon,
+    make_suffix_icon,
+)
 from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
@@ -13,11 +18,15 @@ class Input(BaseElement):
         value: typing.Optional[typing.Union[str, int, float]] = None,
         *,
         model_value: typing.Optional[typing.Union[str, int, float]] = None,
+        prefix_icon: typing.Optional[str] = None,
+        suffix_icon: typing.Optional[str] = None,
         **kwargs: Unpack[TInputProps],
     ):
         super().__init__("t-input")
 
         try_setup_vmodel(self, value)
+        make_prefix_icon(self, prefix_icon)
+        make_suffix_icon(self, suffix_icon)
 
         self.props(handle_props(kwargs, model_value=model_value))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
@@ -258,7 +267,6 @@ class TInputProps(TypedDict, total=False):
     maxlength: typing.Union[float, str]
     name: str
     placeholder: str
-    prefix_icon: str
     readonly: bool
     show_clear_icon_on_empty: bool
     show_limit_number: bool
@@ -266,7 +274,6 @@ class TInputProps(TypedDict, total=False):
     spell_check: bool
     status: typing.Literal["default", "success", "warning", "error"]
     suffix: str
-    suffix_icon: str
     tips: str
     type: typing.Literal[
         "text", "number", "url", "tel", "password", "search", "submit", "hidden"

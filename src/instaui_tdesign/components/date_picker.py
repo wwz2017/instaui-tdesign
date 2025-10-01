@@ -1,6 +1,11 @@
 from __future__ import annotations
 from datetime import date
 import typing
+
+from instaui_tdesign.components._icon_param_utils import (
+    make_prefix_icon,
+    make_suffix_icon,
+)
 from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
@@ -14,11 +19,15 @@ class DatePicker(BaseElement):
         value: typing.Optional[TDateMultipleValue] = None,
         *,
         model_value: typing.Optional[TDateMultipleValue] = None,
+        prefix_icon: typing.Optional[str] = None,
+        suffix_icon: typing.Optional[str] = None,
         **kwargs: Unpack[TDatePickerProps],
     ):
         super().__init__("t-date-picker")
 
         try_setup_vmodel(self, value)
+        make_prefix_icon(self, prefix_icon)
+        make_suffix_icon(self, suffix_icon)
 
         self.props(handle_props(kwargs, model_value=model_value))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
@@ -108,12 +117,15 @@ class DateRangePicker(BaseElement):
         value: typing.Optional[TDateRangeValue] = None,
         *,
         model_value: typing.Optional[TDateRangeValue] = None,
+        prefix_icon: typing.Optional[str] = None,
+        suffix_icon: typing.Optional[str] = None,
         **kwargs: Unpack[TDateRangePickerProps],
     ):
         super().__init__("t-date-range-picker")
 
         try_setup_vmodel(self, value)
-
+        make_prefix_icon(self, prefix_icon)
+        make_suffix_icon(self, suffix_icon)
         self.props(handle_props(kwargs, model_value=model_value))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -471,14 +483,12 @@ class TDatePickerProps(TypedDict, total=False):
     need_confirm: bool
     placeholder: typing.Union[str, typing.List]
     popup_props: typing.Dict
-    prefix_icon: str
     presets: typing.Dict
     presets_placement: typing.Literal["left", "top", "right", "bottom"]
     readonly: bool
     select_input_props: typing.Dict
     size: typing.Literal["small", "medium", "large"]
     status: typing.Literal["default", "success", "warning", "error"]
-    suffix_icon: str
     time_picker_props: typing.Dict
     tips: str
     default_value: TDateMultipleValue
@@ -510,7 +520,6 @@ class TDateRangePickerProps(TypedDict, total=False):
     panel_preselection: bool
     placeholder: typing.Literal["Array"]
     popup_props: typing.Dict
-    prefix_icon: str
     presets: typing.Dict
     presets_placement: typing.Literal["left", "top", "right", "bottom"]
     readonly: bool
@@ -518,7 +527,6 @@ class TDateRangePickerProps(TypedDict, total=False):
     separator: str
     size: typing.Literal["small", "medium", "large"]
     status: typing.Literal["default", "success", "warning", "error"]
-    suffix_icon: str
     time_picker_props: typing.Dict
     tips: str
     default_value: TDateRangeValue

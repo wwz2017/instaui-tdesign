@@ -1,5 +1,10 @@
 from __future__ import annotations
 import typing
+
+from instaui_tdesign.components._icon_param_utils import (
+    make_prefix_icon,
+    make_suffix_icon,
+)
 from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
@@ -17,12 +22,15 @@ class TreeSelect(BaseElement):
         model_value: typing.Optional[
             TMaybeRef[typing.Union[str, int, typing.List]]
         ] = None,
+        prefix_icon: typing.Optional[str] = None,
+        suffix_icon: typing.Optional[str] = None,
         **kwargs: Unpack[TTreeSelectProps],
     ):
         super().__init__("t-tree-select ")
 
         try_setup_vmodel(self, value)
-
+        make_prefix_icon(self, prefix_icon)
+        make_suffix_icon(self, suffix_icon)
         self.props(handle_props(kwargs, model_value=model_value))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -171,14 +179,12 @@ class TTreeSelectProps(TypedDict, total=False):
     popup_props: TMaybeRef[typing.Dict]
     popup_visible: TMaybeRef[bool]
     default_popup_visible: TMaybeRef[bool]
-    prefix_icon: TMaybeRef[str]
     readonly: TMaybeRef[bool]
     reserve_keyword: TMaybeRef[bool]
     select_input_props: TMaybeRef[typing.Dict]
     size: TMaybeRef[typing.Literal["small", "medium", "large"]]
     status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
     suffix: TMaybeRef[str]
-    suffix_icon: TMaybeRef[str]
     tag_props: TMaybeRef[typing.Dict]
     tips: TMaybeRef[str]
     tree_props: TMaybeRef[typing.Dict]

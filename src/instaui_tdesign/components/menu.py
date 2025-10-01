@@ -1,5 +1,7 @@
 from __future__ import annotations
 import typing
+
+from instaui_tdesign.components._icon_param_utils import make_icon_for_str
 from ._base_element import BaseElement
 from typing_extensions import TypedDict, Unpack
 from instaui.event.event_mixin import EventMixin
@@ -92,11 +94,14 @@ class SubMenu(BaseElement):
     def __init__(
         self,
         content: typing.Optional[str] = None,
+        *,
+        icon: typing.Optional[str] = None,
         **kwargs: Unpack[TSubMenuProps],
     ):
         super().__init__("t-sub-menu")
 
         self.props({"content": content})
+        make_icon_for_str(self, icon)
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -105,11 +110,14 @@ class MenuItem(BaseElement):
     def __init__(
         self,
         content: typing.Optional[str] = None,
+        *,
+        icon: typing.Optional[str] = None,
         **kwargs: Unpack[TMenuItemProps],
     ):
         super().__init__("t-menu-item")
 
         self.props({"content": content})
+        make_icon_for_str(self, icon)
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -162,7 +170,6 @@ class THeadMenuProps(TypedDict, total=False):
 
 class TSubMenuProps(TypedDict, total=False):
     disabled: bool
-    icon: str
     popup_props: typing.Dict
     title: str
     value: typing.Union[int, str]
@@ -171,7 +178,6 @@ class TSubMenuProps(TypedDict, total=False):
 class TMenuItemProps(TypedDict, total=False):
     disabled: bool
     href: str
-    icon: str
     replace: bool
     router: typing.Dict
     router_link: bool

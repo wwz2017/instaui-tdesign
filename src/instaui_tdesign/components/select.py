@@ -1,6 +1,11 @@
 from __future__ import annotations
 import typing
 from instaui import ui
+
+from instaui_tdesign.components._icon_param_utils import (
+    make_prefix_icon,
+    make_suffix_icon,
+)
 from ._base_element import BaseElement
 from instaui.components.content import Content
 from instaui.event.event_mixin import EventMixin
@@ -25,6 +30,8 @@ class Select(BaseElement):
         value: typing.Optional[TMaybeRef[typing.Any]] = None,
         *,
         model_value: typing.Optional[TMaybeRef[typing.Any]] = None,
+        prefix_icon: typing.Optional[str] = None,
+        suffix_icon: typing.Optional[str] = None,
         **kwargs: Unpack[TSelectProps],
     ):
         super().__init__("t-select")
@@ -42,7 +49,8 @@ class Select(BaseElement):
 
         elif isinstance(options, list) and options and not isinstance(options[0], dict):
             options = [{"label": str(item), "value": item} for item in options]
-
+        make_prefix_icon(self, prefix_icon)
+        make_suffix_icon(self, suffix_icon)
         self.props({"options": options})
         try_setup_vmodel(self, value)
 
@@ -220,7 +228,6 @@ class TSelectProps(TypedDict, total=False):
     popup_props: TMaybeRef[typing.Dict]
     popup_visible: TMaybeRef[bool]
     default_popup_visible: TMaybeRef[bool]
-    prefix_icon: TMaybeRef[str]
     readonly: TMaybeRef[bool]
     reserve_keyword: TMaybeRef[bool]
     scroll: TMaybeRef[typing.Dict]
@@ -229,7 +236,6 @@ class TSelectProps(TypedDict, total=False):
     size: TMaybeRef[typing.Literal["small", "medium", "large"]]
     status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
     suffix: TMaybeRef[str]
-    suffix_icon: TMaybeRef[str]
     tag_input_props: TMaybeRef[typing.Dict]
     tag_props: TMaybeRef[typing.Dict]
     tips: TMaybeRef[str]

@@ -1,5 +1,10 @@
 from __future__ import annotations
 import typing
+
+from instaui_tdesign.components._icon_param_utils import (
+    make_prefix_icon,
+    make_suffix_icon,
+)
 from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
@@ -13,12 +18,15 @@ class TagInput(BaseElement):
         value: typing.Optional[str] = None,
         *,
         model_value: typing.Optional[str] = None,
+        prefix_icon: typing.Optional[str] = None,
+        suffix_icon: typing.Optional[str] = None,
         **kwargs: Unpack[TTagInputProps],
     ):
         super().__init__("t-tag-input")
 
         try_setup_vmodel(self, value)
-
+        make_prefix_icon(self, prefix_icon)
+        make_suffix_icon(self, suffix_icon)
         self.props(handle_props(kwargs, model_value=model_value))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -194,12 +202,10 @@ class TTagInputProps(TypedDict, total=False):
     max: float
     min_collapsed_num: float
     placeholder: str
-    prefix_icon: str
     readonly: bool
     size: typing.Literal["small", "medium", "large"]
     status: typing.Literal["default", "success", "warning", "error"]
     suffix: str
-    suffix_icon: str
     tag: str
     tag_props: typing.Dict
     tips: str

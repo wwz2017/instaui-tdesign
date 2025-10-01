@@ -1,5 +1,7 @@
 from __future__ import annotations
 import typing
+
+from instaui_tdesign.components._icon_param_utils import make_icon_for_str
 from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
@@ -24,10 +26,13 @@ class BreadcrumbItem(BaseElement):
     def __init__(
         self,
         content: typing.Optional[TMaybeRef[str]] = None,
+        *,
+        icon: typing.Optional[str] = None,
         **kwargs: Unpack[TBreadcrumbItemProps],
     ):
         super().__init__("t-breadcrumb-item")
         self.props({"content": content})
+        make_icon_for_str(self, icon)
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -59,7 +64,6 @@ class TBreadcrumbProps(TypedDict, total=False):
 class TBreadcrumbItemProps(TypedDict, total=False):
     disabled: TMaybeRef[bool]
     href: TMaybeRef[str]
-    icon: TMaybeRef[str]
     max_width: TMaybeRef[str]
     replace: TMaybeRef[bool]
     router: typing.Dict

@@ -1,5 +1,7 @@
 from __future__ import annotations
 import typing
+
+from instaui_tdesign.components._icon_param_utils import make_icon_for_str
 from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
@@ -50,10 +52,13 @@ class StickyItem(BaseElement):
     def __init__(
         self,
         label: typing.Optional[str] = None,
+        *,
+        icon: typing.Optional[str] = None,
         **kwargs: Unpack[TStickyItemProps],
     ):
         super().__init__("t-sticky-item")
         self.props({"label": label})
+        make_icon_for_str(self, icon)
 
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
@@ -78,7 +83,6 @@ class TStickyToolProps(TypedDict, total=False):
 
 
 class TStickyItemProps(TypedDict, total=False):
-    icon: str
     popup: str
     popup_props: typing.Dict
     trigger: typing.Literal["hover", "click"]

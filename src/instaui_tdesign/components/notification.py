@@ -1,5 +1,7 @@
 from __future__ import annotations
 import typing
+
+from instaui_tdesign.components._icon_param_utils import make_icon_for_bool_or_str
 from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
@@ -15,10 +17,12 @@ class Notification(BaseElement):
         content: typing.Optional[TMaybeRef[str]],
         *,
         title: typing.Optional[TMaybeRef[str]] = None,
+        icon: typing.Union[str, bool, None] = None,
         **kwargs: Unpack[TNotificationProps],
     ):
         super().__init__("t-notification")
         self.props({"content": content, "title": title})
+        make_icon_for_bool_or_str(self, "icon", icon)
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -53,7 +57,6 @@ class TNotificationProps(TypedDict, total=False):
     close_btn: TMaybeRef[typing.Union[str, bool]]
     duration: TMaybeRef[float]
     footer: TMaybeRef[str]
-    icon: TMaybeRef[typing.Union[str, bool]]
     theme: TMaybeRef[typing.Literal["info", "success", "warning", "error"]]
     on_close_btn_click: EventMixin
     on_duration_end: EventMixin

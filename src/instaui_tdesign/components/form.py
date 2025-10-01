@@ -1,5 +1,7 @@
 from __future__ import annotations
 import typing
+
+from instaui_tdesign.components._icon_param_utils import make_icon_for_bool_or_str
 from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
@@ -10,10 +12,13 @@ from ._utils import handle_props, handle_event_from_props
 class Form(BaseElement):
     def __init__(
         self,
+        *,
+        status_icon: typing.Union[bool, str, None] = True,
         **kwargs: Unpack[TFormProps],
     ):
         super().__init__("t-form")
 
+        make_icon_for_bool_or_str(self, "statusIcon", status_icon)
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -60,10 +65,12 @@ class Form(BaseElement):
 class FormItem(BaseElement):
     def __init__(
         self,
+        *,
+        status_icon: typing.Union[bool, str, None] = True,
         **kwargs: Unpack[TFormItemProps],
     ):
         super().__init__("t-form-item")
-
+        make_icon_for_bool_or_str(self, "statusIcon", status_icon)
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -85,7 +92,6 @@ class TFormProps(TypedDict, total=False):
     rules: typing.Dict
     scroll_to_first_error: str
     show_error_message: bool
-    status_icon: typing.Union[bool, str]
     submit_with_warning_message: bool
     on_reset: EventMixin
     on_submit: EventMixin
@@ -103,6 +109,5 @@ class TFormItemProps(TypedDict, total=False):
     rules: typing.List
     show_error_message: bool
     status: str
-    status_icon: typing.Union[bool, str]
     success_border: bool
     tips: str

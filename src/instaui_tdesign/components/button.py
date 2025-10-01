@@ -1,11 +1,12 @@
 from __future__ import annotations
 import typing
+
+from instaui_tdesign.components._icon_param_utils import make_icon_for_str
 from ._base_element import BaseElement
 from instaui.components.content import Content
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props
-from .icon import Icon
 
 if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
@@ -31,9 +32,7 @@ class Button(BaseElement):
             with self:
                 Content(content)
 
-        if icon is not None:
-            with self.add_slot("icon"):
-                Icon(icon)
+        make_icon_for_str(self, icon)
 
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore

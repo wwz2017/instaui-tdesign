@@ -1,6 +1,11 @@
 from __future__ import annotations
 import typing
 from instaui.components.slot import Slot
+
+from instaui_tdesign.components._icon_param_utils import (
+    make_icon_for_bool_or_str,
+    make_icon_for_str,
+)
 from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack, Self
@@ -231,11 +236,18 @@ class Table(BaseElement):
             TMaybeRef[typing.Union[typing.Sequence[TPrimaryTableCol], typing.Sequence]]
         ] = None,
         row_key: typing.Optional[TMaybeRef[str]] = None,
+        *,
+        expand_icon: typing.Union[str, bool, None] = None,
+        filter_icon: typing.Union[str, None] = None,
+        sort_icon: typing.Union[str, None] = None,
         **kwargs: Unpack[TPrimaryTableProps],
     ):
         super().__init__("t-table")
         _common_table_props_update(kwargs)  # type: ignore
         self.props({"data": data, "columns": columns, "row-key": row_key})
+        make_icon_for_bool_or_str(self, "expandIcon", expand_icon)
+        make_icon_for_str(self, filter_icon, slot_name="filterIcon")
+        make_icon_for_str(self, sort_icon, slot_name="sortIcon")
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -488,10 +500,15 @@ class EnhancedTable(BaseElement):
         data: typing.Optional[TMaybeRef[typing.List]] = None,
         columns: typing.Optional[TMaybeRef[typing.List[TPrimaryTableCol]]] = None,
         row_key: typing.Optional[TMaybeRef[str]] = None,
+        *,
+        tree_expand_and_fold_icon: typing.Union[str, None] = None,
         **kwargs: Unpack[TEnhancedTableProps],
     ):
         super().__init__("t-enhanced-table")
         self.props({"data": data, "columns": columns, "row-key": row_key})
+        make_icon_for_str(
+            self, tree_expand_and_fold_icon, slot_name="treeExpandAndFoldIcon"
+        )
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -596,12 +613,10 @@ class TPrimaryTableProps(TBaseTableProps, total=False):
     drag_sort_options: TMaybeRef[typing.Dict]
     editable_cell_state: TMaybeRef[str]
     editable_row_keys: TMaybeRef[typing.List]
-    expand_icon: TMaybeRef[typing.Union[TMaybeRef[bool], TMaybeRef[str]]]
     expand_on_row_click: TMaybeRef[bool]
     expanded_row: TMaybeRef[TBaseTableCol]
     expanded_row_keys: TMaybeRef[typing.List]
     default_expanded_row_keys: TMaybeRef[typing.List]
-    filter_icon: TMaybeRef[str]
     filter_row: TMaybeRef[typing.Literal["TNode"]]
     filter_value: TMaybeRef[typing.Dict]
     default_filter_value: TMaybeRef[typing.Dict]
@@ -619,7 +634,6 @@ class TPrimaryTableProps(TBaseTableProps, total=False):
     default_sort: TMaybeRef[
         typing.Union[TMaybeRef[typing.Dict], TMaybeRef[typing.List]]
     ]
-    sort_icon: TMaybeRef[str]
     sort_on_row_draggable: TMaybeRef[bool]
     on_async_loading_click: EventMixin
     on_cell_click: EventMixin
@@ -658,7 +672,6 @@ class TEnhancedTableProps(TPrimaryTableCol):
     expanded_tree_nodes: TMaybeRef[typing.List]
     default_expanded_tree_nodes: TMaybeRef[typing.List]
     tree: TMaybeRef[typing.Dict]
-    tree_expand_and_fold_icon: TMaybeRef[str]
     on_abnormal_drag_sort: EventMixin
     on_expanded_tree_nodes_change: EventMixin
     on_tree_expand_change: EventMixin

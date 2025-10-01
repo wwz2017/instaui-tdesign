@@ -1,5 +1,7 @@
 from __future__ import annotations
 import typing
+
+from instaui_tdesign.components._icon_param_utils import make_icon_for_bool_or_str
 from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
@@ -17,6 +19,7 @@ class Tree(BaseElement):
         activable: typing.Optional[TMaybeRef[bool]] = None,
         hover: typing.Optional[TMaybeRef[bool]] = None,
         transition: typing.Optional[TMaybeRef[bool]] = None,
+        icon: typing.Union[str, bool, None] = None,
         **kwargs: Unpack[TTreeProps],
     ):
         super().__init__("t-tree")
@@ -28,6 +31,7 @@ class Tree(BaseElement):
                 "transition": transition,
             }
         )
+        make_icon_for_bool_or_str(self, "icon", icon)
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -195,7 +199,6 @@ class TTreeProps(TypedDict, total=False):
     expanded: TMaybeRef[typing.List]
     filter: TMaybeRef[str]
     height: TMaybeRef[typing.Union[float, str]]
-    icon: TMaybeRef[typing.Union[bool, str]]
     keys: TMaybeRef[typing.Dict]
     label: TMaybeRef[typing.Literal["boolean"]]
     lazy: TMaybeRef[bool]

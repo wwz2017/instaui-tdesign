@@ -1,5 +1,7 @@
 from __future__ import annotations
 import typing
+
+from instaui_tdesign.components._icon_param_utils import make_icon_for_bool_or_str
 from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
@@ -39,10 +41,12 @@ class Steps(BaseElement):
 class StepItem(BaseElement):
     def __init__(
         self,
+        *,
+        icon: typing.Union[bool, str, None] = None,
         **kwargs: Unpack[TStepItemProps],
     ):
         super().__init__("t-step-item")
-
+        make_icon_for_bool_or_str(self, "icon", icon)
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -61,7 +65,6 @@ class TStepsProps(TypedDict, total=False):
 class TStepItemProps(TypedDict, total=False):
     content: str
     extra: str
-    icon: typing.Union[bool, str]
     status: typing.Literal["default", "process", "finish", "error"]
     title: str
     value: typing.Union[int, str]

@@ -1,5 +1,8 @@
 from __future__ import annotations
 import typing
+
+from instaui_tdesign.components._icon_param_utils import make_icon_for_str
+
 from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
@@ -13,11 +16,14 @@ class Alert(BaseElement):
     def __init__(
         self,
         message: typing.Optional[TMaybeRef[str]] = None,
+        *,
+        icon: typing.Optional[str] = None,
         **kwargs: Unpack[TAlertProps],
     ):
         super().__init__("t-alert")
 
         self.props({"message": message})
+        make_icon_for_str(self, icon)
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -51,7 +57,6 @@ class Alert(BaseElement):
 class TAlertProps(TypedDict, total=False):
     close: TMaybeRef[typing.Literal["boolean"]]
     close_btn: TMaybeRef[typing.Literal["boolean"]]
-    icon: TMaybeRef[str]
     max_line: TMaybeRef[float]
     operation: TMaybeRef[str]
     theme: TMaybeRef[typing.Literal["success", "info", "warning", "error"]]

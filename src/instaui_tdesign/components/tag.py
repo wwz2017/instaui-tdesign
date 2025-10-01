@@ -1,5 +1,7 @@
 from __future__ import annotations
 import typing
+
+from instaui_tdesign.components._icon_param_utils import make_icon_for_str
 from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
@@ -12,11 +14,15 @@ if typing.TYPE_CHECKING:
 class Tag(BaseElement):
     def __init__(
         self,
-        content: typing.Optional[TMaybeRef[typing.Literal["TNode"]]] = None,
+        content: typing.Optional[str] = None,
+        *,
+        icon: typing.Optional[str] = None,
         **kwargs: Unpack[TTagProps],
     ):
         super().__init__("t-tag")
         self.props({"content": content})
+
+        make_icon_for_str(self, icon)
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -51,7 +57,6 @@ class TTagProps(TypedDict, total=False):
     closable: TMaybeRef[bool]
     color: TMaybeRef[str]
     disabled: TMaybeRef[bool]
-    icon: TMaybeRef[str]
     max_width: TMaybeRef[typing.Union[float, str]]
     shape: TMaybeRef[typing.Literal["square", "round", "mark"]]
     size: TMaybeRef[typing.Literal["small", "medium", "large"]]
