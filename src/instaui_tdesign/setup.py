@@ -9,7 +9,9 @@ from instaui_tdesign.components.icon import _reset_prefix
 def use(
     *,
     locale: Optional[Union[TLocale, TCustomizeLocale]] = None,
-    theme: Optional[Literal["default", "green", "violet"]] = None,
+    theme: Optional[
+        Literal["default", "green", "violet", "orange", "blue", "rose", "amber", "teal"]
+    ] = None,
     icon_prefix: Optional[str] = None,
 ):
     """Use tdesign ui.
