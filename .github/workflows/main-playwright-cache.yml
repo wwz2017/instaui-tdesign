@@ -1,0 +1,15 @@
+name: "Main Branch Playwright Cache"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 */6 * *'  
+
+jobs:
+  main-playwright-cache:
+    strategy:
+      matrix:
+        python-version: ['3.13']
+    uses: instaui-python/org-ci-config/.github/workflows/main-playwright-cache.yml@main
+    with:
+      python-version: ${{ matrix.python-version }}
