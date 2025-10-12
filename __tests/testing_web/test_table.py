@@ -264,6 +264,89 @@ def test_sorter_enabled_column_allows_sorting(context: Context):
     table.should_row_values(0, ["bar", "2"])
 
 
+class TestFilterBase:
+    @classmethod
+    def setup_class(cls):
+        cls.data = [
+            {"name": "foo", "cls": "a", "text": "name is foo, class is a"},
+            {"name": "bar", "cls": "b", "text": "name is bar, class is b"},
+        ]
+
+        cls.columns = [
+            {
+                "colKey": "name",
+                "sorter": True,
+                "filter": {
+                    "type": "multiple",
+                },
+            },
+            {
+                "colKey": "cls",
+                "filter": {
+                    "type": "single",
+                },
+            },
+            {"colKey": "text", "filter": {"type": "input"}},
+        ]
+
+    def test_multiple_filter(self, context: Context):
+        @context.register_page
+        def index():
+            td.table(self.data, columns=self.columns, row_key="name")
+
+        context.open()
+        table = use_table_controls(context)
+
+        table.click_filter_icon_for_column("name")
+        table.click_filter_popup("foo")
+        table.should_row_values(1, ["foo", "a", "name is foo, class is a"])
+        table.should_rows_count(2)
+
+    def test_single_filter(self, context: Context):
+        @context.register_page
+        def index():
+            td.table(self.data, columns=self.columns, row_key="name")
+
+        context.open()
+        table = use_table_controls(context)
+
+        table.click_filter_icon_for_column("cls")
+        table.click_filter_popup("a").click_confirm_filter_popup()
+
+        table.should_row_values(1, ["foo", "a", "name is foo, class is a"])
+        table.should_rows_count(2)
+
+    def test_input_filter(self, context: Context):
+        @context.register_page
+        def index():
+            td.table(self.data, columns=self.columns, row_key="name")
+
+        context.open()
+        table = use_table_controls(context)
+
+        table.click_filter_icon_for_column("text")
+        table.fill_input_filter_popup("is foo").click_confirm_filter_popup()
+
+        table.should_row_values(1, ["foo", "a", "name is foo, class is a"])
+        table.should_rows_count(2)
+
+    def test_clear_filter(self, context: Context):
+        @context.register_page
+        def index():
+            td.table(self.data, columns=self.columns, row_key="name")
+
+        context.open()
+        table = use_table_controls(context)
+
+        table.click_filter_icon_for_column("name")
+        table.click_filter_popup("bar")
+
+        table.click_filter_clear_button()
+
+        table.should_rows_count(2)
+        table.should_row_values(0, ["foo", "a", "name is foo, class is a"])
+
+
 @pytest.mark.skip(reason="not implemented yet")
 def test_test_server_side_sorting(context: Context):
     @context.register_page

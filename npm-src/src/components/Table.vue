@@ -1,28 +1,50 @@
 <script setup lang="ts">
 import * as TDesign from "tdesign-vue-next";
+import { useConfig } from "tdesign-vue-next";
 import { useAttrs, useSlots } from "vue";
 import {
   defaultHeaderSlotInfos,
   usePagination,
   withDefaultAttrs,
+  useTableData,
+  useTableColumnsWithInfer,
+  useTableSort,
+  useTableFilter,
 } from "./table";
 
 defineOptions({ inheritAttrs: false });
 
 const attrs = useAttrs();
-const pagination = usePagination(attrs);
-const {
-  sort,
-  onSortChange,
-  onDataChange,
-  columns,
-  multipleSort,
+const { t, globalConfig } = useConfig("table");
+
+const { tableData, orgData, registerRowsHandler } = useTableData(attrs);
+const [columnsWithInfer, registerColumnsHandler] = useTableColumnsWithInfer({
   tableData,
-  bindAttrs,
-} = withDefaultAttrs(attrs);
+  attrs,
+});
+
+const pagination = usePagination({ tableData, attrs });
+const { sort, onSortChange, multipleSort } = useTableSort({
+  registerRowsHandler,
+  attrs,
+  registerColumnsHandler,
+  columns: columnsWithInfer,
+});
+
+const { onFilterChange, filterValue, resetFilters, filterResultText } =
+  useTableFilter({
+    tableData: orgData,
+    registerRowsHandler,
+    attrs,
+    registerColumnsHandler,
+    columns: columnsWithInfer,
+    tdesignGlobalConfig: globalConfig.value,
+  });
+
+const bindAttrs = withDefaultAttrs({ attrs });
 
 const slots = useSlots();
-const headerSlotInfos = defaultHeaderSlotInfos(slots, columns);
+const headerSlotInfos = defaultHeaderSlotInfos(slots, columnsWithInfer);
 </script>
 
 <template>
@@ -31,9 +53,10 @@ const headerSlotInfos = defaultHeaderSlotInfos(slots, columns);
     :pagination="pagination"
     :sort="sort"
     :data="tableData"
-    :columns="columns"
+    :columns="columnsWithInfer"
+    :filter-value="filterValue"
     @sort-change="onSortChange"
-    @data-change="onDataChange"
+    @filter-change="onFilterChange"
     :multiple-sort="multipleSort"
   >
     <!-- column title slot -->
@@ -45,6 +68,24 @@ const headerSlotInfos = defaultHeaderSlotInfos(slots, columns);
       {{ info.content }}
     </template>
 
+    <!-- filter row slot -->
+
+    <template #filter-row>
+      <div>
+        <span>{{
+          t(globalConfig.searchResultText, {
+            result: filterResultText(),
+            count: tableData.length,
+          })
+        }}</span>
+
+        <TDesign.Button theme="primary" variant="text" @click="resetFilters">{{
+          globalConfig.clearFilterResultButtonText
+        }}</TDesign.Button>
+      </div>
+    </template>
+
+    <!-- other slots -->
     <template v-for="(_, name) in slots" v-slot:[name]="slotProps" :key="name">
       <slot :name="name" v-bind="slotProps" />
     </template>

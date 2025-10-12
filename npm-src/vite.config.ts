@@ -25,7 +25,11 @@ export default defineConfig({
       fileName: "instaui-tdesign",
     },
     rollupOptions: {
-      external: ["vue", "tdesign-vue-next"],
+      external: [
+        "vue",
+        "tdesign-vue-next",
+        "tdesign-vue-next/es/config-provider/hooks/useConfig",
+      ],
       output: [
         {
           format: "es",

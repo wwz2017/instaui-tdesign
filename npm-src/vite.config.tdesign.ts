@@ -5,10 +5,7 @@ import * as path from "path";
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(
-        __dirname,
-        "node_modules/tdesign-vue-next/es/index.mjs"
-      ),
+      entry: path.resolve(__dirname, "tdesign-es/index.ts"),
       name: "TDesignVueNext",
       formats: ["es"],
       fileName: () => "tdesign.min.js",

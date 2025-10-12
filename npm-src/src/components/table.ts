@@ -1,6 +1,12 @@
-import type { ComputedRef, Ref, SetupContext } from "vue";
-import type { PaginationProps, TableProps } from "tdesign-vue-next";
-import { computed, ref, watch } from "vue";
+import type { ComputedRef, SetupContext } from "vue";
+import type {
+  PaginationProps,
+  PrimaryTableCol,
+  TableProps,
+  TableRowData,
+} from "tdesign-vue-next";
+import { computed, ref } from "vue";
+import { orderBy as _orderBy, uniqBy as _uniqBy } from "lodash-es";
 
 type TRequiredTableColumns = NonNullable<TableProps["columns"]>;
 const m_defaultTableAttrs = {
@@ -10,11 +16,79 @@ const m_defaultTableAttrs = {
   showSortColumnBgColor: true,
 };
 
-export function usePagination(attrs: SetupContext["attrs"]) {
+type TTableData = ComputedRef<any[]>;
+type TTableRowsHandler = (data: any[]) => any[];
+
+type TTableColumns = (PrimaryTableCol<TableRowData> & {
+  label: string;
+  name: string;
+})[];
+
+type TTableColumnsWithInfer = ComputedRef<TTableColumns>;
+type TTableColumnHandler = (columns: TTableColumns) => TTableColumns;
+
+export function useTableData(attrs: SetupContext["attrs"]) {
+  const handlers = [] as TTableRowsHandler[];
+
+  const orgData = computed(() => (attrs.data as TableProps["data"]) ?? []);
+
+  const tableData = computed(() => {
+    const initData = orgData.value;
+    return handlers.reduce((data, handler) => handler(data), initData);
+  });
+
+  const registerRowsHandler = (handler: TTableRowsHandler) => {
+    handlers.push(handler);
+  };
+
+  return {
+    tableData,
+    orgData,
+    registerRowsHandler,
+  };
+}
+
+export function useTableColumnsWithInfer(options: {
+  tableData: TTableData;
+  attrs: SetupContext["attrs"];
+}) {
+  const { tableData, attrs } = options;
+  const handlers = [] as TTableColumnHandler[];
+
+  const columnsWithInfer = computed(() => {
+    const needInferColumns = !attrs.columns && tableData.value.length > 0;
+    let result = (
+      needInferColumns ? inferColumns(tableData.value) : attrs.columns ?? []
+    ) as TTableColumns;
+
+    result = result.map(normalizeTableColumnRecord) as TTableColumns;
+
+    for (const handler of handlers) {
+      result = handler(result);
+    }
+
+    return result;
+  });
+
+  function registerHandler(handler: TTableColumnHandler) {
+    handlers.push(handler);
+  }
+
+  return [columnsWithInfer, registerHandler] as [
+    TTableColumnsWithInfer,
+    (handler: TTableColumnHandler) => void
+  ];
+}
+
+export function usePagination(options: {
+  tableData: TTableData;
+  attrs: SetupContext["attrs"];
+}) {
+  const { tableData, attrs } = options;
+
   return computed(() => {
-    const { pagination, data = [] } = attrs as {
+    const { pagination } = attrs as {
       pagination: PaginationProps | boolean | number;
-      data: any[];
     };
 
     let realPagination = undefined;
@@ -41,41 +115,167 @@ export function usePagination(attrs: SetupContext["attrs"]) {
 
     return {
       defaultCurrent: 1,
-      total: data.length,
+      total: tableData.value.length,
       ...realPagination,
     };
   });
 }
 
-export function withDefaultAttrs(attrs: SetupContext["attrs"]) {
+export function useTableSort(options: {
+  registerRowsHandler: (handler: TTableRowsHandler) => void;
+  attrs: SetupContext["attrs"];
+  columns: TTableColumnsWithInfer;
+  registerColumnsHandler: (handler: TTableColumnHandler) => void;
+}) {
+  const { attrs, columns, registerRowsHandler } = options;
   let sort = ref(attrs.sort as TableProps["sort"]);
-  const tableData = ref([...((attrs.data as TableProps["data"]) ?? [])]);
 
-  watch(
-    () => attrs.data,
-    (data) => {
-      tableData.value = [...(data as any[])];
-    }
+  const needSort = computed(() => columns.value?.some((col) => col.sorter));
+
+  const multipleSort = computed(
+    () => columns.value.filter((col) => col.sorter).length > 1
   );
 
-  const columnsWithInfer = computed(() => {
-    const needInferColumns = !attrs.columns && tableData.value.length > 0;
-    const result = needInferColumns
-      ? inferColumns(tableData.value)
-      : attrs.columns ?? [];
-    return result as TRequiredTableColumns;
+  registerRowsHandler((rows) => {
+    if (!sort.value) {
+      return rows;
+    }
+
+    const sortInfos = Array.isArray(sort.value)
+      ? sort.value
+      : ([sort.value] as {
+          sortBy: string;
+          descending: boolean;
+        }[]);
+
+    const sortFields = sortInfos.map((item) => item.sortBy);
+    const sortOrders = sortInfos.map((item) =>
+      item.descending ? "desc" : "asc"
+    );
+
+    return _orderBy(rows, sortFields, sortOrders);
   });
 
-  const {
+  const onSortChange: TableProps["onSortChange"] = (newSort) => {
+    if (!needSort.value) {
+      return;
+    }
+    sort.value = newSort;
+  };
+
+  return {
     onSortChange,
-    onDataChange,
-    columns: realColumns,
     multipleSort,
-  } = useTableSort({
     sort,
-    tableData,
-    columns: columnsWithInfer,
+  };
+}
+
+export function useTableFilter(options: {
+  tableData: TTableData;
+  registerRowsHandler: (handler: TTableRowsHandler) => void;
+  attrs: SetupContext["attrs"];
+  columns: TTableColumnsWithInfer;
+  registerColumnsHandler: (handler: TTableColumnHandler) => void;
+  tdesignGlobalConfig: Record<string, any>;
+}) {
+  const { tableData, registerColumnsHandler, registerRowsHandler, columns } =
+    options;
+
+  registerColumnsHandler(
+    (columns) =>
+      columns.map((column) =>
+        normalizeTableFilterRecord(
+          column,
+          tableData,
+          options.tdesignGlobalConfig
+        )
+      ) as TTableColumns
+  );
+
+  const filterValue = ref<TableProps["filterValue"]>();
+
+  const colKey2Info = new Map(columns.value.map((col) => [col.colKey, col]));
+
+  registerRowsHandler((rows) => {
+    if (!filterValue.value) {
+      return rows;
+    }
+
+    const filterInfos = Object.keys(filterValue.value).map((key) => {
+      const value = (filterValue.value as any)[key] as any;
+      const type = colKey2Info.get(key)!.filter!.type!;
+
+      return {
+        key,
+        value,
+        type,
+      };
+    });
+
+    return rows.filter((row) => {
+      return filterInfos.every((info) => {
+        if (info.type === "multiple") {
+          const filterValues = info.value as string[];
+          if (filterValues.length === 0) return true;
+          return filterValues.includes(row[info.key]);
+        }
+
+        if (info.type === "single") {
+          const filterValue = info.value as any;
+          if (!filterValue) return true;
+          return row[info.key] === filterValue;
+        }
+
+        if (info.type === "input") {
+          const filterValue = info.value as string;
+          if (!filterValue) return true;
+          return row[info.key].toString().includes(filterValue);
+        }
+
+        throw new Error("not support filter type");
+      });
+    });
   });
+
+  const onFilterChange: TableProps["onFilterChange"] = (filters, ctx) => {
+    if (!ctx.col) {
+      filterValue.value = undefined;
+      return;
+    }
+    filterValue.value = {
+      ...filters,
+    };
+  };
+
+  function resetFilters() {
+    filterValue.value = undefined;
+  }
+
+  function filterResultText(): string | null {
+    if (!filterValue.value) return null;
+
+    return Object.keys(filterValue.value)
+      .map((key) => {
+        const label = colKey2Info.get(key)!.label;
+        const values = filterValue.value![key];
+        if (values.length === 0) {
+          return "";
+        }
+        return `${label}: ${JSON.stringify(values)}`;
+      })
+      .join("; ");
+  }
+
+  return {
+    onFilterChange,
+    filterValue,
+    resetFilters,
+    filterResultText,
+  };
+}
+
+export function withDefaultAttrs(options: { attrs: SetupContext["attrs"] }) {
+  const { attrs } = options;
 
   const bindAttrs = computed(() => {
     return {
@@ -84,15 +284,7 @@ export function withDefaultAttrs(attrs: SetupContext["attrs"]) {
     } as TableProps;
   });
 
-  return {
-    sort,
-    tableData,
-    onSortChange,
-    onDataChange,
-    columns: realColumns,
-    multipleSort,
-    bindAttrs,
-  };
+  return bindAttrs;
 }
 
 function inferColumns(data: any[]): TRequiredTableColumns {
@@ -107,90 +299,6 @@ function inferColumns(data: any[]): TRequiredTableColumns {
       sorter: true,
     };
   });
-}
-
-function makeDefaultSorter(column: { colKey: string }) {
-  const key = column.colKey;
-
-  return (a: Record<string, any>, b: Record<string, any>) => {
-    const v1 = a[key];
-    const v2 = b[key];
-
-    // null/undefined last
-    if (v1 == null && v2 == null) return 0;
-    if (v1 == null) return 1;
-    if (v2 == null) return -1;
-
-    // number
-    if (typeof v1 === "number" && typeof v2 === "number") {
-      return v1 - v2;
-    }
-
-    // Date
-    if (v1 instanceof Date && v2 instanceof Date) {
-      return v1.getTime() - v2.getTime();
-    }
-
-    // string
-    if (typeof v1 === "string" && typeof v2 === "string") {
-      return v1.localeCompare(v2, undefined, { numeric: true });
-    }
-
-    return String(v1).localeCompare(String(v2), undefined, { numeric: true });
-  };
-}
-
-function useTableSort(options: {
-  tableData: Ref<TableProps["data"]>;
-  sort: Ref<TableProps["sort"]>;
-  columns: ComputedRef<TRequiredTableColumns>;
-}): {
-  onSortChange: TableProps["onSortChange"];
-  onDataChange: TableProps["onDataChange"];
-  columns: ComputedRef<TRequiredTableColumns>;
-  multipleSort: ComputedRef<boolean>;
-} {
-  const { tableData, sort, columns } = options;
-
-  const enhancedColumns = computed(() => {
-    return columns.value.map((col) => {
-      col = normalizeTableColumnRecord(col);
-      if (col.sorter === true) {
-        return {
-          ...col,
-          sorter: makeDefaultSorter(col as { colKey: string }),
-        };
-      }
-      return col;
-    });
-  });
-
-  const needSort = computed(() =>
-    enhancedColumns.value?.some((col) => col.sorter)
-  );
-
-  const multipleSort = computed(
-    () => enhancedColumns.value.filter((col) => col.sorter).length > 1
-  );
-
-  const onSortChange: TableProps["onSortChange"] = (nextSort, options) => {
-    if (!needSort.value) {
-      return;
-    }
-    sort.value = nextSort;
-    tableData.value = [...(options.currentDataSource ?? [])];
-  };
-
-  const onDataChange: TableProps["onDataChange"] = (newData) => {
-    tableData.value = newData;
-  };
-
-  return {
-    onSortChange,
-    onDataChange,
-    columns: enhancedColumns,
-    multipleSort,
-  };
 }
 
 function normalizeTableColumnRecord(
@@ -208,6 +316,86 @@ function normalizeTableColumnRecord(
     title,
     cell,
   };
+}
+
+function normalizeTableFilterRecord(
+  column: Record<string, any>,
+  tableData: TTableData,
+  tdesignGlobalConfig: Record<string, any>
+) {
+  const hasFilter = "filter" in column;
+
+  if (!hasFilter) {
+    return column;
+  }
+
+  if (!("type" in column.filter)) throw new Error("filter type is required");
+
+  const { colKey } = column;
+  const { type } = column.filter as { type: "multiple" | "single" | "input" };
+
+  if (type === "multiple") {
+    const list = _uniqBy(tableData.value, colKey).map((item) => {
+      return {
+        label: item[colKey],
+        value: item[colKey],
+      };
+    });
+
+    const newFilter = {
+      resetValue: [],
+      list: [
+        { label: tdesignGlobalConfig.selectAllText, checkAll: true },
+        ...list,
+      ],
+      ...column.filter,
+    };
+
+    return {
+      ...column,
+      filter: newFilter,
+    };
+  }
+
+  if (type === "single") {
+    const list = _uniqBy(tableData.value, colKey).map((item) => {
+      return {
+        label: item[colKey],
+        value: item[colKey],
+      };
+    });
+
+    const newFilter = {
+      resetValue: null,
+      list,
+      showConfirmAndReset: true,
+      ...column.filter,
+    };
+
+    return {
+      ...column,
+      filter: newFilter,
+    };
+  }
+
+  if (type === "input") {
+    const newFilter = {
+      resetValue: "",
+      confirmEvents: ["onEnter"],
+      showConfirmAndReset: true,
+      ...column.filter,
+      props: {
+        ...column.filter?.props,
+      },
+    };
+
+    return {
+      ...column,
+      filter: newFilter,
+    };
+  }
+
+  throw new Error("not support filter type");
 }
 
 export function defaultHeaderSlotInfos(
