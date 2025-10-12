@@ -14,19 +14,55 @@ from ._utils import handle_props, handle_event_from_props
 
 if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
-    import pandas as pd  # type: ignore
+
+# region pandas protocol
+
+
+@typing.runtime_checkable
+class PandasDataFrameProtocol(typing.Protocol):
+    def to_dict(self, orient: typing.Any) -> list: ...
+
+    @property
+    def columns(self) -> typing.Iterable: ...
+
+
+# endregion
+
+
+# region polars protocol
+
+
+@typing.runtime_checkable
+class PolarsDataFrameProtocol(typing.Protocol):
+    @property
+    def columns(self) -> list[str]: ...
+
+    def to_dicts(self) -> list: ...
+
+
+# endregion
 
 
 class BaseTable(BaseElement):
     def __init__(
         self,
-        data: typing.Optional[TMaybeRef[typing.List]] = None,
+        data: typing.Union[
+            TMaybeRef[typing.List],
+            PandasDataFrameProtocol,
+            PolarsDataFrameProtocol,
+            None,
+        ] = None,
         columns: typing.Optional[TMaybeRef[typing.List[TBaseTableCol]]] = None,
         row_key: typing.Optional[TMaybeRef[str]] = None,
         **kwargs: Unpack[TBaseTableProps],
     ):
         super().__init__("t-base-table")
         _common_table_props_update(kwargs)  # type: ignore
+        if isinstance(data, PolarsDataFrameProtocol):
+            data = _polars_to_data(data)
+        elif isinstance(data, PandasDataFrameProtocol):
+            data = _pandas_to_data(data)
+
         self.props({"data": data, "columns": columns, "row-key": row_key})
 
         self.props(handle_props(kwargs))  # type: ignore
@@ -231,7 +267,12 @@ class BaseTable(BaseElement):
 class Table(BaseElement):
     def __init__(
         self,
-        data: typing.Optional[TMaybeRef[typing.List]] = None,
+        data: typing.Union[
+            TMaybeRef[typing.List],
+            PandasDataFrameProtocol,
+            PolarsDataFrameProtocol,
+            None,
+        ] = None,
         columns: typing.Optional[
             TMaybeRef[typing.Union[typing.Sequence[TPrimaryTableCol], typing.Sequence]]
         ] = None,
@@ -244,6 +285,10 @@ class Table(BaseElement):
     ):
         super().__init__("t-table")
         _common_table_props_update(kwargs)  # type: ignore
+        if isinstance(data, PolarsDataFrameProtocol):
+            data = _polars_to_data(data)
+        elif isinstance(data, PandasDataFrameProtocol):
+            data = _pandas_to_data(data)
         self.props({"data": data, "columns": columns, "row-key": row_key})
         make_icon_for_bool_or_str(self, "expandIcon", expand_icon)
         make_icon_for_str(self, filter_icon, slot_name="filterIcon")
@@ -285,16 +330,14 @@ class Table(BaseElement):
     @classmethod
     def from_pandas(
         cls,
-        data: typing.Union["pd.DataFrame", dict],
+        data: typing.Union[PandasDataFrameProtocol, dict],
         *,
         extra_columns: typing.Optional[
             dict[str, typing.Union[dict, typing.Callable[[str], dict]]]
         ] = None,
         **kwargs: Unpack[TPrimaryTableProps],
     ) -> Self:
-        import pandas as pd  # type: ignore
-
-        if isinstance(data, pd.DataFrame):
+        if isinstance(data, PandasDataFrameProtocol):
             extra_columns = extra_columns or {}
             columns = []
 
@@ -302,9 +345,36 @@ class Table(BaseElement):
                 extra = extra_columns.get(col, {})
                 if callable(extra):
                     extra = extra(col)
-                columns.append({"colKey": col, "title": col} | extra)
+                columns.append({"colKey": col, "label": col} | extra)
 
             return cls(data=data.to_dict(orient="records"), columns=columns, **kwargs)  # type: ignore
+
+        if is_binding_tracker(data) or isinstance(data, dict):
+            return cls(data=data["data"], columns=data["columns"], **kwargs)
+
+        raise ValueError("Unsupported data type")
+
+    @classmethod
+    def from_polars(
+        cls,
+        data: typing.Union[PolarsDataFrameProtocol, dict],
+        *,
+        extra_columns: typing.Optional[
+            dict[str, typing.Union[dict, typing.Callable[[str], dict]]]
+        ] = None,
+        **kwargs: Unpack[TPrimaryTableProps],
+    ) -> Self:
+        if isinstance(data, PolarsDataFrameProtocol):
+            extra_columns = extra_columns or {}
+            columns = []
+
+            for col in data.columns:
+                extra = extra_columns.get(col, {})
+                if callable(extra):
+                    extra = extra(col)
+                columns.append({"colKey": col, "label": col} | extra)
+
+            return cls(data=data.to_dicts(), columns=columns, **kwargs)  # type: ignore
 
         if is_binding_tracker(data) or isinstance(data, dict):
             return cls(data=data["data"], columns=data["columns"], **kwargs)
@@ -723,3 +793,11 @@ def _common_table_props_update(props: typing.Dict):
     pass
     # if props.get("pagination") is True:
     #     props.update({"pagination": {"defaultCurrent": 1, "defaultPageSize": 10}})
+
+
+def _pandas_to_data(dataframe: PandasDataFrameProtocol) -> list:
+    return dataframe.to_dict(orient="records")
+
+
+def _polars_to_data(dataframe: PolarsDataFrameProtocol) -> list:
+    return dataframe.to_dicts()

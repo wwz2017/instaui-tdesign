@@ -1,4 +1,6 @@
 import pytest
+import pandas as pd
+import polars as pl
 from __tests.testing_web.context import Context
 from instaui import ui
 import instaui_tdesign as td
@@ -262,6 +264,38 @@ def test_sorter_enabled_column_allows_sorting(context: Context):
 
     table.click_sort_icon_for_column("age", order="desc")
     table.should_row_values(0, ["bar", "2"])
+
+
+def test_from_pandas(context: Context):
+    @context.register_page
+    def index():
+        data = pd.DataFrame([{"name": "foo"}, {"name": "bar"}])
+
+        td.table(data).classes("table1")
+        td.table.from_pandas(data).classes("table2")
+
+    context.open()
+    table1 = use_table_controls(context, selector=".table1")
+    table2 = use_table_controls(context, selector=".table2")
+
+    table1.should_rows_count(2)
+    table2.should_rows_count(2)
+
+
+def test_from_polars(context: Context):
+    @context.register_page
+    def index():
+        data = pl.DataFrame([{"name": "foo"}, {"name": "bar"}])
+
+        td.table(data).classes("table1")
+        td.table.from_polars(data).classes("table2")
+
+    context.open()
+    table1 = use_table_controls(context, selector=".table1")
+    table2 = use_table_controls(context, selector=".table2")
+
+    table1.should_rows_count(2)
+    table2.should_rows_count(2)
 
 
 class TestFilterBase:
