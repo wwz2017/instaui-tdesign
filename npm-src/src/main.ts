@@ -1,7 +1,7 @@
 import { type App } from "vue";
 import * as TDesign from "tdesign-vue-next";
 import Affix from "@/components/Affix.vue";
-import Table from "@/components/Table.vue";
+import Table from "@/components/table/Table.vue";
 import Anchor from "@/components/Anchor.vue";
 import Icon from "@/components/Icon.vue";
 import "tdesign-vue-next/es/style/index.css";

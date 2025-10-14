@@ -2,15 +2,13 @@
 import * as TDesign from "tdesign-vue-next";
 import { useConfig } from "tdesign-vue-next";
 import { useAttrs, useSlots } from "vue";
-import {
-  defaultHeaderSlotInfos,
-  usePagination,
-  withDefaultAttrs,
-  useTableData,
-  useTableColumnsWithInfer,
-  useTableSort,
-  useTableFilter,
-} from "./table";
+import { useTableData } from "./hooks/table-data";
+import { useTableColumnsWithInfer } from "./hooks/columns-infer";
+import { usePagination } from "./hooks/pagination";
+import { useTableSort } from "./hooks/sort";
+import { useTableFilter } from "./hooks/filter";
+import { withDefaultAttrs } from "./hooks/default-attrs";
+import { defaultHeaderSlotInfos } from "./hooks/header-slot";
 
 defineOptions({ inheritAttrs: false });
 

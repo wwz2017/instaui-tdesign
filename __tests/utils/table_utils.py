@@ -25,6 +25,12 @@ class use_table_controls:
         self._table.locator(".t-table__filter-pop").get_by_role("textbox").fill(text)
         return self
 
+    def click_date_filter_popup(self, cell_text: str, index: int = 0):
+        self._table.locator(
+            ".t-table__filter-pop .t-date-range-picker__panel"
+        ).get_by_text(cell_text, exact=True).nth(index).click()
+        return self
+
     def click_filter_popup(self, text: str):
         self._table.locator(".t-table__filter-pop").get_by_text(text).click()
         return self

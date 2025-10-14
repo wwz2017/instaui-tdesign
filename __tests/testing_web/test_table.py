@@ -364,6 +364,39 @@ class TestFilterBase:
         table.should_row_values(1, ["foo", "a", "name is foo, class is a"])
         table.should_rows_count(2)
 
+    def test_date_filter(self, context: Context):
+        @context.register_page
+        def index():
+            data = [
+                {"date": "2000-01-01"},
+                {"date": "2000-01-02"},
+                {"date": "2000-01-03"},
+            ]
+            columns = [
+                {
+                    "colKey": "date",
+                    "filter": {
+                        "type": "date",
+                        "props": {"defaultValue": ["2000-01-01", "2000-01-03"]},
+                    },
+                }
+            ]
+            td.table(data, columns=columns)
+
+        context.open()
+        table = use_table_controls(context)
+
+        table.click_filter_icon_for_column("date")
+
+        # context.pause()
+        table.click_date_filter_popup("2").click_date_filter_popup(
+            "3"
+        ).click_confirm_filter_popup()
+
+        table.should_rows_count(3)
+        table.should_row_values(1, ["2000-01-02"])
+        table.should_row_values(2, ["2000-01-03"])
+
     def test_clear_filter(self, context: Context):
         @context.register_page
         def index():
@@ -379,6 +412,34 @@ class TestFilterBase:
 
         table.should_rows_count(2)
         table.should_row_values(0, ["foo", "a", "name is foo, class is a"])
+
+    def test_predicate(self, context: Context):
+        @context.register_page
+        def index():
+            data = [
+                {"name": "foo", "desc": "this is foo"},
+                {"name": "bar", "desc": "this is bar"},
+            ]
+            cols = [
+                {
+                    "colKey": "name",
+                    "filter": {
+                        "type": "input",
+                        "predicate": "(value, row) => row.desc===value",
+                    },
+                }
+            ]
+            td.table(data, columns=cols)
+
+        context.open()
+        table = use_table_controls(context)
+
+        table.click_filter_icon_for_column("name").fill_input_filter_popup(
+            "this is foo"
+        ).click_confirm_filter_popup()
+
+        table.should_rows_count(2)
+        table.should_row_values(1, ["foo"])
 
 
 @pytest.mark.skip(reason="not implemented yet")
