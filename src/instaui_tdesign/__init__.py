@@ -58,7 +58,7 @@ __all__ = [
     "list",
     "list_item",
     "list_item_meta",
-    "loadding",
+    "loading",
     "select",
     "skeleton",
     "slider",
@@ -175,7 +175,7 @@ from .components.list import (
     ListItem as list_item,
     ListItemMeta as list_item_meta,
 )
-from .components.loadding import Loadding as loadding
+from .components.loadding import Loading as loading
 from .components.select import Select as select
 from .components.skeleton import Skeleton as skeleton
 from .components.slider import Slider as slider

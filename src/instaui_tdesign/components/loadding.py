@@ -8,25 +8,24 @@ if typing.TYPE_CHECKING:
     from instaui.vars.types import TMaybeRef
 
 
-class Loadding(BaseElement):
+class Loading(BaseElement):
     def __init__(
         self,
+        indicator: typing.Optional[bool] = None,
         *,
-        text: typing.Optional[TMaybeRef[str]] = None,
+        text: typing.Optional[typing.Any] = None,
         **kwargs: Unpack[TLoadingProps],
     ):
-        super().__init__("t-loadding")
-        self.props({"text": text})
+        super().__init__("t-loading")
+        self.props({"text": text, "indicator": indicator})
         self.props(handle_props(kwargs))  # type: ignore
 
 
 class TLoadingProps(TypedDict, total=False):
     attach: TMaybeRef[str]
     content: TMaybeRef[str]
-    default: TMaybeRef[str]
     delay: TMaybeRef[float]
     fullscreen: TMaybeRef[bool]
-    indicator: TMaybeRef[typing.Union[TMaybeRef[bool], TMaybeRef[str]]]
     inherit_color: TMaybeRef[bool]
     loading: TMaybeRef[bool]
     prevent_scroll_through: TMaybeRef[bool]
