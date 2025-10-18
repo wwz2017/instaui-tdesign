@@ -15,7 +15,7 @@ def configure(*, locale: Union[TLocale, TCustomizeLocale]):
         locale = get_locale(locale)
 
     def add_config_provider_lifespan():
-        with ConfigProvider(globalConfig=cast(Dict, locale)):
+        with ConfigProvider(global_config=cast(Dict, locale)):
             yield
 
     if _STOP_LIFESPAN is not None:

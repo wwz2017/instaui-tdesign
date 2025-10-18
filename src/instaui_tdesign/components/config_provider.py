@@ -6,7 +6,7 @@ class ConfigProvider(BaseElement):
     def __init__(
         self,
         *,
-        globalConfig: Optional[Dict[str, Any]] = None,
+        global_config: Optional[Dict[str, Any]] = None,
     ):
         super().__init__("t-config-provider")
-        self.props({"globalConfig": globalConfig})
+        self.props({"globalConfig": global_config})

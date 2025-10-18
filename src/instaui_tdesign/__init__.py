@@ -31,6 +31,7 @@ __all__ = [
     "calendar",
     "card",
     "cascader",
+    "config_provider",
     "checkbox",
     "collapse",
     "collapse_panel",
@@ -138,6 +139,7 @@ from .components.button import Button as button
 from .components.calendar import Calendar as calendar
 from .components.card import Card as card
 from .components.cascader import Cascader as cascader
+from .components.config_provider import ConfigProvider as config_provider
 from .components.checkbox import Checkbox as checkbox
 from .components.collapse import Collapse as collapse, CollapsePanel as collapse_panel
 from .components.color_picker import (

@@ -22,7 +22,7 @@ def test_default_locale(context: Context):
 
 
 def test_zh_locale(context: Context):
-    td.use(locale="zh-CN")
+    td.use(locale="zh_CN")
 
     def index():
         td.pagination(total=6)

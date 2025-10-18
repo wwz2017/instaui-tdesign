@@ -55,10 +55,11 @@ class Anchor(BaseElement):
 class AnchorItem(BaseElement):
     def __init__(
         self,
+        href: str,
         **kwargs: Unpack[TAnchorItemProps],
     ):
         super().__init__("t-anchor-item")
-
+        self.props({"href": href})
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -74,7 +75,6 @@ class TAnchorProps(TypedDict, total=False):
 
 
 class TAnchorItemProps(TypedDict, total=False):
-    href: TMaybeRef[str]
     target: TMaybeRef[typing.Literal["_self", "_blank", "_parent", "_top"]]
     title: TMaybeRef[str]
 

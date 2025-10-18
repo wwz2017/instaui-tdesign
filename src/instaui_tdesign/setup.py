@@ -30,7 +30,7 @@ def use(
 
         @ui.page("/")
         def index_page():
-            td.input(placeholder="input")
+            td.input()
     """
 
     if locale:
