@@ -2,7 +2,7 @@ import pytest
 from __tests.testing_zero.context import ZeroContext as Context
 from instaui import zero
 from instaui.launch_collector import get_launch_collector
-import instaui_tdesign as td
+from instaui_tdesign import td
 
 
 @pytest.fixture(scope="function")

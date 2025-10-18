@@ -24,7 +24,7 @@ def use(
     Examples:
     .. code-block:: python
         from instaui import ui
-        import instaui_tdesign as td
+        from instaui_tdesign import td
 
         td.use(theme="violet", locale="en-US")
 

@@ -1,5 +1,5 @@
 from __tests.testing_web.context import Context
-import instaui_tdesign as td
+from instaui_tdesign import td
 from instaui import ui
 from __tests.utils.select_utils import use_select_controls
 

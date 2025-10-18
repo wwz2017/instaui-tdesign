@@ -1,6 +1,6 @@
 from __tests.testing_web.context import Context
 from instaui import ui
-import instaui_tdesign as td
+from instaui_tdesign import td
 
 
 def test_base(context: Context):

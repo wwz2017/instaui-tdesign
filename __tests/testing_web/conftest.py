@@ -2,7 +2,7 @@ import pytest
 from playwright.sync_api import Browser
 from __tests.testing_web.context import Context
 from __tests.testing_web.server import TestServer
-import instaui_tdesign as td
+from instaui_tdesign import td
 
 PAGE_TIMEOUT = 3000
 

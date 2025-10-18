@@ -3,7 +3,7 @@ import pandas as pd
 import polars as pl
 from __tests.testing_web.context import Context
 from instaui import ui
-import instaui_tdesign as td
+from instaui_tdesign import td
 from __tests.utils.pagination_utils import use_pagination_controls
 from __tests.utils.table_utils import use_table_controls
 
