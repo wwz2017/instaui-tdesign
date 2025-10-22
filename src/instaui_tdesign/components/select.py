@@ -20,13 +20,7 @@ if typing.TYPE_CHECKING:
 class Select(BaseElement):
     def __init__(
         self,
-        options: TMaybeRef[
-            typing.Union[
-                typing.List,
-                typing.List[typing.Dict],
-                None,
-            ]
-        ],
+        options: typing.Union[typing.List, typing.List[typing.Dict], None] = None,
         value: typing.Optional[TMaybeRef[typing.Any]] = None,
         *,
         model_value: typing.Optional[TMaybeRef[typing.Any]] = None,
