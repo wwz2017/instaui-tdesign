@@ -1,6 +1,5 @@
 from __future__ import annotations
 import typing
-from instaui import ui
 
 from instaui_tdesign.components._icon_param_utils import (
     make_prefix_icon,
@@ -9,7 +8,6 @@ from instaui_tdesign.components._icon_param_utils import (
 from ._base_element import BaseElement
 from instaui.components.content import Content
 from instaui.event.event_mixin import EventMixin
-from instaui.vars.mixin_types.element_binding import ElementBindingMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
@@ -20,7 +18,7 @@ if typing.TYPE_CHECKING:
 class Select(BaseElement):
     def __init__(
         self,
-        options: typing.Union[typing.List, typing.List[typing.Dict], None] = None,
+        options: typing.Union[list, list[dict], None] = None,
         value: typing.Optional[TMaybeRef[typing.Any]] = None,
         *,
         model_value: typing.Optional[TMaybeRef[typing.Any]] = None,
@@ -30,19 +28,6 @@ class Select(BaseElement):
     ):
         super().__init__("t-select")
 
-        if isinstance(options, ElementBindingMixin):
-            options = ui.js_computed(
-                inputs=[options],
-                code=r"""opts=>{
-    if(opts.length===0){return opts}
-    const data = opts[0]
-    if(typeof data === 'object'){return opts}
-    return opts.map(item=>({label:item.toString(),value:item}))                   
-}""",
-            )  # type: ignore
-
-        elif isinstance(options, list) and options and not isinstance(options[0], dict):
-            options = [{"label": str(item), "value": item} for item in options]
         make_prefix_icon(self, prefix_icon)
         make_suffix_icon(self, suffix_icon)
         self.props({"options": options})
