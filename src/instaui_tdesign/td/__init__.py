@@ -94,6 +94,7 @@ __all__ = [
     "head_menu",
     "message",
     "notification",
+    "notify_plugin",
     "pagination",
     "popconfirm",
     "popup",
@@ -214,7 +215,10 @@ from ..components.menu import (
     HeadMenu as head_menu,
 )
 from ..components.message import Message as message
-from ..components.notification import Notification as notification
+from ..components.notification import (
+    Notification as notification,
+    NotifyPlugin as notify_plugin,
+)
 from ..components.pagination import Pagination as pagination
 from ..components.popconfirm import Popconfirm as popconfirm
 from ..components.popup import Popup as popup
