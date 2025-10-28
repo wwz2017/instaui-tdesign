@@ -89,7 +89,7 @@ class TagInput(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "drag_sort",
+            "drag-sort",
             handler,
             extends=extends,
         )
@@ -128,7 +128,7 @@ class TagInput(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "input_change",
+            "input-change",
             handler,
             extends=extends,
         )

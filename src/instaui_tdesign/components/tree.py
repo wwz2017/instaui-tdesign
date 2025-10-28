@@ -81,7 +81,7 @@ class Tree(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "drag_end",
+            "drag-end",
             handler,
             extends=extends,
         )
@@ -94,7 +94,7 @@ class Tree(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "drag_leave",
+            "drag-leave",
             handler,
             extends=extends,
         )
@@ -107,7 +107,7 @@ class Tree(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "drag_over",
+            "drag-over",
             handler,
             extends=extends,
         )
@@ -120,7 +120,7 @@ class Tree(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "drag_start",
+            "drag-start",
             handler,
             extends=extends,
         )

@@ -52,7 +52,7 @@ class Tabs(custom.element):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "drag_sort",
+            "drag-sort",
             handler,
             extends=extends,
         )

@@ -13,9 +13,9 @@ from ._utils import handle_props, handle_event_from_props
 class Message(BaseElement):
     def __init__(
         self,
-        content: str | None = None,
+        content: typing.Union[str, None] = None,
         *,
-        icon: str | bool | None = None,
+        icon: typing.Union[str, bool, None] = None,
         **kwargs: Unpack[TMessageProps],
     ):
         """
@@ -280,7 +280,7 @@ class MessagePlugin:
 
 
 class TMessageProps(TypedDict, total=False):
-    close_btn: str | bool
+    close_btn: typing.Union[str, bool]
     duration: float
     theme: typing.Literal["info", "success", "warning", "error", "question", "loading"]
     on_close: EventMixin
@@ -292,9 +292,9 @@ class TMessageOptions(TypedDict, total=False):
     content: str
     attach: str
     duration: float
-    close_btn: str | bool
+    close_btn: typing.Union[str, bool]
     class_name: str
-    offset: tuple[str | int, str | int]
+    offset: tuple[typing.Union[str, int], typing.Union[str, int]]
     placement: typing.Literal[
         "center",
         "top",

@@ -61,7 +61,7 @@ class ColorPicker(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "palette_bar_change",
+            "palette-bar-change",
             handler,
             extends=extends,
         )
@@ -74,7 +74,7 @@ class ColorPicker(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "recent_colors_change",
+            "recent-colors-change",
             handler,
             extends=extends,
         )
@@ -118,7 +118,7 @@ class ColorPickerPanel(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "palette_bar_change",
+            "palette-bar-change",
             handler,
             extends=extends,
         )
@@ -131,7 +131,7 @@ class ColorPickerPanel(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "recent_colors_change",
+            "recent-colors-change",
             handler,
             extends=extends,
         )

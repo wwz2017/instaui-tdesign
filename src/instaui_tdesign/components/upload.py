@@ -26,7 +26,7 @@ class Upload(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "cancel_upload",
+            "cancel-upload",
             handler,
             extends=extends,
         )
@@ -104,7 +104,7 @@ class Upload(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "one_file_fail",
+            "one-file-fail",
             handler,
             extends=extends,
         )
@@ -117,7 +117,7 @@ class Upload(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "one_file_success",
+            "one-file-success",
             handler,
             extends=extends,
         )
@@ -169,7 +169,7 @@ class Upload(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "select_change",
+            "select-change",
             handler,
             extends=extends,
         )
@@ -208,7 +208,7 @@ class Upload(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "waiting_upload_files_change",
+            "waiting_upload-files-change",
             handler,
             extends=extends,
         )

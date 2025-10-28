@@ -75,7 +75,7 @@ class BaseTable(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "active_change",
+            "active-change",
             handler,
             extends=extends,
         )
@@ -88,7 +88,7 @@ class BaseTable(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "active_row_action",
+            "active-row-action",
             handler,
             extends=extends,
         )
@@ -101,7 +101,7 @@ class BaseTable(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "cell_click",
+            "cell-click",
             handler,
             extends=extends,
         )
@@ -114,7 +114,7 @@ class BaseTable(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "column_resize_change",
+            "column-resize-change",
             handler,
             extends=extends,
         )
@@ -127,7 +127,7 @@ class BaseTable(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "page_change",
+            "page-change",
             handler,
             extends=extends,
         )
@@ -140,7 +140,7 @@ class BaseTable(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "row_click",
+            "row-click",
             handler,
             extends=extends,
         )
@@ -153,7 +153,7 @@ class BaseTable(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "row_dblclick",
+            "row-dblclick",
             handler,
             extends=extends,
         )
@@ -166,7 +166,7 @@ class BaseTable(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "row_mousedown",
+            "row-mousedown",
             handler,
             extends=extends,
         )
@@ -179,7 +179,7 @@ class BaseTable(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "row_mouseenter",
+            "row-mouseenter",
             handler,
             extends=extends,
         )
@@ -192,7 +192,7 @@ class BaseTable(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "row_mouseleave",
+            "row-mouseleave",
             handler,
             extends=extends,
         )
@@ -205,7 +205,7 @@ class BaseTable(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "row_mouseover",
+            "row-mouseover",
             handler,
             extends=extends,
         )
@@ -218,7 +218,7 @@ class BaseTable(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "row_mouseup",
+            "row-mouseup",
             handler,
             extends=extends,
         )
@@ -244,7 +244,7 @@ class BaseTable(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "scroll_x",
+            "scroll-x",
             handler,
             extends=extends,
         )
@@ -257,7 +257,7 @@ class BaseTable(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "scroll_y",
+            "scroll-y",
             handler,
             extends=extends,
         )
@@ -321,7 +321,7 @@ class Table(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "async_loading_click",
+            "async-loading-click",
             handler,
             extends=extends,
         )
@@ -388,7 +388,7 @@ class Table(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "cell_click",
+            "cell-click",
             handler,
             extends=extends,
         )
@@ -414,7 +414,7 @@ class Table(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "column_change",
+            "column-change",
             handler,
             extends=extends,
         )
@@ -427,7 +427,7 @@ class Table(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "column_controller_visible_change",
+            "column-controller-visible-change",
             handler,
             extends=extends,
         )
@@ -440,7 +440,7 @@ class Table(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "data_change",
+            "data-change",
             handler,
             extends=extends,
         )
@@ -453,7 +453,7 @@ class Table(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "display_columns_change",
+            "display-columns-change",
             handler,
             extends=extends,
         )
@@ -466,7 +466,7 @@ class Table(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "drag_sort",
+            "drag-sort",
             handler,
             extends=extends,
         )
@@ -479,7 +479,7 @@ class Table(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "expand_change",
+            "expand-change",
             handler,
             extends=extends,
         )
@@ -492,7 +492,7 @@ class Table(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "filter_change",
+            "filter-change",
             handler,
             extends=extends,
         )
@@ -505,7 +505,7 @@ class Table(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "row_edit",
+            "row-edit",
             handler,
             extends=extends,
         )
@@ -518,7 +518,7 @@ class Table(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "row_validate",
+            "row-validate",
             handler,
             extends=extends,
         )
@@ -531,7 +531,7 @@ class Table(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "select_change",
+            "select-change",
             handler,
             extends=extends,
         )
@@ -544,7 +544,7 @@ class Table(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "sort_change",
+            "sort-change",
             handler,
             extends=extends,
         )

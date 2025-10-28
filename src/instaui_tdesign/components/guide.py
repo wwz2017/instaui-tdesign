@@ -56,7 +56,7 @@ class Guide(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "next_step_click",
+            "next-step-click",
             handler,
             extends=extends,
         )
@@ -69,7 +69,7 @@ class Guide(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "prev_step_click",
+            "prev-step-click",
             handler,
             extends=extends,
         )

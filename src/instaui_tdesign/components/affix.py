@@ -26,7 +26,7 @@ class Affix(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "fixed_change",
+            "fixed-change",
             handler,
             extends=extends,
         )

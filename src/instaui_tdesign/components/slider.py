@@ -56,7 +56,7 @@ class Slider(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "change_end",
+            "change-end",
             handler,
             extends=extends,
         )

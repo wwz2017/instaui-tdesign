@@ -28,7 +28,7 @@ class Calendar(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "cell_click",
+            "cell-click",
             handler,
             extends=extends,
         )
@@ -41,7 +41,7 @@ class Calendar(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "cell_double_click",
+            "cell-double-click",
             handler,
             extends=extends,
         )
@@ -54,7 +54,7 @@ class Calendar(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "cell_right_click",
+            "cell-right-click",
             handler,
             extends=extends,
         )
@@ -67,7 +67,7 @@ class Calendar(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "controller_change",
+            "controller-change",
             handler,
             extends=extends,
         )
@@ -80,7 +80,7 @@ class Calendar(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "month_change",
+            "month-change",
             handler,
             extends=extends,
         )

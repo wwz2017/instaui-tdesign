@@ -44,7 +44,7 @@ class Transfer(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "checked_change",
+            "checked-change",
             handler,
             extends=extends,
         )
@@ -57,7 +57,7 @@ class Transfer(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "page_change",
+            "page-change",
             handler,
             extends=extends,
         )

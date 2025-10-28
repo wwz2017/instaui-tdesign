@@ -13,7 +13,7 @@ EVENT_METHOD_TEMPLATE = """    def on_{event_name}(
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "{event_name}",
+            "{event_name_str}",
             handler,
             extends=extends,
         )
@@ -49,7 +49,9 @@ def process_json(json_path: Path, output_path: Path):
             continue
 
         methods = "\n".join(
-            EVENT_METHOD_TEMPLATE.format(event_name=to_snake_case(event["名称"]))
+            EVENT_METHOD_TEMPLATE.format(
+                event_name=to_snake_case(event["名称"]), event_name_str=event["名称"]
+            )
             for event in valid_events
         )
 

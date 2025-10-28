@@ -61,7 +61,7 @@ class Popconfirm(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "visible_change",
+            "visible-change",
             handler,
             extends=extends,
         )

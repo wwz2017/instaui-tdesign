@@ -25,7 +25,7 @@ class Popup(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "overlay_click",
+            "overlay-click",
             handler,
             extends=extends,
         )
@@ -51,7 +51,7 @@ class Popup(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "scroll_to_bottom",
+            "scroll-to-bottom",
             handler,
             extends=extends,
         )
@@ -64,7 +64,7 @@ class Popup(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "visible_change",
+            "visible-change",
             handler,
             extends=extends,
         )

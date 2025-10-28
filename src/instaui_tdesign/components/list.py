@@ -25,7 +25,7 @@ class List(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "load_more",
+            "load-more",
             handler,
             extends=extends,
         )

@@ -31,7 +31,7 @@ class Drawer(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "before_close",
+            "before-close",
             handler,
             extends=extends,
         )
@@ -44,7 +44,7 @@ class Drawer(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "before_open",
+            "before-open",
             handler,
             extends=extends,
         )
@@ -83,7 +83,7 @@ class Drawer(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "close_btn_click",
+            "close-btn-click",
             handler,
             extends=extends,
         )
@@ -109,7 +109,7 @@ class Drawer(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "esc_keydown",
+            "esc-keydown",
             handler,
             extends=extends,
         )
@@ -122,7 +122,7 @@ class Drawer(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "overlay_click",
+            "overlay-click",
             handler,
             extends=extends,
         )
@@ -135,7 +135,7 @@ class Drawer(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "size_drag_end",
+            "size-drag-end",
             handler,
             extends=extends,
         )

@@ -104,7 +104,7 @@ class DatePicker(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "preset_click",
+            "preset-click",
             handler,
             extends=extends,
         )
@@ -214,7 +214,7 @@ class DateRangePicker(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "preset_click",
+            "preset-click",
             handler,
             extends=extends,
         )
@@ -243,7 +243,7 @@ class DatePickerPanel(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "cell_click",
+            "cell-click",
             handler,
             extends=extends,
         )
@@ -282,7 +282,7 @@ class DatePickerPanel(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "month_change",
+            "month-change",
             handler,
             extends=extends,
         )
@@ -295,7 +295,7 @@ class DatePickerPanel(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "panel_click",
+            "panel-click",
             handler,
             extends=extends,
         )
@@ -308,7 +308,7 @@ class DatePickerPanel(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "preset_click",
+            "preset-click",
             handler,
             extends=extends,
         )
@@ -321,7 +321,7 @@ class DatePickerPanel(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "time_change",
+            "time-change",
             handler,
             extends=extends,
         )
@@ -334,7 +334,7 @@ class DatePickerPanel(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "year_change",
+            "year-change",
             handler,
             extends=extends,
         )
@@ -363,7 +363,7 @@ class DateRangePickerPanel(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "cell_click",
+            "cell-click",
             handler,
             extends=extends,
         )
@@ -402,7 +402,7 @@ class DateRangePickerPanel(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "month_change",
+            "month-change",
             handler,
             extends=extends,
         )
@@ -415,7 +415,7 @@ class DateRangePickerPanel(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "panel_click",
+            "panel-click",
             handler,
             extends=extends,
         )
@@ -428,7 +428,7 @@ class DateRangePickerPanel(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "preset_click",
+            "preset-click",
             handler,
             extends=extends,
         )
@@ -441,7 +441,7 @@ class DateRangePickerPanel(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "time_change",
+            "time-change",
             handler,
             extends=extends,
         )
@@ -454,7 +454,7 @@ class DateRangePickerPanel(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "year_change",
+            "year-change",
             handler,
             extends=extends,
         )

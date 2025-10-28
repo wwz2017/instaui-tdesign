@@ -106,7 +106,7 @@ class TreeSelect(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "input_change",
+            "input-change",
             handler,
             extends=extends,
         )
@@ -119,7 +119,7 @@ class TreeSelect(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "popup_visible_change",
+            "popup-visible-change",
             handler,
             extends=extends,
         )

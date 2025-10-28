@@ -53,7 +53,7 @@ class ImageViewer(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "index_change",
+            "index-change",
             handler,
             extends=extends,
         )

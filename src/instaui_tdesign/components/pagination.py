@@ -53,7 +53,7 @@ class Pagination(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "current_change",
+            "current-change",
             handler,
             extends=extends,
         )
@@ -66,7 +66,7 @@ class Pagination(BaseElement):
         extends: typing.Optional[typing.List] = None,
     ):
         self.on(
-            "page_size_change",
+            "page-size-change",
             handler,
             extends=extends,
         )
