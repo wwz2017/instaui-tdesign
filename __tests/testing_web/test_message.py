@@ -2,7 +2,7 @@ from __tests.testing_web.context import Context
 from instaui_tdesign import td
 from instaui import ui
 from __tests.utils.switch_utils import use_switch_controls
-from __tests.utils.notification_utils import use_notify_plugin_controls
+from __tests.utils.message_utils import use_message_plugin_controls
 
 
 def test_base(context: Context):
@@ -12,7 +12,7 @@ def test_base(context: Context):
 
         td.switch(show)
         with ui.vif(show):
-            td.notification("foo")
+            td.message("foo")
 
     context.open()
     switch = use_switch_controls(context)
@@ -27,10 +27,10 @@ def test_duration(context: Context):
 
         td.switch(show)
         with ui.vif(show):
-            td.notification("foo", duration=800).on_duration_end(
+            td.message("foo", duration=800).on_duration_end(
                 ui.js_event(
                     outputs=[show],
-                    code=r"s=> false",
+                    code=r"()=> false",
                 )
             )
 
@@ -42,11 +42,11 @@ def test_duration(context: Context):
     context.should_not_see("foo")
 
 
-class TestNotifyPlugin:
+class TestMessagePlugin:
     def test_base(self, context: Context):
         @context.register_page
         def index():
-            td.button("show").on_click(td.notify_plugin.info(content="foo"))
+            td.button("show").on_click(td.message_plugin.info(content="foo"))
 
         context.open()
         context.find("button").click()
@@ -56,11 +56,11 @@ class TestNotifyPlugin:
         @context.register_page
         def index():
             td.button("show").on_click(
-                td.notify_plugin.info(content="foo", duration=0, close_btn=True)
+                td.message_plugin.info(content="foo", duration=0, close_btn=True)
             )
 
         context.open()
-        np = use_notify_plugin_controls(context)
+        np = use_message_plugin_controls(context)
         context.find("button").click(click_count=2)
         np.should_count(2)
 
@@ -68,11 +68,11 @@ class TestNotifyPlugin:
         @context.register_page
         def index():
             td.button("show").on_click(
-                td.notify_plugin.info(content="foo", duration=0, close_btn=True)
+                td.message_plugin.info(content="foo", duration=0, close_btn=True)
             )
 
         context.open()
-        np = use_notify_plugin_controls(context)
+        np = use_message_plugin_controls(context)
         context.find("button").click()
         context.should_see("foo")
         np.click_close_btn()
@@ -82,13 +82,13 @@ class TestNotifyPlugin:
         @context.register_page
         def index():
             td.button("show").on_click(
-                td.notify_plugin.info(content="foo", duration=0, close_btn=True)
+                td.message_plugin.info(content="foo", duration=0, close_btn=True)
             )
 
-            td.button("close all").on_click(td.notify_plugin.close_all())
+            td.button("close all").on_click(td.message_plugin.close_all())
 
         context.open()
-        np = use_notify_plugin_controls(context)
+        np = use_message_plugin_controls(context)
         context.find_by_text("show").click(click_count=2)
         np.should_count(2)
         context.find_by_text("close all").click()

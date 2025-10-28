@@ -10,8 +10,6 @@ class TestServer:
     def __init__(self) -> None:
         self.connected = threading.Event()
         self._server = ui.server(debug=False)
-        web_app = self._server.app
-        web_app.router.lifespan
         self.port = _find_available_port(START_PORT, END_PORT)
 
         @asynccontextmanager
@@ -19,7 +17,7 @@ class TestServer:
             self.connected.set()
             yield
 
-        web_app.router.lifespan_context = lifespan_wrapper
+        self._server.router.lifespan_context = lifespan_wrapper
 
         self.server_thread = threading.Thread(
             target=self._server.run,

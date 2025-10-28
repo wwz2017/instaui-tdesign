@@ -93,6 +93,7 @@ __all__ = [
     "sub_menu",
     "head_menu",
     "message",
+    "message_plugin",
     "notification",
     "notify_plugin",
     "pagination",
@@ -214,7 +215,7 @@ from ..components.menu import (
     MenuGroup as menu_group,
     HeadMenu as head_menu,
 )
-from ..components.message import Message as message
+from ..components.message import Message as message, MessagePlugin as message_plugin
 from ..components.notification import (
     Notification as notification,
     NotifyPlugin as notify_plugin,
