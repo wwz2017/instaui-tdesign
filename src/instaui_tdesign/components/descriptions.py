@@ -1,5 +1,6 @@
 from __future__ import annotations
 import typing
+from instaui import custom
 from ._base_element import BaseElement
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props
@@ -11,7 +12,21 @@ class Descriptions(BaseElement):
         **kwargs: Unpack[TDescriptionsProps],
     ):
         super().__init__("t-descriptions")
+        custom.configure_slot_without_slot_prop(self, slot_names=["default"])
         self.props(handle_props(kwargs))  # type: ignore
+
+    @classmethod  # type: ignore
+    def from_dict(
+        cls,
+        data: dict[str, str],
+        **kwargs: Unpack[TDescriptionsProps],  # type: ignore
+    ) -> Descriptions:
+        items = [{"content": v, "label": k} for k, v in data.items()]
+        kwargs.pop("items", None)
+        bordered = kwargs.pop("bordered", True)
+        colon = kwargs.pop("colon", True)
+
+        return cls(items=items, bordered=bordered, colon=colon, **kwargs)  # type: ignore
 
 
 class DescriptionsItem(BaseElement):
