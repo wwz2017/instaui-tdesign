@@ -11,9 +11,9 @@ if typing.TYPE_CHECKING:
 class Empty(BaseElement):
     def __init__(
         self,
-        description: typing.Optional[TMaybeRef[str]] = None,
+        description: typing.Optional[str] = None,
         *,
-        title: typing.Optional[TMaybeRef[str]] = None,
+        title: typing.Optional[str] = None,
         **kwargs: Unpack[TEmptyProps],
     ):
         super().__init__("t-empty")
@@ -25,9 +25,9 @@ class Empty(BaseElement):
 
 
 class TEmptyProps(TypedDict, total=False):
-    image: TMaybeRef[typing.Dict]
-    image_style: TMaybeRef[typing.Dict]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
+    image: typing.Dict
+    image_style: typing.Dict
+    size: typing.Literal["small", "medium", "large"]
     type: TMaybeRef[
         typing.Literal["empty", "success", "fail", "network-error", "maintenance"]
     ]

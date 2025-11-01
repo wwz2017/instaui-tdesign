@@ -5,18 +5,15 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Pagination(BaseElement):
     def __init__(
         self,
-        current: typing.Optional[TMaybeRef[int]] = None,
+        current: typing.Optional[int] = None,
         *,
-        current_value: typing.Optional[TMaybeRef[bool]] = None,
-        page_size: typing.Optional[TMaybeRef[int]] = None,
-        page_size_value: typing.Optional[TMaybeRef[int]] = None,
+        current_value: typing.Optional[bool] = None,
+        page_size: typing.Optional[int] = None,
+        page_size_value: typing.Optional[int] = None,
         **kwargs: Unpack[TPaginationProps],
     ):
         super().__init__("t-pagination")
@@ -103,23 +100,23 @@ class PaginationMini(BaseElement):
 
 
 class TPaginationProps(TypedDict, total=False):
-    default_current: TMaybeRef[int]
-    disabled: TMaybeRef[bool]
-    folded_max_page_btn: TMaybeRef[int]
-    max_page_btn: TMaybeRef[int]
+    default_current: int
+    disabled: bool
+    folded_max_page_btn: int
+    max_page_btn: int
     page_ellipsis_mode: typing.Literal["mid", "both-ends"]
-    default_page_size: TMaybeRef[int]
+    default_page_size: int
     page_size_options: typing.List
     select_props: typing.Dict
-    show_first_and_last_page_btn: TMaybeRef[bool]
-    show_jumper: TMaybeRef[bool]
-    show_page_number: TMaybeRef[bool]
-    show_page_size: TMaybeRef[bool]
-    show_previous_and_next_btn: TMaybeRef[bool]
-    size: TMaybeRef[typing.Literal["small", "medium"]]
-    theme: TMaybeRef[typing.Literal["default", "simple"]]
-    total: TMaybeRef[int]
-    total_content: typing.Union[TMaybeRef[bool], TMaybeRef[str]]
+    show_first_and_last_page_btn: bool
+    show_jumper: bool
+    show_page_number: bool
+    show_page_size: bool
+    show_previous_and_next_btn: bool
+    size: typing.Literal["small", "medium"]
+    theme: typing.Literal["default", "simple"]
+    total: int
+    total_content: typing.Union[bool, str]
     on_change: EventMixin
     on_current_change: EventMixin
     on_page_size_change: EventMixin
@@ -127,9 +124,9 @@ class TPaginationProps(TypedDict, total=False):
 
 class TPaginationMiniProps(TypedDict, total=False):
     disabled: typing.Union[bool, typing.Dict]
-    layout: TMaybeRef[typing.Literal["horizontal", "vertical"]]
+    layout: typing.Literal["horizontal", "vertical"]
     show_current: bool
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
+    size: typing.Literal["small", "medium", "large"]
     tips: typing.Dict
-    variant: TMaybeRef[typing.Literal["text", "outline"]]
+    variant: typing.Literal["text", "outline"]
     on_change: EventMixin

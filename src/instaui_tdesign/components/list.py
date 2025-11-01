@@ -5,9 +5,6 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class List(BaseElement):
     def __init__(
@@ -64,26 +61,26 @@ class ListItemMeta(BaseElement):
 
 
 class TListProps(TypedDict, total=False):
-    async_loading: TMaybeRef[str]
-    footer: TMaybeRef[str]
-    header: TMaybeRef[str]
-    layout: TMaybeRef[typing.Literal["horizontal", "vertical"]]
-    scroll: TMaybeRef[typing.Dict]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
-    split: TMaybeRef[bool]
-    stripe: TMaybeRef[bool]
+    async_loading: str
+    footer: str
+    header: str
+    layout: typing.Literal["horizontal", "vertical"]
+    scroll: typing.Dict
+    size: typing.Literal["small", "medium", "large"]
+    split: bool
+    stripe: bool
     on_load_more: EventMixin
     on_scroll: EventMixin
 
 
 class TListItemProps(TypedDict, total=False):
-    action: TMaybeRef[str]
-    content: TMaybeRef[str]
-    default: TMaybeRef[str]
+    action: str
+    content: str
+    default: str
 
 
 class TListItemMetaProps(TypedDict, total=False):
-    avatar: TMaybeRef[str]
-    description: TMaybeRef[str]
-    image: TMaybeRef[str]
-    title: TMaybeRef[str]
+    avatar: str
+    description: str
+    image: str
+    title: str

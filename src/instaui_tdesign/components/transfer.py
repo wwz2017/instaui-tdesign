@@ -12,9 +12,9 @@ if typing.TYPE_CHECKING:
 class Transfer(BaseElement):
     def __init__(
         self,
-        value: typing.Optional[TMaybeRef[typing.List]] = None,
+        value: typing.Optional[typing.List] = None,
         *,
-        model_value: typing.Optional[TMaybeRef[typing.List]] = None,
+        model_value: typing.Optional[typing.List] = None,
         **kwargs: Unpack[TTransferProps],
     ):
         super().__init__("t-transfer")
@@ -91,26 +91,24 @@ class Transfer(BaseElement):
 
 
 class TTransferProps(TypedDict, total=False):
-    checkbox_props: TMaybeRef[typing.Dict]
-    checked: TMaybeRef[typing.List]
-    data: TMaybeRef[typing.List]
-    direction: TMaybeRef[typing.Literal["left", "right", "both"]]
-    disabled: TMaybeRef[typing.Union[bool, typing.List]]
-    empty: TMaybeRef[str]
-    footer: TMaybeRef[typing.Union[bool, typing.List]]
-    keys: TMaybeRef[typing.Dict]
-    operation: TMaybeRef[typing.Union[bool, typing.List]]
-    pagination: TMaybeRef[typing.Union[TMaybeRef[typing.Dict], TMaybeRef[typing.List]]]
-    search: TMaybeRef[
-        typing.Union[TMaybeRef[bool], TMaybeRef[typing.Dict], TMaybeRef[typing.List]]
-    ]
-    show_check_all: TMaybeRef[typing.Union[TMaybeRef[bool], TMaybeRef[typing.List]]]
-    target_draggable: TMaybeRef[bool]
-    target_sort: TMaybeRef[typing.Literal["original", "push", "unshift"]]
-    title: TMaybeRef[typing.Union[bool, typing.List]]
-    transfer_item: TMaybeRef[str]
-    tree: TMaybeRef[str]
-    default_value: TMaybeRef[typing.List]
+    checkbox_props: typing.Dict
+    checked: typing.List
+    data: typing.List
+    direction: typing.Literal["left", "right", "both"]
+    disabled: typing.Union[bool, typing.List]
+    empty: str
+    footer: typing.Union[bool, typing.List]
+    keys: typing.Dict
+    operation: typing.Union[bool, typing.List]
+    pagination: typing.Union[TMaybeRef[typing.Dict, typing.List]]
+    search: TMaybeRef[typing.Union[bool, typing.Dict, typing.List]]
+    show_check_all: typing.Union[TMaybeRef[bool, typing.List]]
+    target_draggable: bool
+    target_sort: typing.Literal["original", "push", "unshift"]
+    title: typing.Union[bool, typing.List]
+    transfer_item: str
+    tree: str
+    default_value: typing.List
     on_change: EventMixin
     on_checked_change: EventMixin
     on_page_change: EventMixin

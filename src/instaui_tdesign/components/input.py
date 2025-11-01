@@ -16,13 +16,12 @@ class Input(BaseElement):
     def __init__(
         self,
         value: typing.Optional[typing.Union[str, int, float]] = None,
-        *,
-        model_value: typing.Optional[typing.Union[str, int, float]] = None,
-        prefix_icon: typing.Optional[str] = None,
-        suffix_icon: typing.Optional[str] = None,
         **kwargs: Unpack[TInputProps],
     ):
         super().__init__("t-input")
+        model_value = kwargs.pop("model_value", None)
+        prefix_icon = kwargs.pop("prefix_icon", None)
+        suffix_icon = kwargs.pop("suffix_icon", None)
 
         try_setup_vmodel(self, value)
         make_prefix_icon(self, prefix_icon)
@@ -252,6 +251,9 @@ class InputGroup(BaseElement):
 
 
 class TInputProps(TypedDict, total=False):
+    model_value: typing.Union[str, int, float]
+    prefix_icon: str
+    suffix_icon: str
     align: typing.Literal["left", "center", "right"]
     allow_input_over_max: bool
     auto_width: bool

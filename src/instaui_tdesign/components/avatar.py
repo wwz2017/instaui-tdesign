@@ -7,18 +7,14 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Avatar(BaseElement):
     def __init__(
         self,
-        *,
-        icon: typing.Optional[str] = None,
         **kwargs: Unpack[TAvatarProps],
     ):
         super().__init__("t-avatar")
+        icon = kwargs.pop("icon", None)
         make_icon_for_str(self, icon)
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
@@ -48,19 +44,20 @@ class AvatarGroup(BaseElement):
 
 
 class TAvatarProps(TypedDict, total=False):
-    alt: TMaybeRef[str]
-    content: TMaybeRef[str]
-    hide_on_load_failed: TMaybeRef[bool]
-    image: TMaybeRef[str]
-    image_props: TMaybeRef[typing.Dict]
-    shape: TMaybeRef[typing.Literal["circle", "round"]]
-    size: TMaybeRef[typing.Literal["small", "medium", "large", "24px", "38px"]]
+    icon: str
+    alt: str
+    content: str
+    hide_on_load_failed: bool
+    image: str
+    image_props: typing.Dict
+    shape: typing.Literal["circle", "round"]
+    size: typing.Literal["small", "medium", "large", "24px", "38px"]
     on_error: EventMixin
 
 
 class TAvatarGroupProps(TypedDict, total=False):
-    cascading: TMaybeRef[typing.Literal["left-up", "right-up"]]
-    collapse_avatar: TMaybeRef[str]
-    max: TMaybeRef[float]
-    popup_props: TMaybeRef[typing.Dict]
-    size: TMaybeRef[typing.Literal["small", "medium", "large", "24px", "38px"]]
+    cascading: typing.Literal["left-up", "right-up"]
+    collapse_avatar: str
+    max: float
+    popup_props: typing.Dict
+    size: typing.Literal["small", "medium", "large", "24px", "38px"]

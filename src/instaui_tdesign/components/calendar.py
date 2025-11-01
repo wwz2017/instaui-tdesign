@@ -5,14 +5,11 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Calendar(BaseElement):
     def __init__(
         self,
-        value: typing.Optional[TMaybeRef[typing.Union[str, typing.List[str]]]] = None,
+        value: typing.Optional[typing.Union[str, typing.List[str]]] = None,
         **kwargs: Unpack[TCalendarProps],
     ):
         super().__init__("t-calendar")
@@ -88,22 +85,22 @@ class Calendar(BaseElement):
 
 
 class TCalendarProps(TypedDict, total=False):
-    cell: TMaybeRef[str]
-    cell_append: TMaybeRef[str]
-    controller_config: TMaybeRef[typing.Union[bool, typing.Dict]]
-    fill_with_zero: TMaybeRef[bool]
-    first_day_of_week: TMaybeRef[float]
-    format: TMaybeRef[str]
-    head: TMaybeRef[str]
-    is_show_weekend_default: TMaybeRef[bool]
-    mode: TMaybeRef[typing.Literal["month", "year"]]
-    month: TMaybeRef[typing.Union[float, str]]
-    multiple: TMaybeRef[bool]
-    prevent_cell_contextmenu: TMaybeRef[bool]
-    range: TMaybeRef[typing.List]
-    theme: TMaybeRef[typing.Literal["full", "card"]]
-    week: TMaybeRef[typing.Union[str, typing.List]]
-    year: TMaybeRef[typing.Union[float, str]]
+    cell: str
+    cell_append: str
+    controller_config: typing.Union[bool, typing.Dict]
+    fill_with_zero: bool
+    first_day_of_week: float
+    format: str
+    head: str
+    is_show_weekend_default: bool
+    mode: typing.Literal["month", "year"]
+    month: typing.Union[float, str]
+    multiple: bool
+    prevent_cell_contextmenu: bool
+    range: typing.List
+    theme: typing.Literal["full", "card"]
+    week: typing.Union[str, typing.List]
+    year: typing.Union[float, str]
     on_cell_click: EventMixin
     on_cell_double_click: EventMixin
     on_cell_right_click: EventMixin

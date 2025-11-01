@@ -12,7 +12,7 @@ if typing.TYPE_CHECKING:
 class Image(BaseElement):
     def __init__(
         self,
-        src: TMaybeRef[str],
+        src: str,
         **kwargs: Unpack[TImageProps],
     ):
         super().__init__("t-image")
@@ -48,17 +48,17 @@ class Image(BaseElement):
 
 
 class TImageProps(TypedDict, total=False):
-    alt: TMaybeRef[str]
-    error: TMaybeRef[str]
-    fallback: TMaybeRef[str]
-    fit: TMaybeRef[typing.Literal["contain", "cover", "fill", "none", "scale-down"]]
-    gallery: TMaybeRef[bool]
-    lazy: TMaybeRef[bool]
-    loading: TMaybeRef[str]
-    overlay_content: TMaybeRef[str]
-    overlay_trigger: TMaybeRef[typing.Literal["always", "hover"]]
-    placeholder: TMaybeRef[str]
-    position: TMaybeRef[str]
+    alt: str
+    error: str
+    fallback: str
+    fit: typing.Literal["contain", "cover", "fill", "none", "scale-down"]
+    gallery: bool
+    lazy: bool
+    loading: str
+    overlay_content: str
+    overlay_trigger: typing.Literal["always", "hover"]
+    placeholder: str
+    position: str
     referrerpolicy: TMaybeRef[
         typing.Literal[
             "no-referrer",
@@ -71,7 +71,7 @@ class TImageProps(TypedDict, total=False):
             "unsafe-url",
         ]
     ]
-    shape: TMaybeRef[typing.Literal["circle", "round", "square"]]
-    srcset: TMaybeRef[typing.Dict]
+    shape: typing.Literal["circle", "round", "square"]
+    srcset: typing.Dict
     on_error: EventMixin
     on_load: EventMixin

@@ -21,11 +21,11 @@ class Timeline(BaseElement):
 class TimelineItem(BaseElement):
     def __init__(
         self,
-        content: typing.Optional[TMaybeRef[str]] = None,
+        content: typing.Optional[str] = None,
         *,
-        label: typing.Optional[TMaybeRef[str]] = None,
+        label: typing.Optional[str] = None,
         label_align: typing.Optional[
-            TMaybeRef[typing.Literal["left", "right", "top", "bottom"]]
+            typing.Literal["left", "right", "top", "bottom"]
         ] = None,
         **kwargs: Unpack[TTimelineItemProps],
     ):
@@ -52,14 +52,14 @@ class TTimelineProps(TypedDict, total=False):
     label_align: TMaybeRef[
         typing.Literal["left", "right", "alternate", "top", "bottom"]
     ]
-    layout: TMaybeRef[typing.Literal["horizontal", "vertical"]]
-    mode: TMaybeRef[typing.Literal["alternate", "same"]]
-    reverse: TMaybeRef[bool]
-    theme: TMaybeRef[typing.Literal["default", "dot"]]
+    layout: typing.Literal["horizontal", "vertical"]
+    mode: typing.Literal["alternate", "same"]
+    reverse: bool
+    theme: typing.Literal["default", "dot"]
 
 
 class TTimelineItemProps(TypedDict, total=False):
-    dot: TMaybeRef[str]
-    dot_color: TMaybeRef[str]
-    loading: TMaybeRef[bool]
+    dot: str
+    dot_color: str
+    loading: bool
     on_click: EventMixin

@@ -14,11 +14,11 @@ if typing.TYPE_CHECKING:
 class Tree(BaseElement):
     def __init__(
         self,
-        data: TMaybeRef[typing.List],
+        data: typing.List,
         *,
-        activable: typing.Optional[TMaybeRef[bool]] = None,
-        hover: typing.Optional[TMaybeRef[bool]] = None,
-        transition: typing.Optional[TMaybeRef[bool]] = None,
+        activable: typing.Optional[bool] = None,
+        hover: typing.Optional[bool] = None,
+        transition: typing.Optional[bool] = None,
         icon: typing.Union[str, bool, None] = None,
         **kwargs: Unpack[TTreeProps],
     ):
@@ -180,36 +180,36 @@ class Tree(BaseElement):
 
 
 class TTreeProps(TypedDict, total=False):
-    active_multiple: TMaybeRef[bool]
-    actived: TMaybeRef[typing.List]
-    allow_drop: TMaybeRef[str]
-    allow_fold_node_on_filter: TMaybeRef[bool]
-    check_props: TMaybeRef[typing.Dict]
-    check_strictly: TMaybeRef[bool]
-    checkable: TMaybeRef[bool]
-    disable_check: TMaybeRef[typing.Union[TMaybeRef[bool], TMaybeRef[str]]]
-    disabled: TMaybeRef[bool]
-    draggable: TMaybeRef[bool]
-    empty: TMaybeRef[str]
-    expand_all: TMaybeRef[bool]
-    expand_level: TMaybeRef[float]
-    expand_mutex: TMaybeRef[bool]
-    expand_on_click_node: TMaybeRef[bool]
-    expand_parent: TMaybeRef[bool]
-    expanded: TMaybeRef[typing.List]
-    filter: TMaybeRef[str]
-    height: TMaybeRef[typing.Union[float, str]]
-    keys: TMaybeRef[typing.Dict]
-    label: TMaybeRef[typing.Literal["boolean"]]
-    lazy: TMaybeRef[bool]
-    line: TMaybeRef[typing.Union[bool, str]]
-    load: TMaybeRef[str]
-    max_height: TMaybeRef[typing.Union[float, str]]
-    operations: TMaybeRef[str]
-    scroll: TMaybeRef[typing.Dict]
-    value: TMaybeRef[typing.List]
-    default_value: TMaybeRef[typing.List]
-    value_mode: TMaybeRef[typing.Literal["onlyLeaf", "parentFirst", "all"]]
+    active_multiple: bool
+    actived: typing.List
+    allow_drop: str
+    allow_fold_node_on_filter: bool
+    check_props: typing.Dict
+    check_strictly: bool
+    checkable: bool
+    disable_check: typing.Union[TMaybeRef[bool, str]]
+    disabled: bool
+    draggable: bool
+    empty: str
+    expand_all: bool
+    expand_level: float
+    expand_mutex: bool
+    expand_on_click_node: bool
+    expand_parent: bool
+    expanded: typing.List
+    filter: str
+    height: typing.Union[float, str]
+    keys: typing.Dict
+    label: typing.Literal["boolean"]
+    lazy: bool
+    line: typing.Union[bool, str]
+    load: str
+    max_height: typing.Union[float, str]
+    operations: str
+    scroll: typing.Dict
+    value: typing.List
+    default_value: typing.List
+    value_mode: typing.Literal["onlyLeaf", "parentFirst", "all"]
     on_active: EventMixin
     on_change: EventMixin
     on_click: EventMixin

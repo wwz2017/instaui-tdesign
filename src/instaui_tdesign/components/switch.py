@@ -12,12 +12,10 @@ class Switch(BaseElement):
     def __init__(
         self,
         value: typing.Optional[bool] = None,
-        *,
-        model_value: typing.Optional[bool] = None,
         **kwargs: Unpack[TSwitchProps],
     ):
         super().__init__("t-switch")
-
+        model_value = kwargs.pop("model_value", None)
         try_setup_vmodel(self, value)
 
         self.props(handle_props(kwargs, model_value=model_value))  # type: ignore
@@ -66,6 +64,7 @@ class _LabelSlot:
 
 
 class TSwitchProps(TypedDict, total=False):
+    model_value: bool
     before_change: str
     custom_value: typing.List
     disabled: bool

@@ -7,18 +7,15 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Rate(BaseElement):
     def __init__(
         self,
-        value: typing.Optional[TMaybeRef[float]] = None,
+        value: typing.Optional[float] = None,
         *,
-        count: typing.Optional[TMaybeRef[float]] = None,
-        default_value: typing.Optional[TMaybeRef[float]] = None,
-        model_value: typing.Optional[TMaybeRef[float]] = None,
+        count: typing.Optional[float] = None,
+        default_value: typing.Optional[float] = None,
+        model_value: typing.Optional[float] = None,
         icon: typing.Optional[str] = None,
         **kwargs: Unpack[TRateProps],
     ):
@@ -45,12 +42,12 @@ class Rate(BaseElement):
 
 
 class TRateProps(TypedDict, total=False):
-    allow_half: TMaybeRef[bool]
-    clearable: TMaybeRef[bool]
-    color: TMaybeRef[typing.Literal["Array"]]
-    disabled: TMaybeRef[bool]
-    gap: TMaybeRef[float]
-    show_text: TMaybeRef[bool]
-    size: TMaybeRef[str]
-    texts: TMaybeRef[typing.List]
+    allow_half: bool
+    clearable: bool
+    color: typing.Literal["Array"]
+    disabled: bool
+    gap: float
+    show_text: bool
+    size: str
+    texts: typing.List
     on_change: EventMixin

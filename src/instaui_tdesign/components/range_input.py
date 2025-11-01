@@ -17,9 +17,9 @@ if typing.TYPE_CHECKING:
 class RangeInput(BaseElement):
     def __init__(
         self,
-        value: typing.Optional[TMaybeRef[typing.List]] = None,
+        value: typing.Optional[typing.List] = None,
         *,
-        model_value: typing.Optional[TMaybeRef[typing.List]] = None,
+        model_value: typing.Optional[typing.List] = None,
         prefix_icon: typing.Optional[str] = None,
         suffix_icon: typing.Optional[str] = None,
         **kwargs: Unpack[TRangeInputProps],
@@ -138,22 +138,22 @@ class RangeInput(BaseElement):
 
 
 class TRangeInputProps(TypedDict, total=False):
-    active_index: TMaybeRef[float]
-    borderless: TMaybeRef[bool]
-    clearable: TMaybeRef[bool]
-    disabled: TMaybeRef[bool]
-    format: TMaybeRef[typing.Union[TMaybeRef[str], TMaybeRef[typing.List]]]
-    input_props: TMaybeRef[typing.Union[TMaybeRef[typing.Dict], TMaybeRef[typing.List]]]
-    label: TMaybeRef[str]
-    placeholder: TMaybeRef[typing.Literal["Array"]]
-    readonly: TMaybeRef[bool]
-    separator: TMaybeRef[str]
-    show_clear_icon_on_empty: TMaybeRef[bool]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
-    status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
-    suffix: TMaybeRef[str]
-    tips: TMaybeRef[str]
-    default_value: TMaybeRef[typing.List]
+    active_index: float
+    borderless: bool
+    clearable: bool
+    disabled: bool
+    format: typing.Union[TMaybeRef[str, typing.List]]
+    input_props: typing.Union[TMaybeRef[typing.Dict, typing.List]]
+    label: str
+    placeholder: typing.Literal["Array"]
+    readonly: bool
+    separator: str
+    show_clear_icon_on_empty: bool
+    size: typing.Literal["small", "medium", "large"]
+    status: typing.Literal["default", "success", "warning", "error"]
+    suffix: str
+    tips: str
+    default_value: typing.List
     on_blur: EventMixin
     on_change: EventMixin
     on_clear: EventMixin
@@ -165,18 +165,18 @@ class TRangeInputProps(TypedDict, total=False):
 
 
 class TRangeInputPopupProps(TypedDict, total=False):
-    auto_width: TMaybeRef[bool]
-    disabled: TMaybeRef[bool]
-    input_value: TMaybeRef[typing.List]
-    default_input_value: TMaybeRef[typing.List]
-    label: TMaybeRef[str]
-    panel: TMaybeRef[str]
-    popup_props: TMaybeRef[typing.Dict]
-    popup_visible: TMaybeRef[bool]
-    default_popup_visible: TMaybeRef[bool]
-    range_input_props: TMaybeRef[typing.Dict]
-    readonly: TMaybeRef[bool]
-    status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
-    tips: TMaybeRef[str]
+    auto_width: bool
+    disabled: bool
+    input_value: typing.List
+    default_input_value: typing.List
+    label: str
+    panel: str
+    popup_props: typing.Dict
+    popup_visible: bool
+    default_popup_visible: bool
+    range_input_props: typing.Dict
+    readonly: bool
+    status: typing.Literal["default", "success", "warning", "error"]
+    tips: str
     on_input_change: EventMixin
     on_popup_visible_change: EventMixin

@@ -5,9 +5,6 @@ from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props
 from ._base_element import BaseElement
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Affix(BaseElement):
     def __init__(
@@ -34,8 +31,8 @@ class Affix(BaseElement):
 
 
 class TAffixProps(TypedDict, total=False):
-    container: TMaybeRef[str]
-    offset_bottom: TMaybeRef[float]
-    offset_top: TMaybeRef[float]
-    z_index: TMaybeRef[int]
+    container: str
+    offset_bottom: float
+    offset_top: float
+    z_index: int
     on_fixed_change: EventMixin

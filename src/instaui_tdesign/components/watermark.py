@@ -11,7 +11,7 @@ if typing.TYPE_CHECKING:
 class Watermark(BaseElement):
     def __init__(
         self,
-        content: TMaybeRef[str],
+        content: str,
         **kwargs: Unpack[TWatermarkProps],
     ):
         super().__init__("t-watermark")
@@ -20,19 +20,17 @@ class Watermark(BaseElement):
 
 
 class TWatermarkProps(TypedDict, total=False):
-    alpha: TMaybeRef[float]
-    height: TMaybeRef[float]
-    is_repeat: TMaybeRef[bool]
-    line_space: TMaybeRef[float]
-    movable: TMaybeRef[bool]
-    move_interval: TMaybeRef[float]
-    offset: TMaybeRef[typing.List]
-    removable: TMaybeRef[bool]
-    rotate: TMaybeRef[float]
-    watermark_content: TMaybeRef[
-        typing.Union[TMaybeRef[typing.Dict], TMaybeRef[typing.List]]
-    ]
-    width: TMaybeRef[float]
-    x: TMaybeRef[float]
-    y: TMaybeRef[float]
-    z_index: TMaybeRef[int]
+    alpha: float
+    height: float
+    is_repeat: bool
+    line_space: float
+    movable: bool
+    move_interval: float
+    offset: typing.List
+    removable: bool
+    rotate: float
+    watermark_content: TMaybeRef[typing.Union[typing.Dict, typing.List]]
+    width: float
+    x: float
+    y: float
+    z_index: int

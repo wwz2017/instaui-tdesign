@@ -11,12 +11,11 @@ class Radio(BaseElement):
     def __init__(
         self,
         checked: typing.Optional[bool] = None,
-        *,
-        checked_value: typing.Optional[bool] = None,
-        allow_uncheck: bool = True,
         **kwargs: Unpack[TRadioProps],
     ):
         super().__init__("t-radio")
+        allow_uncheck = kwargs.pop("allow_uncheck", None)
+        checked_value = kwargs.pop("checked_value", None)
 
         self.props({"allow-uncheck": allow_uncheck})
         try_setup_vmodel(self, checked)
@@ -58,11 +57,10 @@ class RadioGroup(BaseElement):
             typing.Sequence[typing.Union[str, int, bool, dict]]
         ] = None,
         value: typing.Optional[typing.Union[bool, int, str]] = None,
-        *,
-        model_value: typing.Optional[typing.Union[bool, int, str]] = None,
         **kwargs: Unpack[TRadioGroupProps],
     ):
         super().__init__("t-radio-group")
+        model_value = kwargs.pop("model_value", None)
         self.props({"options": options})
         try_setup_vmodel(self, value)
         self.props(handle_props(kwargs, model_value=model_value))  # type: ignore
@@ -83,6 +81,8 @@ class RadioGroup(BaseElement):
 
 
 class TRadioProps(TypedDict, total=False):
+    checked_value: bool
+    allow_uncheck: bool
     default_checked: bool
     disabled: bool
     label: str
@@ -94,6 +94,7 @@ class TRadioProps(TypedDict, total=False):
 
 
 class TRadioGroupProps(TypedDict, total=False):
+    model_value: typing.Union[bool, int, str]
     allow_uncheck: bool
     disabled: bool
     name: str

@@ -5,17 +5,14 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class AutoComplete(BaseElement):
     def __init__(
         self,
-        options: typing.Optional[TMaybeRef[typing.List]] = None,
-        value: typing.Optional[TMaybeRef[str]] = None,
+        options: typing.Optional[typing.List] = None,
+        value: typing.Optional[str] = None,
         *,
-        model_value: typing.Optional[TMaybeRef[str]] = None,
+        model_value: typing.Optional[str] = None,
         **kwargs: Unpack[TAutoCompleteProps],
     ):
         super().__init__("t-auto-complete")
@@ -132,26 +129,26 @@ class AutoComplete(BaseElement):
 
 
 class TAutoCompleteProps(TypedDict, total=False):
-    autofocus: TMaybeRef[bool]
-    borderless: TMaybeRef[bool]
-    clearable: TMaybeRef[bool]
-    disabled: TMaybeRef[bool]
-    empty: TMaybeRef[str]
-    filter: TMaybeRef[str]
-    filterable: TMaybeRef[bool]
-    highlight_keyword: TMaybeRef[bool]
+    autofocus: bool
+    borderless: bool
+    clearable: bool
+    disabled: bool
+    empty: str
+    filter: str
+    filterable: bool
+    highlight_keyword: bool
     input_props: typing.Dict
-    panel_bottom_content: TMaybeRef[str]
-    panel_top_content: TMaybeRef[str]
-    placeholder: TMaybeRef[str]
+    panel_bottom_content: str
+    panel_top_content: str
+    placeholder: str
     popup_props: typing.Dict
-    readonly: TMaybeRef[bool]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
-    status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
+    readonly: bool
+    size: typing.Literal["small", "medium", "large"]
+    status: typing.Literal["default", "success", "warning", "error"]
     textarea_props: typing.Dict
-    tips: TMaybeRef[str]
-    trigger_element: TMaybeRef[str]
-    default_value: TMaybeRef[str]
+    tips: str
+    trigger_element: str
+    default_value: str
     on_blur: EventMixin
     on_change: EventMixin
     on_clear: EventMixin

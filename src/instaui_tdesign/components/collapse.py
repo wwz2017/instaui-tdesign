@@ -7,14 +7,11 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Collapse(BaseElement):
     def __init__(
         self,
-        value: typing.Optional[TMaybeRef[typing.List]] = None,
+        value: typing.Optional[typing.List] = None,
         *,
         expand_icon: typing.Optional[typing.Union[bool, str]] = None,
         **kwargs: Unpack[TCollapseProps],
@@ -44,9 +41,7 @@ class Collapse(BaseElement):
 class CollapsePanel(BaseElement):
     def __init__(
         self,
-        header: typing.Optional[TMaybeRef[str]] = None,
-        *,
-        expand_icon: typing.Optional[typing.Union[bool, str]] = None,
+        header: typing.Optional[str] = None,
         **kwargs: Unpack[TCollapsePanelProps],
     ):
         super().__init__("t-collapse-panel")
@@ -55,25 +50,27 @@ class CollapsePanel(BaseElement):
                 "header": header,
             }
         )
+        expand_icon = kwargs.pop("expand_icon", None)
         make_icon_for_bool_or_str(self, "expandIcon", expand_icon)
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
 
 class TCollapseProps(TypedDict, total=False):
-    borderless: TMaybeRef[bool]
-    default_expand_all: TMaybeRef[bool]
-    disabled: TMaybeRef[bool]
-    expand_icon_placement: TMaybeRef[typing.Literal["left", "right"]]
-    expand_mutex: TMaybeRef[bool]
-    expand_on_row_click: TMaybeRef[bool]
-    default_value: TMaybeRef[typing.List]
+    borderless: bool
+    default_expand_all: bool
+    disabled: bool
+    expand_icon_placement: typing.Literal["left", "right"]
+    expand_mutex: bool
+    expand_on_row_click: bool
+    default_value: typing.List
     on_change: EventMixin
 
 
 class TCollapsePanelProps(TypedDict, total=False):
-    content: TMaybeRef[str]
-    destroy_on_collapse: TMaybeRef[bool]
-    disabled: TMaybeRef[bool]
-    header_right_content: TMaybeRef[str]
-    value: TMaybeRef[typing.Union[int, str]]
+    expand_icon: typing.Union[bool, str]
+    content: str
+    destroy_on_collapse: bool
+    disabled: bool
+    header_right_content: str
+    value: typing.Union[int, str]

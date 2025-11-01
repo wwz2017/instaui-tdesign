@@ -17,9 +17,9 @@ if typing.TYPE_CHECKING:
 class Link(BaseElement):
     def __init__(
         self,
-        href: typing.Optional[TMaybeRef[str]] = None,
+        href: typing.Optional[str] = None,
         *,
-        content: typing.Optional[TMaybeRef[str]] = None,
+        content: typing.Optional[str] = None,
         prefix_icon: typing.Optional[str] = None,
         suffix_icon: typing.Optional[str] = None,
         **kwargs: Unpack[TLinkProps],
@@ -46,13 +46,13 @@ class Link(BaseElement):
 
 
 class TLinkProps(TypedDict, total=False):
-    disabled: TMaybeRef[bool]
-    download: TMaybeRef[typing.Union[bool, str]]
-    hover: TMaybeRef[typing.Literal["color", "underline"]]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
-    target: TMaybeRef[str]
+    disabled: bool
+    download: typing.Union[bool, str]
+    hover: typing.Literal["color", "underline"]
+    size: typing.Literal["small", "medium", "large"]
+    target: str
     theme: TMaybeRef[
         typing.Literal["default", "primary", "danger", "warning", "success"]
     ]
-    underline: TMaybeRef[bool]
+    underline: bool
     on_click: EventMixin

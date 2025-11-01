@@ -4,14 +4,11 @@ from ._base_element import BaseElement
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Card(BaseElement):
     def __init__(
         self,
-        content: typing.Optional[TMaybeRef[str]] = None,
+        content: typing.Optional[str] = None,
         **kwargs: Unpack[TCardProps],
     ):
         super().__init__("t-card")
@@ -22,21 +19,21 @@ class Card(BaseElement):
 
 
 class TCardProps(TypedDict, total=False):
-    actions: TMaybeRef[str]
-    avatar: TMaybeRef[str]
+    actions: str
+    avatar: str
     bordered: bool
-    body_style: TMaybeRef[typing.Dict]
-    cover: TMaybeRef[str]
-    description: TMaybeRef[str]
-    footer: TMaybeRef[str]
-    header: TMaybeRef[str]
-    header_bordered: TMaybeRef[bool]
-    hover_shadow: TMaybeRef[bool]
-    loading: TMaybeRef[typing.Union[bool, str]]
+    body_style: typing.Dict
+    cover: str
+    description: str
+    footer: str
+    header: str
+    header_bordered: bool
+    hover_shadow: bool
+    loading: typing.Union[bool, str]
     loading_props: typing.Dict
-    shadow: TMaybeRef[bool]
-    size: TMaybeRef[typing.Literal["medium", "small"]]
-    status: TMaybeRef[str]
-    subtitle: TMaybeRef[str]
-    theme: TMaybeRef[typing.Literal["normal", "poster1", "poster2"]]
-    title: TMaybeRef[str]
+    shadow: bool
+    size: typing.Literal["medium", "small"]
+    status: str
+    subtitle: str
+    theme: typing.Literal["normal", "poster1", "poster2"]
+    title: str

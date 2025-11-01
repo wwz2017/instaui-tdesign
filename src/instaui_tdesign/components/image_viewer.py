@@ -12,7 +12,7 @@ if typing.TYPE_CHECKING:
 class ImageViewer(BaseElement):
     def __init__(
         self,
-        images: typing.Optional[TMaybeRef[typing.List[str]]] = None,
+        images: typing.Optional[typing.List[str]] = None,
         **kwargs: Unpack[TImageViewerProps],
     ):
         super().__init__("t-image-viewer")
@@ -61,11 +61,11 @@ class ImageViewer(BaseElement):
 
 
 class TImageViewerProps(TypedDict, total=False):
-    attach: TMaybeRef[str]
-    close_btn: TMaybeRef[typing.Union[bool, str]]
-    close_on_esc_keydown: TMaybeRef[bool]
-    close_on_overlay: TMaybeRef[bool]
-    draggable: TMaybeRef[bool]
+    attach: str
+    close_btn: typing.Union[bool, str]
+    close_on_esc_keydown: bool
+    close_on_overlay: bool
+    draggable: bool
     image_referrerpolicy: TMaybeRef[
         typing.Literal[
             "no-referrer",
@@ -78,18 +78,18 @@ class TImageViewerProps(TypedDict, total=False):
             "unsafe-url",
         ]
     ]
-    image_scale: TMaybeRef[typing.Dict]
-    index: TMaybeRef[float]
-    default_index: TMaybeRef[float]
-    mode: TMaybeRef[typing.Literal["modal", "modeless"]]
-    navigation_arrow: TMaybeRef[typing.Union[bool, str]]
-    show_overlay: TMaybeRef[bool]
-    title: TMaybeRef[str]
-    trigger: TMaybeRef[str]
-    viewer_scale: TMaybeRef[typing.Dict]
-    visible: TMaybeRef[bool]
-    default_visible: TMaybeRef[bool]
-    z_index: TMaybeRef[float]
+    image_scale: typing.Dict
+    index: float
+    default_index: float
+    mode: typing.Literal["modal", "modeless"]
+    navigation_arrow: typing.Union[bool, str]
+    show_overlay: bool
+    title: str
+    trigger: str
+    viewer_scale: typing.Dict
+    visible: bool
+    default_visible: bool
+    z_index: float
     on_close: EventMixin
     on_download: EventMixin
     on_index_change: EventMixin

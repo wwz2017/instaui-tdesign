@@ -14,7 +14,7 @@ if typing.TYPE_CHECKING:
 class Dropdown(BaseElement):
     def __init__(
         self,
-        options: TMaybeRef[typing.List[DropdownOptionItem]],
+        options: typing.List[DropdownOptionItem],
         *,
         prefix_icon: typing.Optional[str] = None,
         **kwargs: Unpack[TDropdownProps],
@@ -79,14 +79,14 @@ class DropdownOptionItem(TypedDict, total=False):
 
 
 class TDropdownProps(TypedDict, total=False):
-    direction: TMaybeRef[typing.Literal["left", "right"]]
-    disabled: TMaybeRef[bool]
-    hide_after_item_click: TMaybeRef[bool]
-    max_column_width: TMaybeRef[typing.Union[float, str]]
-    max_height: TMaybeRef[float]
-    min_column_width: TMaybeRef[typing.Union[float, str]]
-    panel_bottom_content: TMaybeRef[str]
-    panel_top_content: TMaybeRef[str]
+    direction: typing.Literal["left", "right"]
+    disabled: bool
+    hide_after_item_click: bool
+    max_column_width: typing.Union[float, str]
+    max_height: float
+    min_column_width: typing.Union[float, str]
+    panel_bottom_content: str
+    panel_top_content: str
     placement: TMaybeRef[
         typing.Literal[
             "top",
@@ -104,14 +104,14 @@ class TDropdownProps(TypedDict, total=False):
         ]
     ]
     popup_props: typing.Dict
-    trigger: TMaybeRef[typing.Literal["hover", "click", "focus", "context-menu"]]
+    trigger: typing.Literal["hover", "click", "focus", "context-menu"]
     on_click: EventMixin
 
 
 class TDropdownItemProps(TypedDict, total=False):
-    active: TMaybeRef[bool]
-    disabled: TMaybeRef[bool]
-    divider: TMaybeRef[bool]
-    theme: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
-    value: TMaybeRef[int]
+    active: bool
+    disabled: bool
+    divider: bool
+    theme: typing.Literal["default", "success", "warning", "error"]
+    value: int
     on_click: EventMixin

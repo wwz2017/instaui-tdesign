@@ -14,11 +14,9 @@ if typing.TYPE_CHECKING:
 class Popconfirm(BaseElement):
     def __init__(
         self,
-        content: typing.Optional[TMaybeRef[str]] = None,
+        content: typing.Optional[str] = None,
         *,
-        theme: typing.Optional[
-            TMaybeRef[typing.Literal["default", "warning", "danger"]]
-        ] = None,
+        theme: typing.Optional[typing.Literal["default", "warning", "danger"]] = None,
         icon: typing.Union[str, None] = None,
         **kwargs: Unpack[TPopconfirmProps],
     ):
@@ -69,9 +67,9 @@ class Popconfirm(BaseElement):
 
 
 class TPopconfirmProps(TypedDict, total=False):
-    cancel_btn: TMaybeRef[typing.Union[str, typing.Dict]]
-    confirm_btn: TMaybeRef[typing.Union[str, typing.Dict]]
-    destroy_on_close: TMaybeRef[bool]
+    cancel_btn: typing.Union[str, typing.Dict]
+    confirm_btn: typing.Union[str, typing.Dict]
+    destroy_on_close: bool
     placement: TMaybeRef[
         typing.Literal[
             "top",
@@ -88,11 +86,11 @@ class TPopconfirmProps(TypedDict, total=False):
             "right-bottom",
         ]
     ]
-    popup_props: TMaybeRef[typing.Dict]
-    show_arrow: TMaybeRef[bool]
-    trigger_element: TMaybeRef[str]
-    visible: TMaybeRef[bool]
-    default_visible: TMaybeRef[bool]
+    popup_props: typing.Dict
+    show_arrow: bool
+    trigger_element: str
+    visible: bool
+    default_visible: bool
     on_cancel: EventMixin
     on_confirm: EventMixin
     on_visible_change: EventMixin

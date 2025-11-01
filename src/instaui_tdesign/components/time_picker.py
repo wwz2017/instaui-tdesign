@@ -12,9 +12,9 @@ if typing.TYPE_CHECKING:
 class TimePicker(BaseElement):
     def __init__(
         self,
-        value: typing.Optional[TMaybeRef[str]] = None,
+        value: typing.Optional[str] = None,
         *,
-        model_value: typing.Optional[TMaybeRef[str]] = None,
+        model_value: typing.Optional[str] = None,
         **kwargs: Unpack[TTimePickerProps],
     ):
         super().__init__("t-time-picker")
@@ -145,9 +145,9 @@ class TimePicker(BaseElement):
 class TimeRangePicker(BaseElement):
     def __init__(
         self,
-        value: typing.Optional[TMaybeRef[typing.List]] = None,
+        value: typing.Optional[typing.List] = None,
         *,
-        model_value: typing.Optional[TMaybeRef[typing.List]] = None,
+        model_value: typing.Optional[typing.List] = None,
         **kwargs: Unpack[TTimeRangePickerProps],
     ):
         super().__init__("t-time-range-picker")
@@ -224,26 +224,26 @@ class TimeRangePicker(BaseElement):
 
 
 class TTimePickerProps(TypedDict, total=False):
-    allow_input: TMaybeRef[bool]
-    borderless: TMaybeRef[bool]
-    clearable: TMaybeRef[bool]
-    disable_time: TMaybeRef[str]
-    disabled: TMaybeRef[bool]
-    format: TMaybeRef[str]
-    hide_disabled_time: TMaybeRef[bool]
-    input_props: TMaybeRef[typing.Dict]
-    label: TMaybeRef[str]
-    placeholder: TMaybeRef[str]
-    popup_props: TMaybeRef[typing.Dict]
-    presets: TMaybeRef[typing.Dict]
-    readonly: TMaybeRef[bool]
-    select_input_props: TMaybeRef[typing.Dict]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
-    status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
-    steps: TMaybeRef[typing.List]
-    tips: TMaybeRef[str]
-    default_value: TMaybeRef[str]
-    value_display: TMaybeRef[str]
+    allow_input: bool
+    borderless: bool
+    clearable: bool
+    disable_time: str
+    disabled: bool
+    format: str
+    hide_disabled_time: bool
+    input_props: typing.Dict
+    label: str
+    placeholder: str
+    popup_props: typing.Dict
+    presets: typing.Dict
+    readonly: bool
+    select_input_props: typing.Dict
+    size: typing.Literal["small", "medium", "large"]
+    status: typing.Literal["default", "success", "warning", "error"]
+    steps: typing.List
+    tips: str
+    default_value: str
+    value_display: str
     on_blur: EventMixin
     on_change: EventMixin
     on_clear: EventMixin
@@ -256,24 +256,24 @@ class TTimePickerProps(TypedDict, total=False):
 
 
 class TTimeRangePickerProps(TypedDict, total=False):
-    allow_input: TMaybeRef[bool]
-    auto_swap: TMaybeRef[bool]
-    borderless: TMaybeRef[bool]
-    clearable: TMaybeRef[bool]
-    disable_time: TMaybeRef[str]
-    disabled: TMaybeRef[typing.Union[TMaybeRef[bool], TMaybeRef[typing.List]]]
-    format: TMaybeRef[str]
-    hide_disabled_time: TMaybeRef[bool]
-    label: TMaybeRef[typing.Literal["TNode"]]
-    placeholder: TMaybeRef[typing.Literal["Array"]]
-    popup_props: TMaybeRef[typing.Dict]
-    presets: TMaybeRef[typing.Dict]
-    range_input_props: TMaybeRef[typing.Dict]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
-    status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
-    steps: TMaybeRef[typing.List]
-    tips: TMaybeRef[typing.Literal["TNode"]]
-    default_value: TMaybeRef[typing.List]
+    allow_input: bool
+    auto_swap: bool
+    borderless: bool
+    clearable: bool
+    disable_time: str
+    disabled: typing.Union[TMaybeRef[bool, typing.List]]
+    format: str
+    hide_disabled_time: bool
+    label: typing.Literal["TNode"]
+    placeholder: typing.Literal["Array"]
+    popup_props: typing.Dict
+    presets: typing.Dict
+    range_input_props: typing.Dict
+    size: typing.Literal["small", "medium", "large"]
+    status: typing.Literal["default", "success", "warning", "error"]
+    steps: typing.List
+    tips: typing.Literal["TNode"]
+    default_value: typing.List
     on_blur: EventMixin
     on_change: EventMixin
     on_focus: EventMixin

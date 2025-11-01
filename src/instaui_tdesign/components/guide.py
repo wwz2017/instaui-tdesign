@@ -5,16 +5,13 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Guide(BaseElement):
     def __init__(
         self,
         *,
-        current: TMaybeRef[int],
-        steps: TMaybeRef[typing.List[TGuideStepValue]],
+        current: int,
+        steps: typing.List[TGuideStepValue],
         **kwargs: Unpack[TGuideProps],
     ):
         super().__init__("t-guide")
@@ -90,19 +87,19 @@ class Guide(BaseElement):
 
 
 class TGuideProps(TypedDict, total=False):
-    counter: TMaybeRef[str]
-    default_current: TMaybeRef[int]
-    finish_button_props: TMaybeRef[typing.Dict]
-    hide_counter: TMaybeRef[bool]
-    hide_prev: TMaybeRef[bool]
-    hide_skip: TMaybeRef[bool]
-    highlight_padding: TMaybeRef[float]
-    mode: TMaybeRef[typing.Literal["popup", "dialog"]]
-    next_button_props: TMaybeRef[typing.Dict]
-    prev_button_props: TMaybeRef[typing.Dict]
-    show_overlay: TMaybeRef[bool]
-    skip_button_props: TMaybeRef[typing.Dict]
-    z_index: TMaybeRef[float]
+    counter: str
+    default_current: int
+    finish_button_props: typing.Dict
+    hide_counter: bool
+    hide_prev: bool
+    hide_skip: bool
+    highlight_padding: float
+    mode: typing.Literal["popup", "dialog"]
+    next_button_props: typing.Dict
+    prev_button_props: typing.Dict
+    show_overlay: bool
+    skip_button_props: typing.Dict
+    z_index: float
     on_change: EventMixin
     on_finish: EventMixin
     on_next_step_click: EventMixin
@@ -111,21 +108,21 @@ class TGuideProps(TypedDict, total=False):
 
 
 class TGuideStepValue(TypedDict, total=False):
-    body: TMaybeRef[str]
-    content: TMaybeRef[str]
-    element: TMaybeRef[str]
-    highlight_content: TMaybeRef[str]
-    highlight_padding: TMaybeRef[float]
-    mode: TMaybeRef[typing.Literal["popup", "dialog"]]
-    next_button_props: TMaybeRef[typing.Dict]
-    offset: TMaybeRef[typing.List]
-    placement: TMaybeRef[typing.Union[TStepPopupPlacement, TStepDialogPlacement]]
-    popup_props: TMaybeRef[typing.Dict]
-    prev_button_props: TMaybeRef[typing.Dict]
-    show_overlay: TMaybeRef[bool]
-    skip_button_props: TMaybeRef[typing.Dict]
-    step_overlay_class: TMaybeRef[str]
-    title: TMaybeRef[str]
+    body: str
+    content: str
+    element: str
+    highlight_content: str
+    highlight_padding: float
+    mode: typing.Literal["popup", "dialog"]
+    next_button_props: typing.Dict
+    offset: typing.List
+    placement: typing.Union[TStepPopupPlacement, TStepDialogPlacement]
+    popup_props: typing.Dict
+    prev_button_props: typing.Dict
+    show_overlay: bool
+    skip_button_props: typing.Dict
+    step_overlay_class: str
+    title: str
 
 
 TStepPopupPlacement = typing.Literal[

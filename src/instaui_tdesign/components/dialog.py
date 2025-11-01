@@ -12,12 +12,12 @@ if typing.TYPE_CHECKING:
 class Dialog(BaseElement):
     def __init__(
         self,
-        visible: TMaybeRef[bool],
+        visible: bool,
         *,
-        header: typing.Optional[TMaybeRef[str]] = None,
-        body: typing.Optional[TMaybeRef[str]] = None,
+        header: typing.Optional[str] = None,
+        body: typing.Optional[str] = None,
         theme: typing.Optional[
-            TMaybeRef[typing.Literal["default", "info", "warning", "danger", "success"]]
+            typing.Literal["default", "info", "warning", "danger", "success"]
         ] = None,
         **kwargs: Unpack[TDialogProps],
     ):
@@ -159,42 +159,42 @@ class Dialog(BaseElement):
 
 
 class TDialogCardProps(TypedDict, total=False):
-    body: TMaybeRef[typing.Literal["TNode"]]
-    cancel_btn: TMaybeRef[typing.Literal["ButtonProps"]]
-    close_btn: TMaybeRef[typing.Literal["ButtonProps"]]
-    confirm_btn: TMaybeRef[typing.Literal["ButtonProps"]]
-    confirm_loading: TMaybeRef[bool]
-    footer: TMaybeRef[typing.Union[TMaybeRef[bool], TMaybeRef[str]]]
-    header: TMaybeRef[typing.Literal["boolean"]]
-    theme: TMaybeRef[typing.Literal["default", "info", "warning", "danger", "success"]]
+    body: typing.Literal["TNode"]
+    cancel_btn: typing.Literal["ButtonProps"]
+    close_btn: typing.Literal["ButtonProps"]
+    confirm_btn: typing.Literal["ButtonProps"]
+    confirm_loading: bool
+    footer: typing.Union[TMaybeRef[bool, str]]
+    header: typing.Literal["boolean"]
+    theme: typing.Literal["default", "info", "warning", "danger", "success"]
     on_cancel: EventMixin
     on_close_btn_click: EventMixin
     on_confirm: EventMixin
 
 
 class TDialogProps(TypedDict, total=False):
-    attach: TMaybeRef[str]
-    cancel_btn: TMaybeRef[typing.Literal["ButtonProps"]]
-    close_btn: TMaybeRef[typing.Literal["boolean"]]
-    close_on_esc_keydown: TMaybeRef[bool]
-    close_on_overlay_click: TMaybeRef[bool]
-    confirm_btn: TMaybeRef[typing.Literal["ButtonProps"]]
-    confirm_loading: TMaybeRef[bool]
-    confirm_on_enter: TMaybeRef[bool]
-    destroy_on_close: TMaybeRef[bool]
-    dialog_class_name: TMaybeRef[str]
-    dialog_style: TMaybeRef[typing.Dict]
-    draggable: TMaybeRef[bool]
-    footer: TMaybeRef[typing.Union[bool, str]]
-    lazy: TMaybeRef[bool]
-    mode: TMaybeRef[typing.Literal["modal", "modeless", "normal", "full-screen"]]
-    placement: TMaybeRef[typing.Literal["top", "center"]]
-    prevent_scroll_through: TMaybeRef[bool]
-    show_in_attached_element: TMaybeRef[bool]
-    show_overlay: TMaybeRef[bool]
-    top: TMaybeRef[typing.Union[float, str]]
-    width: TMaybeRef[typing.Union[float, str]]
-    z_index: TMaybeRef[float]
+    attach: str
+    cancel_btn: typing.Literal["ButtonProps"]
+    close_btn: typing.Literal["boolean"]
+    close_on_esc_keydown: bool
+    close_on_overlay_click: bool
+    confirm_btn: typing.Literal["ButtonProps"]
+    confirm_loading: bool
+    confirm_on_enter: bool
+    destroy_on_close: bool
+    dialog_class_name: str
+    dialog_style: typing.Dict
+    draggable: bool
+    footer: typing.Union[bool, str]
+    lazy: bool
+    mode: typing.Literal["modal", "modeless", "normal", "full-screen"]
+    placement: typing.Literal["top", "center"]
+    prevent_scroll_through: bool
+    show_in_attached_element: bool
+    show_overlay: bool
+    top: typing.Union[float, str]
+    width: typing.Union[float, str]
+    z_index: float
     on_before_close: EventMixin
     on_before_open: EventMixin
     on_cancel: EventMixin

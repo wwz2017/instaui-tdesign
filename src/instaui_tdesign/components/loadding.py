@@ -4,9 +4,6 @@ from ._base_element import BaseElement
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Loading(BaseElement):
     def __init__(
@@ -22,13 +19,13 @@ class Loading(BaseElement):
 
 
 class TLoadingProps(TypedDict, total=False):
-    attach: TMaybeRef[str]
-    content: TMaybeRef[str]
-    delay: TMaybeRef[float]
-    fullscreen: TMaybeRef[bool]
-    inherit_color: TMaybeRef[bool]
-    loading: TMaybeRef[bool]
-    prevent_scroll_through: TMaybeRef[bool]
-    show_overlay: TMaybeRef[bool]
-    size: TMaybeRef[str]
-    z_index: TMaybeRef[float]
+    attach: str
+    content: str
+    delay: float
+    fullscreen: bool
+    inherit_color: bool
+    loading: bool
+    prevent_scroll_through: bool
+    show_overlay: bool
+    size: str
+    z_index: float

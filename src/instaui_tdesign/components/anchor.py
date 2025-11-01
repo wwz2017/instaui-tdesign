@@ -5,9 +5,6 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Anchor(BaseElement):
     def __init__(
@@ -65,20 +62,20 @@ class AnchorItem(BaseElement):
 
 
 class TAnchorProps(TypedDict, total=False):
-    bounds: TMaybeRef[float]
-    container: TMaybeRef[str]
-    cursor: TMaybeRef[str]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
-    target_offset: TMaybeRef[float]
+    bounds: float
+    container: str
+    cursor: str
+    size: typing.Literal["small", "medium", "large"]
+    target_offset: float
     on_change: EventMixin
     on_click: EventMixin
 
 
 class TAnchorItemProps(TypedDict, total=False):
-    target: TMaybeRef[typing.Literal["_self", "_blank", "_parent", "_top"]]
-    title: TMaybeRef[str]
+    target: typing.Literal["_self", "_blank", "_parent", "_top"]
+    title: str
 
 
 class TAnchorTargetProps(TypedDict, total=False):
-    id: TMaybeRef[str]
-    tag: TMaybeRef[str]
+    id: str
+    tag: str

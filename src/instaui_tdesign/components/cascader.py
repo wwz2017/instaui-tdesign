@@ -10,16 +10,13 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Cascader(BaseElement):
     def __init__(
         self,
         options: list[dict],
         *,
-        value: typing.Optional[TMaybeRef[typing.Union[int, str]]] = None,
+        value: typing.Optional[typing.Union[int, str]] = None,
         prefix_icon: typing.Optional[str] = None,
         suffix_icon: typing.Optional[str] = None,
         **kwargs: Unpack[TCascaderProps],
@@ -101,48 +98,48 @@ class Cascader(BaseElement):
 
 
 class TCascaderProps(TypedDict, total=False):
-    autofocus: TMaybeRef[bool]
-    borderless: TMaybeRef[bool]
+    autofocus: bool
+    borderless: bool
     check_props: typing.Dict
-    check_strictly: TMaybeRef[bool]
-    clearable: TMaybeRef[bool]
-    collapsed_items: TMaybeRef[str]
-    disabled: TMaybeRef[bool]
-    empty: TMaybeRef[str]
-    filter: TMaybeRef[str]
-    filterable: TMaybeRef[bool]
+    check_strictly: bool
+    clearable: bool
+    collapsed_items: str
+    disabled: bool
+    empty: str
+    filter: str
+    filterable: bool
     input_props: typing.Dict
     keys: typing.Dict
-    label: TMaybeRef[str]
-    lazy: TMaybeRef[bool]
-    load: TMaybeRef[str]
-    loading: TMaybeRef[bool]
-    loading_text: TMaybeRef[str]
-    max: TMaybeRef[float]
-    min_collapsed_num: TMaybeRef[float]
-    multiple: TMaybeRef[bool]
-    option: TMaybeRef[str]
-    panel_bottom_content: TMaybeRef[str]
-    panel_top_content: TMaybeRef[str]
-    placeholder: TMaybeRef[str]
+    label: str
+    lazy: bool
+    load: str
+    loading: bool
+    loading_text: str
+    max: float
+    min_collapsed_num: float
+    multiple: bool
+    option: str
+    panel_bottom_content: str
+    panel_top_content: str
+    placeholder: str
     popup_props: typing.Dict
-    popup_visible: TMaybeRef[bool]
-    default_popup_visible: TMaybeRef[bool]
-    readonly: TMaybeRef[bool]
-    reserve_keyword: TMaybeRef[bool]
+    popup_visible: bool
+    default_popup_visible: bool
+    readonly: bool
+    reserve_keyword: bool
     select_input_props: typing.Dict
-    show_all_levels: TMaybeRef[bool]
+    show_all_levels: bool
     size: typing.Literal["large", "medium", "small"]
     status: typing.Literal["default", "success", "warning", "error"]
-    suffix: TMaybeRef[str]
+    suffix: str
     tag_input_props: typing.Dict
     tag_props: typing.Dict
-    tips: TMaybeRef[str]
-    trigger: TMaybeRef[typing.Literal["click", "hover"]]
-    default_value: TMaybeRef[typing.Union[int, str]]
-    value_display: TMaybeRef[str]
-    value_mode: TMaybeRef[typing.Literal["onlyLeaf", "parentFirst", "all"]]
-    value_type: TMaybeRef[typing.Literal["single", "full"]]
+    tips: str
+    trigger: typing.Literal["click", "hover"]
+    default_value: typing.Union[int, str]
+    value_display: str
+    value_mode: typing.Literal["onlyLeaf", "parentFirst", "all"]
+    value_type: typing.Literal["single", "full"]
     on_blur: EventMixin
     on_change: EventMixin
     on_focus: EventMixin

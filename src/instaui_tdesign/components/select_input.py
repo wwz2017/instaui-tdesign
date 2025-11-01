@@ -10,18 +10,13 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class SelectInput(BaseElement):
     def __init__(
         self,
-        value: typing.Optional[TMaybeRef[typing.Union[str, int, float, bool]]] = None,
+        value: typing.Optional[typing.Union[str, int, float, bool]] = None,
         *,
-        model_value: typing.Optional[
-            TMaybeRef[typing.Union[str, int, float, bool]]
-        ] = None,
+        model_value: typing.Optional[typing.Union[str, int, float, bool]] = None,
         prefix_icon: typing.Optional[str] = None,
         suffix_icon: typing.Optional[str] = None,
         **kwargs: Unpack[TSelectInputProps],
@@ -166,36 +161,36 @@ class SelectInput(BaseElement):
 
 
 class TSelectInputProps(TypedDict, total=False):
-    allow_input: TMaybeRef[bool]
-    auto_width: TMaybeRef[bool]
-    autofocus: TMaybeRef[bool]
-    borderless: TMaybeRef[bool]
-    clearable: TMaybeRef[bool]
-    collapsed_items: TMaybeRef[str]
-    disabled: TMaybeRef[bool]
-    input_props: TMaybeRef[typing.Dict]
-    input_value: TMaybeRef[typing.Union[float, str]]
-    default_input_value: TMaybeRef[typing.Union[float, str]]
-    keys: TMaybeRef[typing.Dict]
-    label: TMaybeRef[str]
-    loading: TMaybeRef[bool]
-    min_collapsed_num: TMaybeRef[float]
-    multiple: TMaybeRef[bool]
-    panel: TMaybeRef[str]
-    placeholder: TMaybeRef[str]
-    popup_props: TMaybeRef[typing.Dict]
-    popup_visible: TMaybeRef[bool]
-    default_popup_visible: TMaybeRef[bool]
-    readonly: TMaybeRef[bool]
-    reserve_keyword: TMaybeRef[bool]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
-    status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
-    suffix: TMaybeRef[str]
-    tag: TMaybeRef[str]
-    tag_input_props: TMaybeRef[typing.Dict]
-    tag_props: TMaybeRef[typing.Dict]
-    tips: TMaybeRef[str]
-    value_display: TMaybeRef[str]
+    allow_input: bool
+    auto_width: bool
+    autofocus: bool
+    borderless: bool
+    clearable: bool
+    collapsed_items: str
+    disabled: bool
+    input_props: typing.Dict
+    input_value: typing.Union[float, str]
+    default_input_value: typing.Union[float, str]
+    keys: typing.Dict
+    label: str
+    loading: bool
+    min_collapsed_num: float
+    multiple: bool
+    panel: str
+    placeholder: str
+    popup_props: typing.Dict
+    popup_visible: bool
+    default_popup_visible: bool
+    readonly: bool
+    reserve_keyword: bool
+    size: typing.Literal["small", "medium", "large"]
+    status: typing.Literal["default", "success", "warning", "error"]
+    suffix: str
+    tag: str
+    tag_input_props: typing.Dict
+    tag_props: typing.Dict
+    tips: str
+    value_display: str
     on_blur: EventMixin
     on_clear: EventMixin
     on_enter: EventMixin

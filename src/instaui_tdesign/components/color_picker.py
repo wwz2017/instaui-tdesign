@@ -5,19 +5,14 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class ColorPicker(BaseElement):
     def __init__(
         self,
-        value: typing.Optional[TMaybeRef[str]] = None,
+        value: typing.Optional[str] = None,
         *,
-        model_value: typing.Optional[TMaybeRef[str]] = None,
-        recent_colors: typing.Optional[
-            TMaybeRef[typing.Union[typing.List[str], bool]]
-        ] = None,
+        model_value: typing.Optional[str] = None,
+        recent_colors: typing.Optional[typing.Union[typing.List[str, bool]]] = None,
         **kwargs: Unpack[TColorPickerProps],
     ):
         super().__init__("t-color-picker")
@@ -139,12 +134,12 @@ class ColorPickerPanel(BaseElement):
 
 
 class TColorPickerProps(TypedDict, total=False):
-    borderless: TMaybeRef[bool]
-    clearable: TMaybeRef[bool]
+    borderless: bool
+    clearable: bool
     color_modes: typing.List
-    disabled: TMaybeRef[bool]
-    enable_alpha: TMaybeRef[bool]
-    enable_multiple_gradient: TMaybeRef[bool]
+    disabled: bool
+    enable_alpha: bool
+    enable_multiple_gradient: bool
     format: typing.Literal[
         "HEX", "HEX8", "RGB", "RGBA", "HSL", "HSLA", "HSV", "HSVA", "CMYK", "CSS"
     ]
@@ -152,7 +147,7 @@ class TColorPickerProps(TypedDict, total=False):
     popup_props: typing.Dict
     default_recent_colors: typing.List
     select_input_props: typing.Dict
-    show_primary_color_preview: TMaybeRef[bool]
+    show_primary_color_preview: bool
     size: typing.Literal["small", "medium", "large"]
     swatch_colors: typing.List
     default_value: str
@@ -164,14 +159,14 @@ class TColorPickerProps(TypedDict, total=False):
 
 class TColorPickerPanelProps(TypedDict, total=False):
     color_modes: typing.List
-    disabled: TMaybeRef[bool]
-    enable_alpha: TMaybeRef[bool]
-    enable_multiple_gradient: TMaybeRef[bool]
+    disabled: bool
+    enable_alpha: bool
+    enable_multiple_gradient: bool
     format: typing.Literal[
         "HEX", "HEX8", "RGB", "RGBA", "HSL", "HSLA", "HSV", "HSVA", "CMYK", "CSS"
     ]
     default_recent_colors: typing.List
-    show_primary_color_preview: TMaybeRef[bool]
+    show_primary_color_preview: bool
     swatch_colors: typing.List
     default_value: str
     on_change: EventMixin

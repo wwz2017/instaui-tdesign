@@ -17,11 +17,9 @@ if typing.TYPE_CHECKING:
 class TreeSelect(BaseElement):
     def __init__(
         self,
-        value: typing.Optional[TMaybeRef[typing.Union[str, int, typing.List]]] = None,
+        value: typing.Optional[typing.Union[str, int, typing.List]] = None,
         *,
-        model_value: typing.Optional[
-            TMaybeRef[typing.Union[str, int, typing.List]]
-        ] = None,
+        model_value: typing.Optional[typing.Union[str, int, typing.List]] = None,
         prefix_icon: typing.Optional[str] = None,
         suffix_icon: typing.Optional[str] = None,
         **kwargs: Unpack[TTreeSelectProps],
@@ -153,44 +151,44 @@ class TreeSelect(BaseElement):
 
 
 class TTreeSelectProps(TypedDict, total=False):
-    auto_width: TMaybeRef[bool]
-    autofocus: TMaybeRef[bool]
-    borderless: TMaybeRef[bool]
-    clearable: TMaybeRef[bool]
-    collapsed_items: TMaybeRef[str]
-    data: TMaybeRef[typing.List]
-    disabled: TMaybeRef[bool]
-    empty: TMaybeRef[str]
-    filter: TMaybeRef[str]
-    filterable: TMaybeRef[bool]
-    input_props: TMaybeRef[typing.Dict]
-    input_value: TMaybeRef[typing.Union[TMaybeRef[float], TMaybeRef[str]]]
-    default_input_value: TMaybeRef[typing.Union[TMaybeRef[float], TMaybeRef[str]]]
-    keys: TMaybeRef[typing.Dict]
-    label: TMaybeRef[str]
-    loading: TMaybeRef[bool]
-    loading_text: TMaybeRef[str]
-    max: TMaybeRef[float]
-    min_collapsed_num: TMaybeRef[float]
-    multiple: TMaybeRef[bool]
-    panel_bottom_content: TMaybeRef[str]
-    panel_top_content: TMaybeRef[str]
-    placeholder: TMaybeRef[str]
-    popup_props: TMaybeRef[typing.Dict]
-    popup_visible: TMaybeRef[bool]
-    default_popup_visible: TMaybeRef[bool]
-    readonly: TMaybeRef[bool]
-    reserve_keyword: TMaybeRef[bool]
-    select_input_props: TMaybeRef[typing.Dict]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
-    status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
-    suffix: TMaybeRef[str]
-    tag_props: TMaybeRef[typing.Dict]
-    tips: TMaybeRef[str]
-    tree_props: TMaybeRef[typing.Dict]
-    default_value: TMaybeRef[typing.Union[str, int, typing.List]]
-    value_display: TMaybeRef[str]
-    value_type: TMaybeRef[typing.Literal["value", "object"]]
+    auto_width: bool
+    autofocus: bool
+    borderless: bool
+    clearable: bool
+    collapsed_items: str
+    data: typing.List
+    disabled: bool
+    empty: str
+    filter: str
+    filterable: bool
+    input_props: typing.Dict
+    input_value: typing.Union[TMaybeRef[float, str]]
+    default_input_value: typing.Union[TMaybeRef[float, str]]
+    keys: typing.Dict
+    label: str
+    loading: bool
+    loading_text: str
+    max: float
+    min_collapsed_num: float
+    multiple: bool
+    panel_bottom_content: str
+    panel_top_content: str
+    placeholder: str
+    popup_props: typing.Dict
+    popup_visible: bool
+    default_popup_visible: bool
+    readonly: bool
+    reserve_keyword: bool
+    select_input_props: typing.Dict
+    size: typing.Literal["small", "medium", "large"]
+    status: typing.Literal["default", "success", "warning", "error"]
+    suffix: str
+    tag_props: typing.Dict
+    tips: str
+    tree_props: typing.Dict
+    default_value: typing.Union[str, int, typing.List]
+    value_display: str
+    value_type: typing.Literal["value", "object"]
     on_blur: EventMixin
     on_change: EventMixin
     on_clear: EventMixin

@@ -72,25 +72,25 @@ class Popup(BaseElement):
 
 
 class TPopupProps(TypedDict, total=False):
-    content: TMaybeRef[str]
-    attach: TMaybeRef[str]
-    delay: TMaybeRef[typing.Union[float, typing.List]]
-    destroy_on_close: TMaybeRef[bool]
-    disabled: TMaybeRef[bool]
-    hide_empty_popup: TMaybeRef[bool]
-    overlay_class_name: TMaybeRef[typing.Union[str, typing.Dict, typing.List]]
-    overlay_inner_class_name: TMaybeRef[typing.Union[str, typing.Dict, typing.List]]
-    overlay_inner_style: TMaybeRef[typing.Union[str, typing.Dict, typing.List]]
-    overlay_style: TMaybeRef[typing.Union[str, typing.Dict, typing.List]]
-    placement: TMaybeRef[str]
-    popper_options: TMaybeRef[typing.Dict]
-    show_arrow: TMaybeRef[bool]
+    content: str
+    attach: str
+    delay: typing.Union[float, typing.List]
+    destroy_on_close: bool
+    disabled: bool
+    hide_empty_popup: bool
+    overlay_class_name: typing.Union[str, typing.Dict, typing.List]
+    overlay_inner_class_name: typing.Union[str, typing.Dict, typing.List]
+    overlay_inner_style: typing.Union[str, typing.Dict, typing.List]
+    overlay_style: typing.Union[str, typing.Dict, typing.List]
+    placement: str
+    popper_options: typing.Dict
+    show_arrow: bool
     trigger: TMaybeRef[
         typing.Literal["hover", "click", "focus", "mousedown", "context-menu"]
     ]
-    trigger_element: TMaybeRef[str]
-    visible: TMaybeRef[bool]
-    z_index: TMaybeRef[float]
+    trigger_element: str
+    visible: bool
+    z_index: float
     on_overlay_click: EventMixin
     on_scroll: EventMixin
     on_scroll_to_bottom: EventMixin

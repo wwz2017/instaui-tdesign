@@ -11,22 +11,18 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Select(BaseElement):
     def __init__(
         self,
         options: typing.Union[list, list[dict], None] = None,
-        value: typing.Optional[TMaybeRef[typing.Any]] = None,
-        *,
-        model_value: typing.Optional[TMaybeRef[typing.Any]] = None,
-        prefix_icon: typing.Optional[str] = None,
-        suffix_icon: typing.Optional[str] = None,
+        value: typing.Optional[typing.Any] = None,
         **kwargs: Unpack[TSelectProps],
     ):
         super().__init__("t-select")
+        model_value = kwargs.pop("model_value", None)
+        prefix_icon = kwargs.pop("prefix_icon", None)
+        suffix_icon = kwargs.pop("suffix_icon", None)
 
         make_prefix_icon(self, prefix_icon)
         make_suffix_icon(self, suffix_icon)
@@ -170,7 +166,7 @@ class Select(BaseElement):
 class Option(BaseElement):
     def __init__(
         self,
-        content: typing.Optional[TMaybeRef[str]],
+        content: typing.Optional[str],
         **kwargs: Unpack[TOptionProps],
     ):
         super().__init__("t-option")
@@ -183,44 +179,47 @@ class Option(BaseElement):
 
 
 class TSelectProps(TypedDict, total=False):
-    auto_width: TMaybeRef[bool]
-    autofocus: TMaybeRef[bool]
-    borderless: TMaybeRef[bool]
-    clearable: TMaybeRef[bool]
-    collapsed_items: TMaybeRef[str]
-    creatable: TMaybeRef[bool]
-    disabled: TMaybeRef[bool]
-    empty: TMaybeRef[str]
-    filter: TMaybeRef[str]
-    filterable: TMaybeRef[bool]
-    input_props: TMaybeRef[typing.Dict]
-    keys: TMaybeRef[typing.Dict]
-    label: TMaybeRef[str]
-    loading: TMaybeRef[bool]
-    loading_text: TMaybeRef[str]
-    max: TMaybeRef[float]
-    min_collapsed_num: TMaybeRef[float]
-    multiple: TMaybeRef[bool]
-    panel_bottom_content: TMaybeRef[str]
-    panel_top_content: TMaybeRef[str]
-    placeholder: TMaybeRef[str]
-    popup_props: TMaybeRef[typing.Dict]
-    popup_visible: TMaybeRef[bool]
-    default_popup_visible: TMaybeRef[bool]
-    readonly: TMaybeRef[bool]
-    reserve_keyword: TMaybeRef[bool]
-    scroll: TMaybeRef[typing.Dict]
-    select_input_props: TMaybeRef[typing.Dict]
-    show_arrow: TMaybeRef[bool]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
-    status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
-    suffix: TMaybeRef[str]
-    tag_input_props: TMaybeRef[typing.Dict]
-    tag_props: TMaybeRef[typing.Dict]
-    tips: TMaybeRef[str]
-    default_value: TMaybeRef[typing.Literal["number"]]
-    value_display: TMaybeRef[str]
-    value_type: TMaybeRef[typing.Literal["value", "object"]]
+    model_value: typing.Any
+    prefix_icon: str
+    suffix_icon: str
+    auto_width: bool
+    autofocus: bool
+    borderless: bool
+    clearable: bool
+    collapsed_items: str
+    creatable: bool
+    disabled: bool
+    empty: str
+    filter: str
+    filterable: bool
+    input_props: typing.Dict
+    keys: typing.Dict
+    label: str
+    loading: bool
+    loading_text: str
+    max: float
+    min_collapsed_num: float
+    multiple: bool
+    panel_bottom_content: str
+    panel_top_content: str
+    placeholder: str
+    popup_props: typing.Dict
+    popup_visible: bool
+    default_popup_visible: bool
+    readonly: bool
+    reserve_keyword: bool
+    scroll: typing.Dict
+    select_input_props: typing.Dict
+    show_arrow: bool
+    size: typing.Literal["small", "medium", "large"]
+    status: typing.Literal["default", "success", "warning", "error"]
+    suffix: str
+    tag_input_props: typing.Dict
+    tag_props: typing.Dict
+    tips: str
+    default_value: typing.Literal["number"]
+    value_display: str
+    value_type: typing.Literal["value", "object"]
     on_blur: EventMixin
     on_change: EventMixin
     on_clear: EventMixin
@@ -234,13 +233,13 @@ class TSelectProps(TypedDict, total=False):
 
 
 class TOptionProps(TypedDict, total=False):
-    check_all: TMaybeRef[bool]
-    disabled: TMaybeRef[bool]
-    label: TMaybeRef[str]
-    title: TMaybeRef[str]
-    value: TMaybeRef[typing.Union[bool, float, str]]
+    check_all: bool
+    disabled: bool
+    label: str
+    title: str
+    value: typing.Union[bool, float, str]
 
 
 class TOptionGroupProps(TypedDict, total=False):
-    divider: TMaybeRef[bool]
-    label: TMaybeRef[str]
+    divider: bool
+    label: str

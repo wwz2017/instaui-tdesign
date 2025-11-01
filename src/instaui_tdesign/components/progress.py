@@ -4,19 +4,16 @@ from ._base_element import BaseElement
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Progress(BaseElement):
     def __init__(
         self,
-        percentage: typing.Optional[TMaybeRef[float]] = None,
+        percentage: typing.Optional[float] = None,
         *,
-        label: typing.Optional[TMaybeRef[typing.Union[str, bool]]] = None,
-        size: typing.Optional[TMaybeRef[typing.Union[float, str]]] = None,
+        label: typing.Optional[typing.Union[str, bool]] = None,
+        size: typing.Optional[typing.Union[float, str]] = None,
         status: typing.Optional[
-            TMaybeRef[typing.Literal["success", "error", "warning", "active"]]
+            typing.Literal["success", "error", "warning", "active"]
         ] = None,
         **kwargs: Unpack[TProgressProps],
     ):
@@ -29,7 +26,7 @@ class Progress(BaseElement):
 
 
 class TProgressProps(TypedDict, total=False):
-    color: TMaybeRef[typing.Union[str, typing.List[str]]]
-    stroke_width: TMaybeRef[typing.Union[float, str]]
-    theme: TMaybeRef[typing.Literal["line", "plump", "circle"]]
-    track_color: TMaybeRef[str]
+    color: typing.Union[str, typing.List[str]]
+    stroke_width: typing.Union[float, str]
+    theme: typing.Literal["line", "plump", "circle"]
+    track_color: str

@@ -5,16 +5,13 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Textarea(BaseElement):
     def __init__(
         self,
-        value: typing.Optional[TMaybeRef[str]] = None,
+        value: typing.Optional[str] = None,
         *,
-        model_value: typing.Optional[TMaybeRef[str]] = None,
+        model_value: typing.Optional[str] = None,
         **kwargs: Unpack[TTextareaProps],
     ):
         super().__init__("t-textarea")
@@ -117,18 +114,18 @@ class Textarea(BaseElement):
 
 
 class TTextareaProps(TypedDict, total=False):
-    allow_input_over_max: TMaybeRef[bool]
-    autofocus: TMaybeRef[bool]
-    autosize: TMaybeRef[typing.Union[bool, typing.Dict]]
-    disabled: TMaybeRef[bool]
-    maxcharacter: TMaybeRef[float]
-    maxlength: TMaybeRef[int]
-    name: TMaybeRef[str]
-    placeholder: TMaybeRef[str]
-    readonly: TMaybeRef[bool]
-    status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
-    tips: TMaybeRef[str]
-    default_value: TMaybeRef[str]
+    allow_input_over_max: bool
+    autofocus: bool
+    autosize: typing.Union[bool, typing.Dict]
+    disabled: bool
+    maxcharacter: float
+    maxlength: int
+    name: str
+    placeholder: str
+    readonly: bool
+    status: typing.Literal["default", "success", "warning", "error"]
+    tips: str
+    default_value: str
     on_blur: EventMixin
     on_change: EventMixin
     on_focus: EventMixin

@@ -15,18 +15,17 @@ if typing.TYPE_CHECKING:
 class Button(BaseElement):
     def __init__(
         self,
-        content: typing.Optional[TMaybeRef[str]] = None,
-        *,
-        icon: typing.Optional[str] = None,
+        content: typing.Optional[str] = None,
         **kwargs: Unpack[TButtonProps],
     ):
         """Create a button element.
 
         Args:
-            content (Optional[TMaybeRef[str]], optional): _description_. Defaults to None.
+            content (Optional[str], optional): _description_. Defaults to None.
         """
 
         super().__init__("t-button")
+        icon = kwargs.pop("icon", None)
 
         if content is not None:
             with self:
@@ -52,20 +51,21 @@ class Button(BaseElement):
 
 
 class TButtonProps(TypedDict, total=False):
-    block: TMaybeRef[bool]
-    disabled: TMaybeRef[bool]
-    form: TMaybeRef[str]
-    ghost: TMaybeRef[bool]
-    href: TMaybeRef[str]
-    loading: TMaybeRef[bool]
-    shape: TMaybeRef[typing.Literal["rectangle", "square", "round", "circle"]]
+    icon: str
+    block: bool
+    disabled: bool
+    form: str
+    ghost: bool
+    href: str
+    loading: bool
+    shape: typing.Literal["rectangle", "square", "round", "circle"]
     loading_props: typing.Dict
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
-    suffix: TMaybeRef[str]
-    tag: TMaybeRef[typing.Literal["button", "a", "div"]]
+    size: typing.Literal["small", "medium", "large"]
+    suffix: str
+    tag: typing.Literal["button", "a", "div"]
     theme: TMaybeRef[
         typing.Literal["default", "primary", "danger", "warning", "success"]
     ]
-    type: TMaybeRef[typing.Literal["submit", "reset", "button"]]
-    variant: TMaybeRef[typing.Literal["base", "outline", "dashed", "text"]]
+    type: typing.Literal["submit", "reset", "button"]
+    variant: typing.Literal["base", "outline", "dashed", "text"]
     on_click: EventMixin

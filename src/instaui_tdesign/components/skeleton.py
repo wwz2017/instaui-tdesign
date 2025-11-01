@@ -18,10 +18,10 @@ class Skeleton(BaseElement):
 
 
 class TSkeletonProps(TypedDict, total=False):
-    animation: TMaybeRef[typing.Literal["gradient", "flashed", "none"]]
-    delay: TMaybeRef[float]
-    loading: TMaybeRef[bool]
-    row_col: TMaybeRef[typing.List]
+    animation: typing.Literal["gradient", "flashed", "none"]
+    delay: float
+    loading: bool
+    row_col: typing.List
     theme: TMaybeRef[
         typing.Literal["text", "avatar", "paragraph", "avatar-text", "tab", "article"]
     ]

@@ -5,17 +5,14 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Checkbox(BaseElement):
     def __init__(
         self,
-        checked: typing.Optional[TMaybeRef[bool]] = None,
+        checked: typing.Optional[bool] = None,
         *,
-        label: typing.Optional[TMaybeRef[str]] = None,
-        checked_value: typing.Optional[TMaybeRef[bool]] = None,
+        label: typing.Optional[str] = None,
+        checked_value: typing.Optional[bool] = None,
         **kwargs: Unpack[TCheckboxProps],
     ):
         super().__init__("t-checkbox")
@@ -72,29 +69,29 @@ class CheckboxGroup(BaseElement):
 
 
 class TCheckboxProps(TypedDict, total=False):
-    check_all: TMaybeRef[bool]
-    default_checked: TMaybeRef[bool]
-    disabled: TMaybeRef[bool]
-    indeterminate: TMaybeRef[bool]
-    lazy_load: TMaybeRef[bool]
-    name: TMaybeRef[str]
-    readonly: TMaybeRef[bool]
-    title: TMaybeRef[str]
-    value: TMaybeRef[typing.Union[int, str, bool]]
+    check_all: bool
+    default_checked: bool
+    disabled: bool
+    indeterminate: bool
+    lazy_load: bool
+    name: str
+    readonly: bool
+    title: str
+    value: typing.Union[int, str, bool]
     on_change: EventMixin
 
 
 class TCheckboxGroupProps(TypedDict, total=False):
-    disabled: TMaybeRef[bool]
-    lazy_load: TMaybeRef[bool]
-    max: TMaybeRef[float]
-    name: TMaybeRef[str]
-    readonly: TMaybeRef[bool]
+    disabled: bool
+    lazy_load: bool
+    max: float
+    name: str
+    readonly: bool
     default_value: typing.List
     on_change: EventMixin
 
 
 class TCheckboxOption(TypedDict, total=False):
-    label: TMaybeRef[str]
-    checkAll: TMaybeRef[bool]
-    value: TMaybeRef[typing.Union[int, str]]
+    label: str
+    checkAll: bool
+    value: typing.Union[int, str]

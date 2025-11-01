@@ -5,17 +5,14 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Drawer(BaseElement):
     def __init__(
         self,
-        visible: TMaybeRef[bool],
+        visible: bool,
         *,
-        header: typing.Optional[TMaybeRef[str]] = None,
-        body: typing.Optional[TMaybeRef[str]] = None,
+        header: typing.Optional[str] = None,
+        body: typing.Optional[str] = None,
         **kwargs: Unpack[TDrawerProps],
     ):
         super().__init__("t-drawer")
@@ -143,24 +140,24 @@ class Drawer(BaseElement):
 
 
 class TDrawerProps(TypedDict, total=False):
-    attach: TMaybeRef[str]
-    cancel_btn: TMaybeRef[typing.Union[str, typing.Dict]]
-    close_btn: TMaybeRef[typing.Literal["boolean"]]
-    close_on_esc_keydown: TMaybeRef[bool]
-    close_on_overlay_click: TMaybeRef[bool]
-    confirm_btn: TMaybeRef[typing.Dict]
-    destroy_on_close: TMaybeRef[bool]
-    drawer_class_name: TMaybeRef[str]
-    footer: TMaybeRef[typing.Union[bool, str]]
-    lazy: TMaybeRef[bool]
-    mode: TMaybeRef[typing.Literal["overlay", "push"]]
-    placement: TMaybeRef[typing.Literal["left", "right", "top", "bottom"]]
-    prevent_scroll_through: TMaybeRef[bool]
-    show_in_attached_element: TMaybeRef[bool]
-    show_overlay: TMaybeRef[bool]
-    size: TMaybeRef[str]
-    size_draggable: TMaybeRef[typing.Union[bool, typing.Dict]]
-    z_index: TMaybeRef[float]
+    attach: str
+    cancel_btn: typing.Union[str, typing.Dict]
+    close_btn: typing.Literal["boolean"]
+    close_on_esc_keydown: bool
+    close_on_overlay_click: bool
+    confirm_btn: typing.Dict
+    destroy_on_close: bool
+    drawer_class_name: str
+    footer: typing.Union[bool, str]
+    lazy: bool
+    mode: typing.Literal["overlay", "push"]
+    placement: typing.Literal["left", "right", "top", "bottom"]
+    prevent_scroll_through: bool
+    show_in_attached_element: bool
+    show_overlay: bool
+    size: str
+    size_draggable: typing.Union[bool, typing.Dict]
+    z_index: float
     on_before_close: EventMixin
     on_before_open: EventMixin
     on_cancel: EventMixin

@@ -47,13 +47,13 @@ class BaseTable(BaseElement):
     def __init__(
         self,
         data: typing.Union[
-            TMaybeRef[typing.List],
+            list,
             PandasDataFrameProtocol,
             PolarsDataFrameProtocol,
             None,
         ] = None,
-        columns: typing.Optional[TMaybeRef[typing.List[TBaseTableCol]]] = None,
-        row_key: typing.Optional[TMaybeRef[str]] = None,
+        columns: typing.Optional[list[TBaseTableCol]] = None,
+        row_key: typing.Optional[str] = None,
         **kwargs: Unpack[TBaseTableProps],
     ):
         super().__init__("t-base-table")
@@ -72,7 +72,7 @@ class BaseTable(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "active-change",
@@ -85,7 +85,7 @@ class BaseTable(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "active-row-action",
@@ -98,7 +98,7 @@ class BaseTable(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "cell-click",
@@ -111,7 +111,7 @@ class BaseTable(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "column-resize-change",
@@ -124,7 +124,7 @@ class BaseTable(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "page-change",
@@ -137,7 +137,7 @@ class BaseTable(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "row-click",
@@ -150,7 +150,7 @@ class BaseTable(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "row-dblclick",
@@ -163,7 +163,7 @@ class BaseTable(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "row-mousedown",
@@ -176,7 +176,7 @@ class BaseTable(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "row-mouseenter",
@@ -189,7 +189,7 @@ class BaseTable(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "row-mouseleave",
@@ -202,7 +202,7 @@ class BaseTable(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "row-mouseover",
@@ -215,7 +215,7 @@ class BaseTable(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "row-mouseup",
@@ -228,7 +228,7 @@ class BaseTable(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "scroll",
@@ -241,7 +241,7 @@ class BaseTable(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "scroll-x",
@@ -254,7 +254,7 @@ class BaseTable(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "scroll-y",
@@ -268,22 +268,22 @@ class Table(BaseElement):
     def __init__(
         self,
         data: typing.Union[
-            TMaybeRef[typing.List],
+            list,
             PandasDataFrameProtocol,
             PolarsDataFrameProtocol,
             None,
         ] = None,
         columns: typing.Optional[
-            TMaybeRef[typing.Union[typing.Sequence[TPrimaryTableCol], typing.Sequence]]
+            typing.Sequence[typing.Union[TPrimaryTableCol, dict]]
         ] = None,
-        row_key: typing.Optional[TMaybeRef[str]] = None,
-        *,
-        expand_icon: typing.Union[str, bool, None] = None,
-        filter_icon: typing.Union[str, None] = None,
-        sort_icon: typing.Union[str, None] = None,
+        row_key: typing.Optional[str] = None,
         **kwargs: Unpack[TPrimaryTableProps],
     ):
         super().__init__("t-table")
+        expand_icon = kwargs.pop("expand_icon", None)
+        filter_icon = kwargs.pop("filter_icon", None)
+        sort_icon = kwargs.pop("sort_icon", None)
+
         _common_table_props_update(kwargs)  # type: ignore
         if isinstance(data, PolarsDataFrameProtocol):
             data = _polars_to_data(data)
@@ -318,7 +318,7 @@ class Table(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "async-loading-click",
@@ -385,7 +385,7 @@ class Table(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "cell-click",
@@ -398,7 +398,7 @@ class Table(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "change",
@@ -411,7 +411,7 @@ class Table(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "column-change",
@@ -424,7 +424,7 @@ class Table(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "column-controller-visible-change",
@@ -437,7 +437,7 @@ class Table(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "data-change",
@@ -450,7 +450,7 @@ class Table(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "display-columns-change",
@@ -463,7 +463,7 @@ class Table(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "drag-sort",
@@ -476,7 +476,7 @@ class Table(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "expand-change",
@@ -489,7 +489,7 @@ class Table(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "filter-change",
@@ -502,7 +502,7 @@ class Table(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "row-edit",
@@ -515,7 +515,7 @@ class Table(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "row-validate",
@@ -528,7 +528,7 @@ class Table(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "select-change",
@@ -541,7 +541,7 @@ class Table(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "sort-change",
@@ -554,7 +554,7 @@ class Table(BaseElement):
         self,
         handler: EventMixin,
         *,
-        extends: typing.Optional[typing.List] = None,
+        extends: typing.Optional[list] = None,
     ):
         self.on(
             "validate",
@@ -567,9 +567,9 @@ class Table(BaseElement):
 class EnhancedTable(BaseElement):
     def __init__(
         self,
-        data: typing.Optional[TMaybeRef[typing.List]] = None,
-        columns: typing.Optional[TMaybeRef[typing.List[TPrimaryTableCol]]] = None,
-        row_key: typing.Optional[TMaybeRef[str]] = None,
+        data: typing.Optional[list] = None,
+        columns: typing.Optional[list[TPrimaryTableCol]] = None,
+        row_key: typing.Optional[str] = None,
         *,
         tree_expand_and_fold_icon: typing.Union[str, None] = None,
         **kwargs: Unpack[TEnhancedTableProps],
@@ -584,54 +584,50 @@ class EnhancedTable(BaseElement):
 
 
 class TBaseTableProps(TypedDict, total=False):
-    active_row_keys: TMaybeRef[typing.List]
-    default_active_row_keys: TMaybeRef[typing.List]
-    active_row_type: TMaybeRef[str]
-    allow_resize_column_width: TMaybeRef[bool]
-    attach: TMaybeRef[str]
-    bordered: TMaybeRef[bool]
-    bottom_content: TMaybeRef[typing.Literal["TNode"]]
-    cell_empty_content: TMaybeRef[typing.Literal["TNode"]]
-    disable_data_page: TMaybeRef[bool]
-    disable_space_inactive_row: TMaybeRef[bool]
-    empty: TMaybeRef[typing.Literal["TNode"]]
-    first_full_row: TMaybeRef[typing.Literal["TNode"]]
-    fixed_rows: TMaybeRef[typing.List]
-    foot_data: TMaybeRef[typing.List]
-    footer_affix_props: TMaybeRef[typing.Dict]
-    footer_affixed_bottom: TMaybeRef[
-        typing.Union[TMaybeRef[bool], TMaybeRef[typing.Dict]]
-    ]
-    footer_summary: TMaybeRef[typing.Literal["TNode"]]
-    header_affix_props: TMaybeRef[typing.Dict]
-    header_affixed_top: TMaybeRef[typing.Union[TMaybeRef[bool], TMaybeRef[typing.Dict]]]
-    height: TMaybeRef[typing.Union[TMaybeRef[float], TMaybeRef[str]]]
-    horizontal_scroll_affixed_bottom: TMaybeRef[
-        typing.Union[TMaybeRef[bool], TMaybeRef[typing.Dict]]
-    ]
-    hover: TMaybeRef[bool]
-    keyboard_row_hover: TMaybeRef[bool]
-    last_full_row: TMaybeRef[typing.Literal["TNode"]]
-    lazy_load: TMaybeRef[bool]
-    loading: TMaybeRef[typing.Union[bool, str]]
-    loading_props: TMaybeRef[typing.Dict]
-    locale: TMaybeRef[typing.Dict]
-    max_height: TMaybeRef[typing.Union[TMaybeRef[float], TMaybeRef[str]]]
-    pagination: typing.Union[TMaybeRef[typing.Dict], bool, int]
-    pagination_affixed_bottom: TMaybeRef[typing.Union[bool, typing.Dict]]
-    resizable: TMaybeRef[bool]
-    row_attributes: TMaybeRef[typing.Union[str, typing.Dict, typing.List]]
-    row_class_name: TMaybeRef[typing.Union[str, typing.Dict, typing.List]]
-    rowspan_and_colspan: TMaybeRef[str]
-    rowspan_and_colspan_in_footer: TMaybeRef[str]
-    scroll: TMaybeRef[typing.Dict]
-    show_header: TMaybeRef[bool]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
-    stripe: TMaybeRef[bool]
-    table_content_width: TMaybeRef[str]
-    table_layout: TMaybeRef[typing.Literal["auto", "fixed"]]
-    top_content: TMaybeRef[typing.Literal["TNode"]]
-    vertical_align: TMaybeRef[typing.Literal["top", "middle", "bottom"]]
+    active_row_keys: list
+    default_active_row_keys: list
+    active_row_type: str
+    allow_resize_column_width: bool
+    attach: str
+    bordered: bool
+    bottom_content: typing.Literal["TNode"]
+    cell_empty_content: typing.Literal["TNode"]
+    disable_data_page: bool
+    disable_space_inactive_row: bool
+    empty: typing.Literal["TNode"]
+    first_full_row: typing.Literal["TNode"]
+    fixed_rows: list
+    foot_data: list
+    footer_affix_props: dict
+    footer_affixed_bottom: TMaybeRef[typing.Union[bool, dict]]
+    footer_summary: typing.Literal["TNode"]
+    header_affix_props: dict
+    header_affixed_top: typing.Union[bool, dict]
+    height: typing.Union[float, str]
+    horizontal_scroll_affixed_bottom: TMaybeRef[typing.Union[bool, dict]]
+    hover: bool
+    keyboard_row_hover: bool
+    last_full_row: typing.Literal["TNode"]
+    lazy_load: bool
+    loading: typing.Union[bool, str]
+    loading_props: dict
+    locale: dict
+    max_height: typing.Union[float, str]
+    pagination: typing.Union[dict, bool, int]
+    pagination_affixed_bottom: typing.Union[bool, dict]
+    resizable: bool
+    row_attributes: typing.Union[str, dict, list]
+    row_class_name: typing.Union[str, dict, list]
+    rowspan_and_colspan: str
+    rowspan_and_colspan_in_footer: str
+    scroll: dict
+    show_header: bool
+    size: typing.Literal["small", "medium", "large"]
+    stripe: bool
+    table_content_width: str
+    table_layout: typing.Literal["auto", "fixed"]
+    top_content: typing.Literal["TNode"]
+    vertical_align: typing.Literal["top", "middle", "bottom"]
     on_active_change: EventMixin
     on_active_row_action: EventMixin
     on_cell_click: EventMixin
@@ -651,60 +647,61 @@ class TBaseTableProps(TypedDict, total=False):
 
 class TBaseTableCol(TypedDict, total=False):
     align: typing.Literal["left", "right", "center"]
-    attrs: typing.Union[str, typing.Dict]
+    attrs: typing.Union[str, dict]
     cell: str
-    children: typing.List
-    class_name: typing.Union[str, typing.List, typing.Dict]
+    children: list
+    class_name: typing.Union[str, list, dict]
     col_key: str
     colspan: float
-    ellipsis: typing.Union[bool, str, typing.Dict]
-    ellipsis_title: typing.Union[bool, str, typing.Dict]
+    ellipsis: typing.Union[bool, str, dict]
+    ellipsis_title: typing.Union[bool, str, dict]
     fixed: typing.Literal["left", "right"]
     foot: str
     min_width: typing.Union[float, str]
     render: str
     resizable: bool
-    resize: typing.Dict
+    resize: dict
     stop_propagation: bool
-    th_class_name: typing.Union[str, typing.List, typing.Dict]
+    th_class_name: typing.Union[str, list, dict]
     title: str
     width: typing.Union[float, str]
 
 
 class TPrimaryTableProps(TBaseTableProps, total=False):
-    async_loading: TMaybeRef[str]
-    column_controller: TMaybeRef[typing.Dict]
-    column_controller_visible: TMaybeRef[bool]
-    display_columns: TMaybeRef[typing.List]
-    default_display_columns: TMaybeRef[typing.List]
+    expand_icon: typing.Union[str, bool]
+    filter_icon: str
+    sort_icon: str
+    async_loading: str
+    column_controller: dict
+    column_controller_visible: bool
+    display_columns: list
+    default_display_columns: list
     drag_sort: TMaybeRef[
         typing.Literal["row", "row-handler", "col", "row-handler-col", "drag-col"]
     ]
-    drag_sort_options: TMaybeRef[typing.Dict]
-    editable_cell_state: TMaybeRef[str]
-    editable_row_keys: TMaybeRef[typing.List]
-    expand_on_row_click: TMaybeRef[bool]
-    expanded_row: TMaybeRef[TBaseTableCol]
-    expanded_row_keys: TMaybeRef[typing.List]
-    default_expanded_row_keys: TMaybeRef[typing.List]
-    filter_row: TMaybeRef[typing.Literal["TNode"]]
-    filter_value: TMaybeRef[typing.Dict]
-    default_filter_value: TMaybeRef[typing.Dict]
-    hide_sort_tips: TMaybeRef[bool]
-    indeterminate_selected_row_keys: TMaybeRef[typing.List]
-    multiple_sort: TMaybeRef[bool]
-    reserve_selected_row_on_paginate: TMaybeRef[bool]
-    row_selection_allow_uncheck: TMaybeRef[bool]
-    row_selection_type: TMaybeRef[typing.Literal["single", "multiple"]]
-    select_on_row_click: TMaybeRef[bool]
-    selected_row_keys: TMaybeRef[typing.List]
-    default_selected_row_keys: TMaybeRef[typing.List]
-    show_sort_column_bg_color: TMaybeRef[bool]
-    sort: TMaybeRef[typing.Union[TMaybeRef[typing.Dict], TMaybeRef[typing.List]]]
-    default_sort: TMaybeRef[
-        typing.Union[TMaybeRef[typing.Dict], TMaybeRef[typing.List]]
-    ]
-    sort_on_row_draggable: TMaybeRef[bool]
+    drag_sort_options: dict
+    editable_cell_state: str
+    editable_row_keys: list
+    expand_on_row_click: bool
+    expanded_row: TBaseTableCol
+    expanded_row_keys: list
+    default_expanded_row_keys: list
+    filter_row: typing.Literal["TNode"]
+    filter_value: dict
+    default_filter_value: dict
+    hide_sort_tips: bool
+    indeterminate_selected_row_keys: list
+    multiple_sort: bool
+    reserve_selected_row_on_paginate: bool
+    row_selection_allow_uncheck: bool
+    row_selection_type: typing.Literal["single", "multiple"]
+    select_on_row_click: bool
+    selected_row_keys: list
+    default_selected_row_keys: list
+    show_sort_column_bg_color: bool
+    sort: typing.Union[dict, list]
+    default_sort: TMaybeRef[typing.Union[dict, list]]
+    sort_on_row_draggable: bool
     on_async_loading_click: EventMixin
     on_cell_click: EventMixin
     on_change: EventMixin
@@ -724,12 +721,12 @@ class TPrimaryTableProps(TBaseTableProps, total=False):
 
 class TPrimaryTableCol(TBaseTableCol):
     cell: str
-    check_props: typing.Union[str, typing.Dict]
-    children: typing.List
+    check_props: typing.Union[str, dict]
+    children: list
     colKey: str
     disabled: str
-    edit: typing.Dict
-    filter: typing.Dict
+    edit: dict
+    filter: dict
     # render: str
     sortType: typing.Literal["desc", "asc", "all"]
     sorter: typing.Union[bool, str]
@@ -738,10 +735,10 @@ class TPrimaryTableCol(TBaseTableCol):
 
 
 class TEnhancedTableProps(TPrimaryTableCol):
-    before_drag_sort: TMaybeRef[str]
-    expanded_tree_nodes: TMaybeRef[typing.List]
-    default_expanded_tree_nodes: TMaybeRef[typing.List]
-    tree: TMaybeRef[typing.Dict]
+    before_drag_sort: str
+    expanded_tree_nodes: list
+    default_expanded_tree_nodes: list
+    tree: dict
     on_abnormal_drag_sort: EventMixin
     on_expanded_tree_nodes_change: EventMixin
     on_tree_expand_change: EventMixin
@@ -789,7 +786,7 @@ class TableHeaderSlot:
         return typing.cast(typing.Any, self.__slot.slot_props(name))
 
 
-def _common_table_props_update(props: typing.Dict):
+def _common_table_props_update(props: dict):
     pass
     # if props.get("pagination") is True:
     #     props.update({"pagination": {"defaultCurrent": 1, "defaultPageSize": 10}})

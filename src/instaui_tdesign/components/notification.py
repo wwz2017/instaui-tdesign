@@ -8,17 +8,11 @@ from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from ._utils import handle_props, handle_event_from_props
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Notification(BaseElement):
     def __init__(
         self,
         content: typing.Optional[str] = None,
-        *,
-        title: typing.Optional[str] = None,
-        icon: typing.Union[str, bool, None] = None,
         **kwargs: Unpack[TNotificationProps],
     ):
         """
@@ -35,8 +29,8 @@ class Notification(BaseElement):
             **kwargs (Unpack[TNotificationProps]): Additional notification properties:
                 close_btn (Union[str, bool]): Custom close button content or boolean to toggle.
                 duration (float): Auto-close duration in milliseconds. 0 means no auto-close.
-                footer (TMaybeRef[str]): Footer content displayed at the bottom.
-                theme (TMaybeRef[Literal["info", "success", "warning", "error"]]): Visual theme.
+                footer (str): Footer content displayed at the bottom.
+                theme (Literal["info", "success", "warning", "error"]): Visual theme.
                 on_close_btn_click (EventMixin): Event handler when close button is clicked.
                 on_duration_end (EventMixin): Event handler when auto-close duration ends.
 
@@ -68,6 +62,9 @@ class Notification(BaseElement):
                 )
         """
         super().__init__("t-notification")
+        title = kwargs.pop("title", None)
+        icon = kwargs.pop("icon", None)
+
         self.props({"content": content, "title": title})
         make_icon_for_bool_or_str(self, "icon", icon)
         self.props(handle_props(kwargs))  # type: ignore
@@ -121,7 +118,7 @@ class NotifyPlugin:
                 zIndex (int): Z-index for the notification container.
                 close_btn (Union[str, bool]): Close button configuration or boolean to toggle.
                 duration (float): Auto-close duration in milliseconds. 0 means persistent.
-                footer (TMaybeRef[str]): Footer content displayed at the bottom.
+                footer (str): Footer content displayed at the bottom.
 
         Returns:
             EventMixin: A JavaScript event that triggers the notification when executed.
@@ -181,7 +178,7 @@ class NotifyPlugin:
                 zIndex (int): Z-index for the notification container.
                 close_btn (Union[str, bool]): Close button configuration or boolean to toggle.
                 duration (float): Auto-close duration in milliseconds. 0 means persistent.
-                footer (TMaybeRef[str]): Footer content displayed at the bottom.
+                footer (str): Footer content displayed at the bottom.
 
         Returns:
             EventMixin: A JavaScript event that triggers the warning notification when executed.
@@ -239,7 +236,7 @@ class NotifyPlugin:
                 zIndex (int): Z-index for the notification container.
                 close_btn (Union[str, bool]): Close button configuration or boolean to toggle.
                 duration (float): Auto-close duration in milliseconds. 0 means persistent.
-                footer (TMaybeRef[str]): Footer content displayed at the bottom.
+                footer (str): Footer content displayed at the bottom.
 
         Returns:
             EventMixin: A JavaScript event that triggers the error notification when executed.
@@ -287,7 +284,7 @@ class NotifyPlugin:
                 zIndex (int): Z-index for the notification container.
                 close_btn (Union[str, bool]): Close button configuration or boolean to toggle.
                 duration (float): Auto-close duration in milliseconds. 0 means persistent.
-                footer (TMaybeRef[str]): Footer content displayed at the bottom.
+                footer (str): Footer content displayed at the bottom.
 
         Returns:
             EventMixin: A JavaScript event that triggers the success notification when executed.
@@ -355,10 +352,12 @@ class NotifyPlugin:
 
 
 class TNotificationProps(TypedDict, total=False):
+    title: str
+    icon: typing.Union[str, bool]
     close_btn: typing.Union[str, bool]
     duration: float
-    footer: TMaybeRef[str]
-    theme: TMaybeRef[typing.Literal["info", "success", "warning", "error"]]
+    footer: str
+    theme: typing.Literal["info", "success", "warning", "error"]
     on_close_btn_click: EventMixin
     on_duration_end: EventMixin
 
@@ -373,7 +372,7 @@ class TNotificationOptions(TypedDict, total=False):
 
     close_btn: typing.Union[str, bool]
     duration: float
-    footer: TMaybeRef[str]
+    footer: str
 
 
 def _handle_notification_options(options: dict):

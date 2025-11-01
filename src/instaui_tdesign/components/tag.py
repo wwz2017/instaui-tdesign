@@ -54,40 +54,40 @@ class Tag(BaseElement):
 
 
 class TTagProps(TypedDict, total=False):
-    closable: TMaybeRef[bool]
-    color: TMaybeRef[str]
-    disabled: TMaybeRef[bool]
-    max_width: TMaybeRef[typing.Union[float, str]]
-    shape: TMaybeRef[typing.Literal["square", "round", "mark"]]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
+    closable: bool
+    color: str
+    disabled: bool
+    max_width: typing.Union[float, str]
+    shape: typing.Literal["square", "round", "mark"]
+    size: typing.Literal["small", "medium", "large"]
     theme: TMaybeRef[
         typing.Literal["default", "primary", "warning", "danger", "success"]
     ]
-    title: TMaybeRef[str]
-    variant: TMaybeRef[typing.Literal["dark", "light", "outline", "light-outline"]]
+    title: str
+    variant: typing.Literal["dark", "light", "outline", "light-outline"]
     on_click: EventMixin
     on_close: EventMixin
 
 
 class TCheckTagProps(TypedDict, total=False):
-    checked: TMaybeRef[bool]
-    default_checked: TMaybeRef[bool]
-    checked_props: TMaybeRef[typing.Dict]
-    content: TMaybeRef[typing.Literal["number"]]
-    default: TMaybeRef[typing.Literal["TNode"]]
-    disabled: TMaybeRef[bool]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
-    unchecked_props: TMaybeRef[typing.Dict]
-    value: TMaybeRef[typing.Union[TMaybeRef[float], TMaybeRef[str]]]
+    checked: bool
+    default_checked: bool
+    checked_props: typing.Dict
+    content: typing.Literal["number"]
+    default: typing.Literal["TNode"]
+    disabled: bool
+    size: typing.Literal["small", "medium", "large"]
+    unchecked_props: typing.Dict
+    value: typing.Union[TMaybeRef[float, str]]
     on_change: EventMixin
     on_click: EventMixin
 
 
 class TCheckTagGroupProps(TypedDict, total=False):
-    checked_props: TMaybeRef[typing.Dict]
-    multiple: TMaybeRef[bool]
-    options: TMaybeRef[typing.List]
-    unchecked_props: TMaybeRef[typing.Dict]
-    value: TMaybeRef[typing.List]
-    default_value: TMaybeRef[typing.List]
+    checked_props: typing.Dict
+    multiple: bool
+    options: typing.List
+    unchecked_props: typing.Dict
+    value: typing.List
+    default_value: typing.List
     on_change: EventMixin

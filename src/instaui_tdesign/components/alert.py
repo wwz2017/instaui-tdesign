@@ -8,14 +8,11 @@ from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Alert(BaseElement):
     def __init__(
         self,
-        message: typing.Optional[TMaybeRef[str]] = None,
+        message: typing.Optional[str] = None,
         *,
         icon: typing.Optional[str] = None,
         **kwargs: Unpack[TAlertProps],
@@ -55,11 +52,11 @@ class Alert(BaseElement):
 
 
 class TAlertProps(TypedDict, total=False):
-    close: TMaybeRef[typing.Literal["boolean"]]
-    close_btn: TMaybeRef[typing.Literal["boolean"]]
-    max_line: TMaybeRef[float]
-    operation: TMaybeRef[str]
-    theme: TMaybeRef[typing.Literal["success", "info", "warning", "error"]]
-    title: TMaybeRef[str]
+    close: typing.Literal["boolean"]
+    close_btn: typing.Literal["boolean"]
+    max_line: float
+    operation: str
+    theme: typing.Literal["success", "info", "warning", "error"]
+    title: str
     on_close: EventMixin
     on_closed: EventMixin

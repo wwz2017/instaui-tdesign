@@ -4,9 +4,6 @@ from ._base_element import BaseElement
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Descriptions(BaseElement):
     def __init__(
@@ -20,7 +17,7 @@ class Descriptions(BaseElement):
 class DescriptionsItem(BaseElement):
     def __init__(
         self,
-        content: typing.Optional[TMaybeRef[str]] = None,
+        content: typing.Optional[str] = None,
         **kwargs: Unpack[TDescriptionsItemProps],
     ):
         super().__init__("t-descriptions-item")
@@ -29,19 +26,19 @@ class DescriptionsItem(BaseElement):
 
 
 class TDescriptionsProps(TypedDict, total=False):
-    bordered: TMaybeRef[bool]
-    colon: TMaybeRef[bool]
-    column: TMaybeRef[int]
-    content_style: TMaybeRef[typing.Dict]
-    item_layout: TMaybeRef[typing.Literal["horizontal", "vertical"]]
-    items: TMaybeRef[typing.List]
-    label_style: TMaybeRef[typing.Dict]
-    layout: TMaybeRef[typing.Literal["horizontal", "vertical"]]
-    size: TMaybeRef[typing.Literal["small", "medium", "large"]]
-    table_layout: TMaybeRef[typing.Literal["fixed", "auto"]]
-    title: TMaybeRef[str]
+    bordered: bool
+    colon: bool
+    column: int
+    content_style: typing.Dict
+    item_layout: typing.Literal["horizontal", "vertical"]
+    items: typing.List
+    label_style: typing.Dict
+    layout: typing.Literal["horizontal", "vertical"]
+    size: typing.Literal["small", "medium", "large"]
+    table_layout: typing.Literal["fixed", "auto"]
+    title: str
 
 
 class TDescriptionsItemProps(TypedDict, total=False):
-    label: TMaybeRef[str]
-    span: TMaybeRef[int]
+    label: str
+    span: int

@@ -216,33 +216,31 @@ class Upload(BaseElement):
 
 
 class TUploadProps(TypedDict, total=False):
-    abridge_name: TMaybeRef[typing.List]
-    accept: TMaybeRef[str]
-    action: TMaybeRef[str]
-    allow_upload_duplicate_file: TMaybeRef[bool]
-    auto_upload: TMaybeRef[bool]
-    before_all_files_upload: TMaybeRef[str]
-    before_upload: TMaybeRef[str]
-    cancel_upload_button: TMaybeRef[
-        typing.Union[TMaybeRef[str], TMaybeRef[typing.Dict]]
-    ]
-    data: TMaybeRef[typing.Union[TMaybeRef[str], TMaybeRef[typing.Dict]]]
-    default: TMaybeRef[str]
-    disabled: TMaybeRef[bool]
-    drag_content: TMaybeRef[str]
-    draggable: TMaybeRef[bool]
-    file_list_display: TMaybeRef[str]
-    files: TMaybeRef[typing.List]
-    default_files: TMaybeRef[typing.List]
-    format: TMaybeRef[str]
-    format_request: TMaybeRef[str]
-    format_response: TMaybeRef[str]
-    headers: TMaybeRef[typing.Dict]
-    image_viewer_props: TMaybeRef[typing.Dict]
-    input_attributes: TMaybeRef[typing.Dict]
-    is_batch_upload: TMaybeRef[bool]
-    locale: TMaybeRef[typing.Dict]
-    max: TMaybeRef[float]
+    abridge_name: typing.List
+    accept: str
+    action: str
+    allow_upload_duplicate_file: bool
+    auto_upload: bool
+    before_all_files_upload: str
+    before_upload: str
+    cancel_upload_button: TMaybeRef[typing.Union[str, typing.Dict]]
+    data: typing.Union[TMaybeRef[str, typing.Dict]]
+    default: str
+    disabled: bool
+    drag_content: str
+    draggable: bool
+    file_list_display: str
+    files: typing.List
+    default_files: typing.List
+    format: str
+    format_request: str
+    format_response: str
+    headers: typing.Dict
+    image_viewer_props: typing.Dict
+    input_attributes: typing.Dict
+    is_batch_upload: bool
+    locale: typing.Dict
+    max: float
     method: TMaybeRef[
         typing.Literal[
             "POST",
@@ -257,31 +255,31 @@ class TUploadProps(TypedDict, total=False):
             "patch",
         ]
     ]
-    mock_progress_duration: TMaybeRef[float]
-    multiple: TMaybeRef[bool]
-    name: TMaybeRef[str]
-    placeholder: TMaybeRef[str]
-    request_method: TMaybeRef[str]
-    show_image_file_name: TMaybeRef[bool]
-    show_thumbnail: TMaybeRef[bool]
-    show_upload_progress: TMaybeRef[bool]
-    size_limit: TMaybeRef[typing.Union[TMaybeRef[float], TMaybeRef[typing.Dict]]]
-    status: TMaybeRef[typing.Literal["default", "success", "warning", "error"]]
+    mock_progress_duration: float
+    multiple: bool
+    name: str
+    placeholder: str
+    request_method: str
+    show_image_file_name: bool
+    show_thumbnail: bool
+    show_upload_progress: bool
+    size_limit: typing.Union[TMaybeRef[float, typing.Dict]]
+    status: typing.Literal["default", "success", "warning", "error"]
     theme: TMaybeRef[
         typing.Literal[
             "custom", "file", "file-input", "file-flow", "image", "image-flow"
         ]
     ]
-    tips: TMaybeRef[str]
-    trigger: TMaybeRef[str]
-    trigger_button_props: TMaybeRef[typing.Dict]
-    upload_all_files_in_one_request: TMaybeRef[bool]
-    upload_button: TMaybeRef[typing.Union[TMaybeRef[str], TMaybeRef[typing.Dict]]]
-    upload_pasted_files: TMaybeRef[bool]
-    use_mock_progress: TMaybeRef[bool]
-    value: TMaybeRef[typing.List]
-    default_value: TMaybeRef[typing.List]
-    with_credentials: TMaybeRef[bool]
+    tips: str
+    trigger: str
+    trigger_button_props: typing.Dict
+    upload_all_files_in_one_request: bool
+    upload_button: typing.Union[TMaybeRef[str, typing.Dict]]
+    upload_pasted_files: bool
+    use_mock_progress: bool
+    value: typing.List
+    default_value: typing.List
+    with_credentials: bool
     on_cancel_upload: EventMixin
     on_change: EventMixin
     on_dragenter: EventMixin

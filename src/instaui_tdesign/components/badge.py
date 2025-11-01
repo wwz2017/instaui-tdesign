@@ -4,14 +4,11 @@ from ._base_element import BaseElement
 from typing_extensions import TypedDict, Unpack
 from ._utils import handle_props, handle_event_from_props
 
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
-
 
 class Badge(BaseElement):
     def __init__(
         self,
-        content: typing.Optional[TMaybeRef[str]] = None,
+        content: typing.Optional[str] = None,
         **kwargs: Unpack[TBadgeProps],
     ):
         super().__init__("t-badge")
@@ -22,11 +19,11 @@ class Badge(BaseElement):
 
 
 class TBadgeProps(TypedDict, total=False):
-    color: TMaybeRef[str]
-    count: TMaybeRef[typing.Union[int, str]]
-    dot: TMaybeRef[bool]
+    color: str
+    count: typing.Union[int, str]
+    dot: bool
     max_count: float
-    offset: TMaybeRef[typing.List]
-    shape: TMaybeRef[typing.Literal["circle", "round"]]
-    show_zero: TMaybeRef[bool]
-    size: TMaybeRef[typing.Literal["small", "medium"]]
+    offset: typing.List
+    shape: typing.Literal["circle", "round"]
+    show_zero: bool
+    size: typing.Literal["small", "medium"]

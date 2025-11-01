@@ -12,7 +12,7 @@ if typing.TYPE_CHECKING:
 class Tooltip(BaseElement):
     def __init__(
         self,
-        content: TMaybeRef[str],
+        content: str,
         **kwargs: Unpack[TTooltipProps],
     ):
         super().__init__("t-tooltip")
@@ -23,7 +23,7 @@ class Tooltip(BaseElement):
 class TooltipLite(BaseElement):
     def __init__(
         self,
-        content: TMaybeRef[str],
+        content: str,
         **kwargs: Unpack[TTooltipLiteProps],
     ):
         super().__init__("t-tooltip-lite")
@@ -32,19 +32,19 @@ class TooltipLite(BaseElement):
 
 
 class TTooltipProps(TPopupProps):
-    delay: TMaybeRef[float]
-    destroy_on_close: TMaybeRef[bool]
-    duration: TMaybeRef[float]
-    placement: TMaybeRef[TPopupPlacementValue]
-    show_arrow: TMaybeRef[bool]
+    delay: float
+    destroy_on_close: bool
+    duration: float
+    placement: TPopupPlacementValue
+    show_arrow: bool
     theme: TMaybeRef[
         typing.Literal["default", "primary", "success", "danger", "warning", "light"]
     ]
 
 
 class TTooltipLiteProps(TypedDict, total=False):
-    placement: TMaybeRef[typing.Literal["top", "bottom"]]
-    show_arrow: TMaybeRef[bool]
-    show_shadow: TMaybeRef[bool]
-    theme: TMaybeRef[typing.Literal["light", "default"]]
-    trigger_element: TMaybeRef[typing.Literal["TNode"]]
+    placement: typing.Literal["top", "bottom"]
+    show_arrow: bool
+    show_shadow: bool
+    theme: typing.Literal["light", "default"]
+    trigger_element: typing.Literal["TNode"]

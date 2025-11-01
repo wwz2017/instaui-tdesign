@@ -12,14 +12,12 @@ if typing.TYPE_CHECKING:
 class Slider(BaseElement):
     def __init__(
         self,
-        value: typing.Optional[TMaybeRef[typing.Union[float, typing.List]]] = None,
+        value: typing.Optional[typing.Union[float, typing.List]] = None,
         *,
-        model_value: typing.Optional[
-            TMaybeRef[typing.Union[float, typing.List]]
-        ] = None,
-        min: typing.Optional[TMaybeRef[float]] = None,
-        max: typing.Optional[TMaybeRef[float]] = None,
-        range: typing.Optional[TMaybeRef[bool]] = None,
+        model_value: typing.Optional[typing.Union[float, typing.List]] = None,
+        min: typing.Optional[float] = None,
+        max: typing.Optional[float] = None,
+        range: typing.Optional[bool] = None,
         **kwargs: Unpack[TSliderProps],
     ):
         super().__init__("t-select")
@@ -64,14 +62,14 @@ class Slider(BaseElement):
 
 
 class TSliderProps(TypedDict, total=False):
-    disabled: TMaybeRef[bool]
-    input_number_props: TMaybeRef[typing.Union[TMaybeRef[bool], TMaybeRef[typing.Dict]]]
-    label: TMaybeRef[typing.Literal["boolean"]]
-    layout: TMaybeRef[typing.Literal["vertical", "horizontal"]]
-    marks: TMaybeRef[typing.Union[TMaybeRef[typing.Dict], TMaybeRef[typing.List]]]
-    show_step: TMaybeRef[bool]
-    step: TMaybeRef[float]
-    tooltip_props: TMaybeRef[typing.Dict]
-    default_value: TMaybeRef[typing.Union[float, typing.List]]
+    disabled: bool
+    input_number_props: typing.Union[TMaybeRef[bool, typing.Dict]]
+    label: typing.Literal["boolean"]
+    layout: typing.Literal["vertical", "horizontal"]
+    marks: typing.Union[TMaybeRef[typing.Dict, typing.List]]
+    show_step: bool
+    step: float
+    tooltip_props: typing.Dict
+    default_value: typing.Union[float, typing.List]
     on_change: EventMixin
     on_change_end: EventMixin

@@ -14,15 +14,13 @@ class Message(BaseElement):
     def __init__(
         self,
         content: typing.Union[str, None] = None,
-        *,
-        icon: typing.Union[str, bool, None] = None,
         **kwargs: Unpack[TMessageProps],
     ):
         """
         Creates a TDesign message component for displaying notifications.
 
         Args:
-            content (Optional[TMaybeRef[str]]): The text content to display in the message.
+            content (Optional[str]): The text content to display in the message.
             icon (str | bool | None): Icon configuration. Can be string for icon name,
                                      boolean to show/hide default icon, or None for no icon.
             close_btn (str | bool): Close button configuration. Can be boolean or custom HTML string.
@@ -43,6 +41,7 @@ class Message(BaseElement):
                 )
         """
         super().__init__("t-message")
+        icon = kwargs.pop("icon", None)
         self.props({"content": content})
         make_icon_for_bool_or_str(self, "icon", icon)
         self.props(handle_props(kwargs))  # type: ignore
@@ -280,6 +279,7 @@ class MessagePlugin:
 
 
 class TMessageProps(TypedDict, total=False):
+    icon: typing.Union[str, bool]
     close_btn: typing.Union[str, bool]
     duration: float
     theme: typing.Literal["info", "success", "warning", "error", "question", "loading"]
