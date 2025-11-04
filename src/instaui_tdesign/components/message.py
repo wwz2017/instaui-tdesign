@@ -315,4 +315,4 @@ def _handle_message_options(options: dict):
     if "close_btn" in options:
         options["closeBtn"] = options.pop("close_btn")
 
-    return options
+    return ui.unwrap_reactive(options)
