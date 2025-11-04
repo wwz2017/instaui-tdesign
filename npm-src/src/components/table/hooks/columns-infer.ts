@@ -39,10 +39,14 @@ export function useTableColumnsWithInfer(options: {
   const handlers = [] as TTableColumnHandler[];
 
   const columnsWithInfer = computed(() => {
+    const extraColumns = (attrs.extraColumns ?? []) as TTableColumns;
+
     const needInferColumns = !attrs.columns && tableData.value.length > 0;
-    let result = (
-      needInferColumns ? inferColumns(tableData.value) : attrs.columns ?? []
-    ) as TTableColumns;
+
+    const tryInferColumns = needInferColumns
+      ? inferColumns(tableData.value)
+      : (attrs.columns as TTableColumns) ?? [];
+    let result = [...tryInferColumns, ...extraColumns] as TTableColumns;
 
     result = result.map(normalizeTableColumnRecord) as TTableColumns;
 

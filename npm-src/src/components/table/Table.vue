@@ -9,6 +9,7 @@ import { useTableSort } from "./hooks/sort";
 import { useTableFilter } from "./hooks/filter";
 import { withDefaultAttrs } from "./hooks/default-attrs";
 import { defaultHeaderSlotInfos } from "./hooks/header-slot";
+import { withCellSlotPropConverter } from "./hooks/cell-slot";
 
 defineOptions({ inheritAttrs: false });
 
@@ -43,6 +44,7 @@ const bindAttrs = withDefaultAttrs({ attrs });
 
 const slots = useSlots();
 const headerSlotInfos = defaultHeaderSlotInfos(slots, columnsWithInfer);
+const cellSlotPropConverter = withCellSlotPropConverter(columnsWithInfer);
 </script>
 
 <template>
@@ -85,7 +87,7 @@ const headerSlotInfos = defaultHeaderSlotInfos(slots, columnsWithInfer);
 
     <!-- other slots -->
     <template v-for="(_, name) in slots" v-slot:[name]="slotProps" :key="name">
-      <slot :name="name" v-bind="slotProps" />
+      <slot :name="name" v-bind="cellSlotPropConverter(name, slotProps)" />
     </template>
   </TDesign.Table>
 </template>

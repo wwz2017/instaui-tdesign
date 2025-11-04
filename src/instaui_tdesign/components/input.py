@@ -30,6 +30,24 @@ class Input(BaseElement):
         self.props(handle_props(kwargs, model_value=model_value))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
+    def prefix_slot(self):
+        return self.add_slot("prefix")
+
+    def suffix_slot(self):
+        return self.add_slot("suffix")
+
+    def prefix_icon_slot(self):
+        return self.add_slot("prefixIcon")
+
+    def suffix_icon_slot(self):
+        return self.add_slot("suffixIcon")
+
+    def label_slot(self):
+        return self.add_slot("label")
+
+    def tips_slot(self):
+        return self.add_slot("tips")
+
     def on_blur(
         self,
         handler: EventMixin,

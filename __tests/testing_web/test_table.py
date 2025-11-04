@@ -61,6 +61,23 @@ def test_cell_slot(context: Context):
     context.expect(context.find("button", name="foo")).to_be_visible()
 
 
+def test_cell_slot_current_value(context: Context):
+    @context.register_page
+    def index():
+        data = ui.state(
+            [
+                {"name": "foo"},
+                {"name": "bar"},
+            ]
+        )
+
+        with td.table(data).add_cell_slot("name") as slot:
+            td.button(slot.current)
+
+    context.open()
+    context.expect(context.find("button", name="foo")).to_be_visible()
+
+
 def test_update_data_with_cell_slot(context: Context):
     @context.register_page
     def index():
@@ -227,6 +244,25 @@ def test_infer_columns_from_data(context: Context):
     context.open()
     context.should_see("name")
     context.should_see("foo")
+
+
+def test_extra_columns_from_data(context: Context):
+    @context.register_page
+    def index():
+        data = [
+            {"name": "foo"},
+        ]
+
+        extra_columns = [{"colKey": "btn", "title": "btn"}]
+
+        with td.table(
+            data,
+            extra_columns=extra_columns,
+        ).add_cell_slot("btn"):
+            td.button("click me")
+
+    context.open()
+    context.should_see("click me")
 
 
 def test_default_sort(context: Context):

@@ -31,7 +31,7 @@ class TooltipLite(BaseElement):
         self.props(handle_props(kwargs))  # type: ignore
 
 
-class TTooltipProps(TPopupProps):
+class TTooltipProps(TPopupProps, total=False):
     delay: float
     destroy_on_close: bool
     duration: float

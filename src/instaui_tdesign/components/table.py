@@ -276,9 +276,55 @@ class Table(BaseElement):
         columns: typing.Optional[
             typing.Sequence[typing.Union[TPrimaryTableCol, dict]]
         ] = None,
+        extra_columns: typing.Optional[
+            typing.Sequence[typing.Union[TPrimaryTableCol, dict]]
+        ] = None,
         row_key: typing.Optional[str] = None,
         **kwargs: Unpack[TPrimaryTableProps],
     ):
+        """Initialize a Table component for displaying and interacting with tabular data.
+
+        Args:
+            data (Union[list, PandasDataFrameProtocol, PolarsDataFrameProtocol, None]):
+                Table data source. Can be:
+                - List of dictionaries
+                - Pandas DataFrame
+                - Polars DataFrame
+                - None for empty table
+            columns (Optional[Sequence[Union[TPrimaryTableCol, dict]]]):
+                Column definitions. Each column can be a TPrimaryTableCol or dict.
+                If None, columns will be inferred from data.
+            extra_columns (Optional[Sequence[Union[TPrimaryTableCol, dict]]]):
+                Additional columns to be displayed.
+            row_key (Optional[str]):
+                Unique key field name for each row. Required for row operations.
+            **kwargs: Additional table props from TPrimaryTableProps.
+
+        Example:
+        .. code-block:: python
+            # Basic table with list data
+            data = [{"name": "foo", "value": 1}, {"name": "bar", "value": 2}]
+            td.table(data, row_key="name")
+
+            # Table with custom columns
+            columns = [{"colKey": "name", "label": "Name"}, {"colKey": "value", "label": "Value"}]
+            td.table(data, columns=columns, row_key="name")
+
+            # Table from pandas DataFrame
+            import pandas as pd
+            df = pd.DataFrame({"name": ["foo", "bar"], "value": [1, 2]})
+            td.table(df, row_key="name")
+
+            # Table with cell slot
+            data = [
+                {"name": "foo"},
+            ]
+
+            with td.table(data).add_cell_slot("name") as slot:
+                td.button("Click me").on_click(
+                    td.notify_plugin.info(content=ui.str_format("Clicked {0}", slot.current))
+                )
+        """
         super().__init__("t-table")
         expand_icon = kwargs.pop("expand_icon", None)
         filter_icon = kwargs.pop("filter_icon", None)
@@ -289,7 +335,14 @@ class Table(BaseElement):
             data = _polars_to_data(data)
         elif isinstance(data, PandasDataFrameProtocol):
             data = _pandas_to_data(data)
-        self.props({"data": data, "columns": columns, "row-key": row_key})
+        self.props(
+            {
+                "data": data,
+                "columns": columns,
+                "row-key": row_key,
+                "extraColumns": extra_columns,
+            }
+        )
         make_icon_for_bool_or_str(self, "expandIcon", expand_icon)
         make_icon_for_str(self, filter_icon, slot_name="filterIcon")
         make_icon_for_str(self, sort_icon, slot_name="sortIcon")
@@ -763,6 +816,13 @@ class TableCellSlot:
             name (typing.Literal[&quot;col&quot;, &quot;colIndex&quot;, &quot;row&quot;, &quot;rowIndex&quot;]): Slot parameter name.
         """
         return typing.cast(typing.Any, self.__slot.slot_props(name))
+
+    @property
+    def current(self) -> typing.Any:
+        """
+        Get current cell value.
+        """
+        return self.__slot.slot_props("currentValue")
 
 
 class TableHeaderSlot:

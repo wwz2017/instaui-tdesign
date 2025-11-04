@@ -12,9 +12,11 @@ if typing.TYPE_CHECKING:
 class Popup(BaseElement):
     def __init__(
         self,
+        content: str,
         **kwargs: Unpack[TPopupProps],
     ):
         super().__init__("t-popup")
+        self.props({"content": content})
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -72,7 +74,6 @@ class Popup(BaseElement):
 
 
 class TPopupProps(TypedDict, total=False):
-    content: str
     attach: str
     delay: typing.Union[float, typing.List]
     destroy_on_close: bool
