@@ -3,10 +3,7 @@ import typing
 from ._base_element import BaseElement
 from instaui.event.event_mixin import EventMixin
 from typing_extensions import TypedDict, Unpack
-from ._utils import handle_props, handle_event_from_props
-
-if typing.TYPE_CHECKING:
-    from instaui.vars.types import TMaybeRef
+from ._utils import handle_props, handle_event_from_props, try_setup_vmodel
 
 
 class Upload(BaseElement):
@@ -15,7 +12,9 @@ class Upload(BaseElement):
         **kwargs: Unpack[TUploadProps],
     ):
         super().__init__("t-upload")
+        files = kwargs.pop("files", None)
 
+        try_setup_vmodel(self, files, prop_name="files")
         self.props(handle_props(kwargs))  # type: ignore
         handle_event_from_props(self, kwargs)  # type: ignore
 
@@ -215,6 +214,12 @@ class Upload(BaseElement):
         return self
 
 
+class TUploadSizeLimitObj(TypedDict, total=False):
+    size: float
+    unit: typing.Literal["B", "KB", "MB", "GB"]
+    message: str
+
+
 class TUploadProps(TypedDict, total=False):
     abridge_name: typing.List
     accept: str
@@ -223,8 +228,8 @@ class TUploadProps(TypedDict, total=False):
     auto_upload: bool
     before_all_files_upload: str
     before_upload: str
-    cancel_upload_button: TMaybeRef[typing.Union[str, typing.Dict]]
-    data: typing.Union[TMaybeRef[str, typing.Dict]]
+    cancel_upload_button: typing.Union[str, dict]
+    data: typing.Union[str, dict]
     default: str
     disabled: bool
     drag_content: str
@@ -233,27 +238,24 @@ class TUploadProps(TypedDict, total=False):
     files: typing.List
     default_files: typing.List
     format: str
-    format_request: str
     format_response: str
-    headers: typing.Dict
-    image_viewer_props: typing.Dict
-    input_attributes: typing.Dict
+    headers: dict
+    image_viewer_props: dict
+    input_attributes: dict
     is_batch_upload: bool
-    locale: typing.Dict
+    locale: dict
     max: float
-    method: TMaybeRef[
-        typing.Literal[
-            "POST",
-            "GET",
-            "PUT",
-            "OPTIONS",
-            "PATCH",
-            "post",
-            "get",
-            "put",
-            "options",
-            "patch",
-        ]
+    method: typing.Literal[
+        "POST",
+        "GET",
+        "PUT",
+        "OPTIONS",
+        "PATCH",
+        "post",
+        "get",
+        "put",
+        "options",
+        "patch",
     ]
     mock_progress_duration: float
     multiple: bool
@@ -263,18 +265,16 @@ class TUploadProps(TypedDict, total=False):
     show_image_file_name: bool
     show_thumbnail: bool
     show_upload_progress: bool
-    size_limit: typing.Union[TMaybeRef[float, typing.Dict]]
+    size_limit: typing.Union[float, TUploadSizeLimitObj]
     status: typing.Literal["default", "success", "warning", "error"]
-    theme: TMaybeRef[
-        typing.Literal[
-            "custom", "file", "file-input", "file-flow", "image", "image-flow"
-        ]
+    theme: typing.Literal[
+        "custom", "file", "file-input", "file-flow", "image", "image-flow"
     ]
     tips: str
     trigger: str
-    trigger_button_props: typing.Dict
+    trigger_button_props: dict
     upload_all_files_in_one_request: bool
-    upload_button: typing.Union[TMaybeRef[str, typing.Dict]]
+    upload_button: typing.Union[str, dict]
     upload_pasted_files: bool
     use_mock_progress: bool
     value: typing.List

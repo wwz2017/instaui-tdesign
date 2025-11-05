@@ -6,6 +6,7 @@ import Anchor from "@/components/Anchor.vue";
 import Icon from "@/components/Icon.vue";
 import Select from "@/components/Select.vue";
 import RadioGroup from "@/components/RadioGroup.vue";
+import Upload from "@/components/upload/Upload.vue";
 import { NotifyPlugin, MessagePlugin } from "tdesign-vue-next";
 import "tdesign-vue-next/es/style/index.css";
 import "./style/index.css";
@@ -18,6 +19,7 @@ function install(app: App) {
   app.component("t-icon", Icon);
   app.component("t-select", Select);
   app.component("t-radio-group", RadioGroup);
+  app.component("t-upload", Upload);
   (window as any).$tdesign = {
     NotifyPlugin,
     MessagePlugin,
