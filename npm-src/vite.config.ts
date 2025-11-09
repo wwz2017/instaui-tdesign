@@ -27,6 +27,7 @@ export default defineConfig({
     rollupOptions: {
       external: [
         "vue",
+        "instaui",
         "tdesign-vue-next",
         "tdesign-vue-next/es/config-provider/hooks/useConfig",
       ],

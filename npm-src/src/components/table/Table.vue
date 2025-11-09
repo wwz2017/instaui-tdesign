@@ -14,9 +14,11 @@ import { withCellSlotPropConverter } from "./hooks/cell-slot";
 defineOptions({ inheritAttrs: false });
 
 const attrs = useAttrs();
+const slots = useSlots();
 const { t, globalConfig } = useConfig("table");
 
-const { tableData, orgData, registerRowsHandler } = useTableData(attrs);
+const { tableData, orgData, registerRowsHandler, notifyTableDataChange } =
+  useTableData(attrs);
 const [columnsWithInfer, registerColumnsHandler] = useTableColumnsWithInfer({
   tableData,
   attrs,
@@ -38,11 +40,12 @@ const { onFilterChange, filterValue, resetFilters, filterResultText } =
     registerColumnsHandler,
     columns: columnsWithInfer,
     tdesignGlobalConfig: globalConfig.value,
+    notifyTableDataChange,
+    slots,
   });
 
 const bindAttrs = withDefaultAttrs({ attrs });
 
-const slots = useSlots();
 const headerSlotInfos = defaultHeaderSlotInfos(slots, columnsWithInfer);
 const cellSlotPropConverter = withCellSlotPropConverter(columnsWithInfer);
 </script>
@@ -73,7 +76,7 @@ const cellSlotPropConverter = withCellSlotPropConverter(columnsWithInfer);
     <template #filter-row>
       <div>
         <span>{{
-          t(globalConfig.searchResultText, {
+          t(globalConfig.searchResultText, tableData.length, {
             result: filterResultText(),
             count: tableData.length,
           })

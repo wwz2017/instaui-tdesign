@@ -1,4 +1,6 @@
-from typing import Literal, Optional
+from typing import Any, Literal, Optional
+from instaui import custom
+import copy
 
 
 def remove_none_entries(data: dict) -> dict:
@@ -36,19 +38,38 @@ class FilterInfo:
         *,
         props: Optional[dict] = None,
         predicate_js: Optional[str] = None,
+        bind_value: Optional[Any] = None,
+        confirm_events: Optional[list[str]] = None,
     ) -> None:
         self.filter_type = filter_type
         self.props = props
         self.predicate_js = predicate_js
+        self._state_props: set[str] = set()
+        self.bind_value = (
+            custom.convert_reference(bind_value) if bind_value is not None else None
+        )
+        self.confirm_events = confirm_events
+
+        if self.props:
+            self.props = copy.deepcopy(self.props)
+            self.props["value"] = custom.convert_reference(self.props["value"])
+            self._state_props.add("value")
 
     def to_dict(self) -> dict:
-        return remove_none_entries(
+        result = remove_none_entries(
             {
                 "type": self.filter_type,
                 "props": self.props,
                 "predicate": self.predicate_js,
+                "bindValue": self.bind_value,
+                "confirmEvents": self.confirm_events,
             }
         )
+
+        if self._state_props:
+            result["stateProps"] = list(self._state_props)
+
+        return result
 
 
 define_filter = FilterInfo

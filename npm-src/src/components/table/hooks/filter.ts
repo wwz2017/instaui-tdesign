@@ -1,6 +1,6 @@
 import { type TableProps, DateRangePickerPanel } from "tdesign-vue-next";
-import { ref, type SetupContext } from "vue";
-import { orderBy as _orderBy, uniqBy as _uniqBy } from "lodash-es";
+import { ref, watch, type SetupContext, type Slot } from "vue";
+import { uniqBy as _uniqBy } from "lodash-es";
 import type {
   TTableData,
   TTableRowsHandler,
@@ -10,6 +10,8 @@ import type {
   TFilterType,
 } from "../types";
 import { functionFromString } from "@/systems/function-systems";
+import CommonFilter from "../filter-components/common";
+import { useBindingGetter } from "instaui";
 
 export function useTableFilter(options: {
   tableData: TTableData;
@@ -18,9 +20,23 @@ export function useTableFilter(options: {
   columns: TTableColumnsWithInfer;
   registerColumnsHandler: (handler: TTableColumnHandler) => void;
   tdesignGlobalConfig: Record<string, any>;
+  notifyTableDataChange: () => void;
+  slots: SetupContext["slots"];
 }) {
-  const { tableData, registerColumnsHandler, registerRowsHandler, columns } =
-    options;
+  const {
+    tableData,
+    registerColumnsHandler,
+    registerRowsHandler,
+    columns,
+    notifyTableDataChange,
+    slots,
+  } = options;
+
+  const slotsMap = new Map(
+    Object.entries(slots)
+      .filter(([name]) => name.startsWith("filter-"))
+      .map(([name, slot]) => [name.replace("filter-", ""), slot])
+  );
 
   registerColumnsHandler(
     (columns) =>
@@ -28,14 +44,16 @@ export function useTableFilter(options: {
         normalizeTableFilterRecord(
           column,
           tableData,
-          options.tdesignGlobalConfig
+          options.tdesignGlobalConfig,
+          slotsMap
         )
       ) as TTableColumns
   );
 
   const filterValue = ref<TableProps["filterValue"]>();
-
   const colKey2Info = new Map(columns.value.map((col) => [col.colKey, col]));
+
+  watch(filterValue, notifyTableDataChange);
 
   registerRowsHandler((rows) => {
     if (!filterValue.value) {
@@ -99,6 +117,14 @@ export function useTableFilter(options: {
             : new Date(start) <= date && date <= new Date(end);
         }
 
+        if (filterType === "custom") {
+          const filterValue = info.value as string;
+          if (!filterValue) return true;
+          return filterPredicate
+            ? filterPredicate(filterValue, row)
+            : row[info.key].toString().includes(filterValue);
+        }
+
         const _: never = filterType;
 
         throw new Error(`not support filter type ${filterType}`);
@@ -146,8 +172,18 @@ export function useTableFilter(options: {
 function normalizeTableFilterRecord(
   column: Record<string, any>,
   tableData: TTableData,
-  tdesignGlobalConfig: Record<string, any>
+  tdesignGlobalConfig: Record<string, any>,
+  slotsMap: Map<string, Slot<any> | undefined>
 ) {
+  if (slotsMap.has(column.colKey)) {
+    if (column.filter) throw new Error("cannot set both slot and filter");
+
+    column.filter = {
+      type: "custom",
+      component: slotsMap.get(column.colKey)!,
+    };
+  }
+
   const hasFilter = "filter" in column;
 
   if (!hasFilter) {
@@ -178,7 +214,7 @@ function normalizeTableFilterRecord(
 
     return {
       ...column,
-      filter: newFilter,
+      filter: convertFilterPropsStateToRef(newFilter),
     };
   }
 
@@ -199,7 +235,7 @@ function normalizeTableFilterRecord(
 
     return {
       ...column,
-      filter: newFilter,
+      filter: convertFilterPropsStateToRef(newFilter),
     };
   }
 
@@ -216,7 +252,7 @@ function normalizeTableFilterRecord(
 
     return {
       ...column,
-      filter: newFilter,
+      filter: convertFilterPropsStateToRef(newFilter),
     };
   }
 
@@ -231,7 +267,7 @@ function normalizeTableFilterRecord(
       style: {
         fontSize: "14px",
       },
-      classNames: "custom-class-name",
+      classNames: "filter-date-range",
       attrs: {
         "data-type": "date-range-picker",
       },
@@ -248,6 +284,45 @@ function normalizeTableFilterRecord(
     };
   }
 
+  if (filterType === "custom") {
+    return {
+      ...column,
+      filter: {
+        _type: "custom",
+        component: CommonFilter,
+        props: { fSlot: column.filter.component },
+      },
+    };
+  }
+
   const _: never = filterType;
   throw new Error(`not support filter type ${filterType}`);
+}
+
+function convertFilterPropsStateToRef(filter: {
+  stateProps?: string[];
+  props?: Record<string, any>;
+  bindValue?: any;
+}) {
+  const { stateProps, props = {}, bindValue } = filter;
+  const { getRef } = useBindingGetter();
+
+  if (bindValue) {
+    const valueState = getRef(bindValue);
+    function onChange(e: any) {
+      valueState.value = e;
+    }
+    props["onChange"] = onChange;
+    props["value"] = valueState;
+  }
+
+  if (!stateProps) return filter;
+
+  stateProps.forEach((name) => {
+    if (name in props) {
+      props[name] = getRef(props[name]);
+    }
+  });
+
+  return filter;
 }

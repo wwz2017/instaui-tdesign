@@ -1,5 +1,6 @@
 from typing import Union
 from instaui import custom
+from instaui.runtime import get_app_slot
 
 from instaui_tdesign.components.icon import Icon
 
@@ -13,6 +14,7 @@ def make_icon_for_bool_or_str(
         else:
             with element.add_slot(slot_name):
                 Icon(value)
+                _collect_icon(value)
 
 
 def make_icon_for_str(
@@ -21,15 +23,23 @@ def make_icon_for_str(
     if value is not None:
         with element.add_slot(slot_name):
             Icon(value)
+            _collect_icon(value)
 
 
 def make_prefix_icon(element: custom.element, value: Union[str, None]):
     if value is not None:
         with element.add_slot("prefixIcon"):
             Icon(value)
+            _collect_icon(value)
 
 
 def make_suffix_icon(element: custom.element, value: Union[str, None]):
     if value is not None:
         with element.add_slot("suffixIcon"):
             Icon(value)
+            _collect_icon(value)
+
+
+def _collect_icon(icon: str):
+    if isinstance(icon, str):
+        get_app_slot().collect_icon(icon)

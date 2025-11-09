@@ -40,13 +40,14 @@ export function useTableColumnsWithInfer(options: {
 
   const columnsWithInfer = computed(() => {
     const extraColumns = (attrs.extraColumns ?? []) as TTableColumns;
-
     const needInferColumns = !attrs.columns && tableData.value.length > 0;
 
     const tryInferColumns = needInferColumns
       ? inferColumns(tableData.value)
       : (attrs.columns as TTableColumns) ?? [];
+
     let result = [...tryInferColumns, ...extraColumns] as TTableColumns;
+    result = combineColumnsByKey(result);
 
     result = result.map(normalizeTableColumnRecord) as TTableColumns;
 
@@ -96,4 +97,19 @@ function normalizeTableColumnRecord(
     title,
     cell,
   };
+}
+
+function combineColumnsByKey(columns: TTableColumns) {
+  const merged = [] as TTableColumns;
+
+  for (const item of columns) {
+    const existing = merged.find((i) => i.colKey === item.colKey);
+    if (existing) {
+      Object.assign(existing, item);
+    } else {
+      merged.push({ ...item });
+    }
+  }
+
+  return merged;
 }
